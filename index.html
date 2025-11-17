@@ -16,13 +16,63 @@
             font-family: 'Inter', sans-serif;
             background: #0f0f0f;
             min-height: 100vh;
-            padding: 40px 20px;
             color: #ffffff;
+            padding-top: 60px;
+        }
+
+        /* Ticker Header */
+        .ticker-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background: #000;
+            border-bottom: 1px solid #222;
+            overflow: hidden;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+
+        .ticker {
+            display: flex;
+            white-space: nowrap;
+            animation: scroll 30s linear infinite;
+        }
+
+        .ticker-item {
+            font-size: 1.2em;
+            font-weight: 600;
+            padding: 0 50px;
+            background: linear-gradient(90deg, 
+                #ff0080, 
+                #ff8c00, 
+                #40e0d0, 
+                #9d4edd, 
+                #ff0080
+            );
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient 3s linear infinite;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
+            padding: 40px 20px;
         }
 
         .card {
@@ -32,41 +82,97 @@
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
         }
 
-        /* Header Section */
-        .header {
-            padding: 80px 60px;
-            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+        /* Logo Upload Section */
+        .logo-upload-section {
+            padding: 60px 60px 40px;
+            background: #1a1a1a;
             border-bottom: 1px solid #333;
-            position: relative;
+            text-align: center;
         }
 
         .logo-container {
-            width: 140px;
-            height: 140px;
-            margin: 0 auto 30px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 3px solid #ffffff;
-            box-shadow: 0 10px 40px rgba(255, 255, 255, 0.1);
+           width: 140px;
+           height: 140px;
+           margin: 0 auto 20px;
+           border-radius: 50%;
+           overflow: hidden;
+           border: 3px solid #ffffff;
+           box-shadow: 0 10px 40px rgba(255, 255, 255, 0.1);
+           background: #222;
+        }
+
+
+        .logo-container:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 50px rgba(255, 255, 255, 0.2);
         }
 
         .logo-container img {
+           width: 100%;
+            height: 100%;
+              object-fit: cover;
+        }
+
+        .logo-placeholder {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+            color: #666;
+            font-size: 0.85em;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .logo-placeholder-icon {
+            font-size: 2.5em;
+            margin-bottom: 8px;
+        }
+
+        .logo-upload-btn {
+            background: #ffffff;
+            color: #000;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 10px;
+            font-size: 0.9em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .logo-upload-btn:hover {
+            background: #e0e0e0;
+            transform: translateY(-2px);
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        /* Header Section */
+        .header {
+            padding: 40px 60px 80px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+            border-bottom: 1px solid #333;
+            position: relative;
+            text-align: center;
         }
 
         .team-name {
             font-size: 4em;
             font-weight: 800;
-            text-align: center;
             letter-spacing: -2px;
             margin-bottom: 12px;
             color: #ffffff;
         }
 
         .team-location {
-            text-align: center;
             font-size: 1.1em;
             color: #888;
             font-weight: 400;
@@ -207,58 +313,15 @@
         }
 
         /* Moments Section */
-        .moments-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        .moment-card {
-            background: #222;
-            border-radius: 16px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .moment-card:hover {
-            transform: scale(1.02);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-        }
-
-        .moment-image {
-            width: 100%;
-            height: 220px;
-            background: linear-gradient(135deg, #2a2a2a 0%, #3a3a3a 100%);
+        .moments-header {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            font-size: 4em;
-            position: relative;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
-        .moment-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .moment-caption {
-            padding: 20px;
-            font-size: 0.95em;
-            color: #b0b0b0;
-            line-height: 1.6;
-        }
-
-        .moment-date {
-            padding: 0 20px 20px;
-            font-size: 0.8em;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        /* Upload Button */
         .upload-moment {
             background: #ffffff;
             color: #000;
@@ -274,13 +337,184 @@
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            margin-bottom: 30px;
         }
 
         .upload-moment:hover {
             background: #e0e0e0;
             transform: translateY(-2px);
             box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+        }
+
+        .moments-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .moment-card {
+            background: #222;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .moment-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .moment-image {
+            width: 100%;
+            height: 280px;
+            background: linear-gradient(135deg, #2a2a2a 0%, #3a3a3a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4em;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .moment-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .moment-card:hover .moment-image img {
+            transform: scale(1.05);
+        }
+
+        .moment-details {
+            padding: 20px;
+        }
+
+        .moment-caption {
+            font-size: 0.95em;
+            color: #b0b0b0;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .moment-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 12px;
+            border-top: 1px solid #333;
+        }
+
+        .moment-date {
+            font-size: 0.8em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .moment-view-btn {
+            background: none;
+            border: 1px solid #444;
+            color: #888;
+            padding: 6px 16px;
+            border-radius: 6px;
+            font-size: 0.8em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .moment-view-btn:hover {
+            background: #333;
+            color: #fff;
+            border-color: #666;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #1a1a1a;
+            border-radius: 20px;
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #333;
+            border: none;
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1;
+        }
+
+        .modal-close:hover {
+            background: #444;
+            transform: rotate(90deg);
+        }
+
+        .modal-image {
+            width: 100%;
+            height: 500px;
+            background: #222;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .modal-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .modal-details {
+            padding: 40px;
+        }
+
+        .modal-caption {
+            font-size: 1.2em;
+            color: #e0e0e0;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .modal-date {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         /* Contact */
@@ -317,8 +551,17 @@
         }
 
         @media (max-width: 768px) {
+            .ticker-item {
+                font-size: 1em;
+                padding: 0 30px;
+            }
+
             .header {
-                padding: 50px 30px;
+                padding: 30px 30px 50px;
+            }
+
+            .logo-upload-section {
+                padding: 40px 30px 30px;
             }
 
             .team-name {
@@ -336,27 +579,51 @@
             .members-grid, .moments-grid, .contact-grid {
                 grid-template-columns: 1fr;
             }
-        }
 
-        /* File input styling */
-        .file-input-wrapper {
-            position: relative;
-            display: inline-block;
-        }
+            .moments-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
 
-        .file-input {
-            display: none;
+            .modal-image {
+                height: 300px;
+            }
+
+            .modal-details {
+                padding: 30px 20px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Бегущая строка -->
+    <div class="ticker-wrapper">
+        <div class="ticker">
+            <span class="ticker-item">🏆 FTC КОМАНДА ӨЗГЕ</span>
+            <span class="ticker-item">🤖 ИННОВАЦИИ В РОБОТОТЕХНИКЕ</span>
+            <span class="ticker-item">⚡ АСТАНА, КАЗАХСТАН</span>
+            <span class="ticker-item">🔧 МЫ СОЗДАЕМ БУДУЩЕЕ</span>
+            <span class="ticker-item">🏆 FTC КОМАНДА ӨЗГЕ</span>
+            <span class="ticker-item">🤖 ИННОВАЦИИ В РОБОТОТЕХНИКЕ</span>
+            <span class="ticker-item">⚡ АСТАНА, КАЗАХСТАН</span>
+            <span class="ticker-item">🔧 МЫ СОЗДАЕМ БУДУЩЕЕ</span>
+        </div>
+    </div>
+
     <div class="container">
         <div class="card">
+            <div class="logo-upload-section">
+                <div class="logo-container">
+                    <img src="logo.png" alt="Team Logo">
+                </div>
+                <div style="color:#777; margin-top:12px; font-size:0.9em;">
+                    Логотип команды
+                </div>
+            </div>
+            
+
             <!-- Header -->
             <div class="header">
-                <div class="logo-container">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cdefs%3E%3CradialGradient id='grad1' cx='50%25' cy='50%25' r='50%25'%3E%3Cstop offset='0%25' style='stop-color:%232a2a2a;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%231a1a1a;stop-opacity:1' /%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx='100' cy='100' r='90' fill='url(%23grad1)' stroke='%23444' stroke-width='2'/%3E%3Ccircle cx='100' cy='100' r='60' fill='none' stroke='%23666' stroke-width='3'/%3E%3Ccircle cx='100' cy='100' r='45' fill='none' stroke='%23888' stroke-width='2' stroke-dasharray='5,5'/%3E%3Ccircle cx='70' cy='80' r='8' fill='%23aaa'/%3E%3Ccircle cx='130' cy='80' r='8' fill='%23aaa'/%3E%3Ccircle cx='85' cy='100' r='6' fill='%23999'/%3E%3Ccircle cx='115' cy='100' r='6' fill='%23999'/%3E%3Cpath d='M 75 130 Q 100 145 125 130' stroke='%23aaa' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3Crect x='60' y='50' width='20' height='8' rx='2' fill='%23888'/%3E%3Crect x='120' y='50' width='20' height='8' rx='2' fill='%23888'/%3E%3C/svg%3E" alt="Өзге Logo">
-                </div>
                 <div class="team-name">ӨЗГЕ</div>
                 <div class="team-location">FTC Team • Астана, Казахстан</div>
             </div>
@@ -457,35 +724,57 @@
 
                 <!-- Moments -->
                 <div class="section">
-                    <h2 class="section-title">Наши моменты</h2>
-
+                    <div class="moments-header">
+                        <h2 class="section-title" style="margin-bottom: 0;">Наши моменты</h2>
+                        <button class="upload-moment" onclick="document.getElementById('momentUpload').click()">
+                            <span>📸</span>
+                            <span>Добавить момент</span>
+                        </button>
+                    </div>
+                    <input type="file" id="momentUpload" class="file-input" accept="image/*" onchange="handleMomentUpload(event)">
+                    
                     <div class="moments-grid" id="momentsGrid">
-                        <div class="moment-card">
+                        <div class="moment-card" onclick="openModal(0)">
                             <div class="moment-image">
                                 <span class="photo-placeholder">📷</span>
                             </div>
-                            <div class="moment-caption">
-                                Первая встреча команды. Обсуждение концепции робота и распределение ролей.
+                            <div class="moment-details">
+                                <div class="moment-caption">
+                                    Первая встреча команды. Обсуждение концепции робота и распределение ролей.
+                                </div>
+                                <div class="moment-footer">
+                                    <div class="moment-date">17 ноября 2024</div>
+                                    <button class="moment-view-btn" onclick="event.stopPropagation(); openModal(0)">Подробнее</button>
+                                </div>
                             </div>
-                            <div class="moment-date">17 ноября 2024</div>
                         </div>
-                        <div class="moment-card">
+                        <div class="moment-card" onclick="openModal(1)">
                             <div class="moment-image">
                                 <span class="photo-placeholder">🔧</span>
                             </div>
-                            <div class="moment-caption">
-                                Тестирование прототипа. Первые успешные испытания системы захвата объектов.
+                            <div class="moment-details">
+                                <div class="moment-caption">
+                                    Тестирование прототипа. Первые успешные испытания системы захвата объектов.
+                                </div>
+                                <div class="moment-footer">
+                                    <div class="moment-date">15 ноября 2024</div>
+                                    <button class="moment-view-btn" onclick="event.stopPropagation(); openModal(1)">Подробнее</button>
+                                </div>
                             </div>
-                            <div class="moment-date">15 ноября 2024</div>
                         </div>
-                        <div class="moment-card">
+                        <div class="moment-card" onclick="openModal(2)">
                             <div class="moment-image">
                                 <span class="photo-placeholder">💻</span>
                             </div>
-                            <div class="moment-caption">
-                                Ночная сессия программирования автономного режима робота.
+                            <div class="moment-details">
+                                <div class="moment-caption">
+                                    Ночная сессия программирования автономного режима робота.
+                                </div>
+                                <div class="moment-footer">
+                                    <div class="moment-date">12 ноября 2024</div>
+                                    <button class="moment-view-btn" onclick="event.stopPropagation(); openModal(2)">Подробнее</button>
+                                </div>
                             </div>
-                            <div class="moment-date">12 ноября 2024</div>
                         </div>
                     </div>
                 </div>
@@ -516,37 +805,88 @@
         </div>
     </div>
 
+    <!-- Modal -->
+    <div class="modal" id="momentModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <div class="modal-image" id="modalImage">
+                <span class="photo-placeholder">📷</span>
+            </div>
+            <div class="modal-details">
+                <div class="modal-caption" id="modalCaption"></div>
+                <div class="modal-date" id="modalDate"></div>
+            </div>
+        </div>
+    </div>
+
     <script>
+        const moments = [
+            {
+                caption: "Первая встреча команды. Обсуждение концепции робота и распределение ролей между участниками. На этой встрече мы определили основные цели сезона и разработали первоначальный план действий.",
+                date: "17 ноября 2024",
+                image: null,
+                placeholder: "📷"
+            },
+            {
+                caption: "Тестирование прототипа. Первые успешные испытания системы захвата объектов. Робот смог поднять и переместить игровой элемент, что стало важной вехой в разработке.",
+                date: "15 ноября 2024",
+                image: null,
+                placeholder: "🔧"
+            },
+            {
+                caption: "Ночная сессия программирования автономного режима робота. Команда программистов работала над алгоритмами навигации и компьютерного зрения для точного позиционирования.",
+                date: "12 ноября 2024",
+                image: null,
+                placeholder: "💻"
+            }
+        ];
+
+
         function handleMomentUpload(event) {
             const file = event.target.files[0];
             if (!file) return;
 
             const reader = new FileReader();
             reader.onload = function(e) {
-                const momentsGrid = document.getElementById('momentsGrid');
-                const momentCard = document.createElement('div');
-                momentCard.className = 'moment-card';
-                
                 const today = new Date().toLocaleDateString('ru-RU', { 
                     day: 'numeric', 
                     month: 'long', 
                     year: 'numeric' 
                 });
                 
-                momentCard.innerHTML = `
-                    <div class="moment-image">
-                        <img src="${e.target.result}" alt="Новый момент">
-                    </div>
-                    <div class="moment-caption">
-                        Новый момент команды Өзге
-                    </div>
-                    <div class="moment-date">${today}</div>
-                `;
+                const newMoment = {
+                    caption: "Новый момент команды Өзге. Добавьте описание к этому моменту, кликнув на кнопку 'Подробнее'.",
+                    date: today,
+                    image: e.target.result,
+                    placeholder: null
+                };
                 
-                momentsGrid.insertBefore(momentCard, momentsGrid.firstChild);
+                moments.unshift(newMoment);
+                renderMoments();
             };
             reader.readAsDataURL(file);
         }
-    </script>
-</body>
-</html>
+
+        function renderMoments() {
+            const momentsGrid = document.getElementById('momentsGrid');
+            momentsGrid.innerHTML = '';
+            
+            moments.forEach((moment, index) => {
+                const momentCard = document.createElement('div');
+                momentCard.className = 'moment-card';
+                momentCard.onclick = () => openModal(index);
+                
+                const imageContent = moment.image 
+                    ? `<img src="${moment.image}" alt="Момент ${index + 1}">`
+                    : `<span class="photo-placeholder">${moment.placeholder}</span>`;
+                
+                const shortCaption = moment.caption.length > 100 
+                    ? moment.caption.substring(0, 100) + '...' 
+                    : moment.caption;
+                
+                momentCard.innerHTML = `
+                    <div class="moment-image">
+                        ${imageContent}
+                    </div>
+                    <div class="moment-details">
+                        <div class="moment-caption">${shortCap
