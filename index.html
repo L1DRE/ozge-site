@@ -322,23 +322,6 @@
             gap: 15px;
         }
 
-        .upload-moment {
-            background: #ffffff;
-            color: #000;
-            border: none;
-            padding: 16px 32px;
-            border-radius: 12px;
-            font-size: 0.95em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
-
         .upload-moment:hover {
             background: #e0e0e0;
             transform: translateY(-2px);
@@ -516,39 +499,49 @@
             text-transform: uppercase;
             letter-spacing: 1px;
         }
+/* Contact */
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
 
-        /* Contact */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-        }
+.contact-item {
+    background: #222;
+    padding: 24px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: all 0.3s ease;
+}
 
-        .contact-item {
-            background: #222;
-            padding: 24px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            transition: all 0.3s ease;
-        }
+.contact-item:hover {
+    background: #2a2a2a;
+    transform: translateX(4px);
+}
 
-        .contact-item:hover {
-            background: #2a2a2a;
-            transform: translateX(4px);
-        }
+.contact-link {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    text-decoration: none;
+    color: inherit;
+}
 
-        .contact-icon {
-            font-size: 1.8em;
-            min-width: 40px;
-        }
+.contact-icon-img {
+    width: 32px;
+    height: 32px;
+    object-fit: cover;
+    border-radius: 6px; /* Можно убрать или изменить */
+}
 
-        .contact-text {
-            color: #b0b0b0;
-            font-size: 0.95em;
-            font-weight: 500;
-        }
+.contact-text {
+    color: #b0b0b0;
+    font-size: 0.95em;
+    font-weight: 500;
+}
+
 
         @media (max-width: 768px) {
             .ticker-item {
@@ -718,6 +711,14 @@
                                 <div class="member-name">Иван</div>
                                 <div class="member-role">Программист</div>
                             </div>
+                        <div class="member-card">
+                            <div class="member-photo">
+                                <span class="photo-placeholder">👤</span>
+                            </div>
+                            <div class="member-info">
+                                <div class="member-name">Ерасыл</div>
+                                <div class="member-role">Ментор</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -726,10 +727,6 @@
                 <div class="section">
                     <div class="moments-header">
                         <h2 class="section-title" style="margin-bottom: 0;">Наши моменты</h2>
-                        <button class="upload-moment" onclick="document.getElementById('momentUpload').click()">
-                            <span>📸</span>
-                            <span>Добавить момент</span>
-                        </button>
                     </div>
                     <input type="file" id="momentUpload" class="file-input" accept="image/*" onchange="handleMomentUpload(event)">
                     
@@ -784,16 +781,12 @@
                     <h2 class="section-title">Контакты</h2>
                     <div class="contact-grid">
                         <div class="contact-item">
-                            <span class="contact-icon">📧</span>
-                            <span class="contact-text">team.ozge@ftc.kz</span>
-                        </div>
-                        <div class="contact-item">
-                            <span class="contact-icon">📱</span>
-                            <span class="contact-text">@ftc_ozge</span>
-                        </div>
-                        <div class="contact-item">
-                            <span class="contact-icon">💬</span>
-                            <span class="contact-text">@ozge_ftc</span>
+                            <a href="https://www.instagram.com/shanyraq_01/" target="_blank" class="contact-link">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
+                                     alt="Instagram"
+                                     class="contact-icon-img">
+                                <span class="contact-text">@shanyraq_01</span>
+                            </a>
                         </div>
                         <div class="contact-item">
                             <span class="contact-icon">📍</span>
