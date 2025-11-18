@@ -4,9 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FTC Команда Өзге</title>
+    <meta name="description" content="FTC Team Өзге — команда молодых инженеров из Астаны. Робототехника, инновации, разработки и соревнования FTC.">
+    <meta property="og:title" content="FTC Команда Өзге">
+    <meta property="og:image" content="images/logo.png">
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="FTC Team Өзге — команда молодых инженеров и программистов из Астаны.">
     <link rel="icon" type="image/png" href="images/logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -19,7 +24,74 @@
             background: #0f0f0f;
             min-height: 100vh;
             color: #ffffff;
-            padding-top: 60px;
+            padding-top: 120px;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            position: fixed;
+            top: 60px;
+            left: 0;
+            width: 100%;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #333;
+            z-index: 999;
+            padding: 0 40px;
+        }
+
+        .navbar-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 60px;
+        }
+
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.2em;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .navbar-logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .navbar-menu {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .navbar-menu a {
+            color: #999;
+            text-decoration: none;
+            font-size: 0.9em;
+            font-weight: 500;
+            transition: color 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .navbar-menu a:hover {
+            color: #fff;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5em;
+            cursor: pointer;
         }
 
         /* Ticker Header */
@@ -84,7 +156,7 @@
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
         }
 
-        /* Logo Upload Section */
+        /* Logo Section */
         .logo-upload-section {
             padding: 60px 60px 40px;
             background: #1a1a1a;
@@ -93,68 +165,20 @@
         }
 
         .logo-container {
-           width: 140px;
-           height: 140px;
-           margin: 0 auto 20px;
-           border-radius: 50%;
-           overflow: hidden;
-           border: 3px solid #ffffff;
-           box-shadow: 0 10px 40px rgba(255, 255, 255, 0.1);
-           background: #222;
-        }
-
-
-        .logo-container:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 50px rgba(255, 255, 255, 0.2);
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid #ffffff;
+            box-shadow: 0 10px 40px rgba(255, 255, 255, 0.1);
+            background: #222;
         }
 
         .logo-container img {
-           width: 100%;
-            height: 100%;
-              object-fit: cover;
-        }
-
-        .logo-placeholder {
             width: 100%;
             height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
-            color: #666;
-            font-size: 0.85em;
-            text-align: center;
-            padding: 20px;
-        }
-
-        .logo-placeholder-icon {
-            font-size: 2.5em;
-            margin-bottom: 8px;
-        }
-
-        .logo-upload-btn {
-            background: #ffffff;
-            color: #000;
-            border: none;
-            padding: 12px 28px;
-            border-radius: 10px;
-            font-size: 0.9em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .logo-upload-btn:hover {
-            background: #e0e0e0;
-            transform: translateY(-2px);
-        }
-
-        .file-input {
-            display: none;
+            object-fit: cover;
         }
 
         /* Header Section */
@@ -195,15 +219,14 @@
         }
 
         .section-title {
-            font-size: 1.4em;
+            font-size: 0.9em;
             font-weight: 700;
-            letter-spacing: -0.5px;
+            letter-spacing: 2px;
             margin-bottom: 30px;
             color: #ffffff;
             text-transform: uppercase;
-            font-size: 0.9em;
-            letter-spacing: 2px;
             opacity: 0.5;
+            text-align: center;
         }
 
         .about-text {
@@ -251,10 +274,153 @@
             font-weight: 600;
         }
 
+        /* Robot Section */
+        .robot-showcase {
+            background: #222;
+            border-radius: 16px;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            padding: 40px;
+        }
+
+        .robot-image {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, #2a2a2a 0%, #3a3a3a 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5em;
+            overflow: hidden;
+        }
+
+        .robot-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .robot-info h3 {
+            font-size: 1.8em;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        .robot-info p {
+            color: #b0b0b0;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .robot-features {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .robot-feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #999;
+            font-size: 0.95em;
+        }
+
+        .robot-feature span:first-child {
+            font-size: 1.2em;
+        }
+
+        /* Achievements */
+        .achievements-container {
+            position: relative;
+            overflow: hidden;
+            padding: 0 50px;
+        }
+
+        .achievements-grid {
+            display: flex;
+            gap: 20px;
+            transition: transform 0.5s ease;
+            scroll-behavior: smooth;
+        }
+
+        .achievement-card {
+            background: #222;
+            padding: 30px;
+            border-radius: 16px;
+            border-left: 4px solid #ff0080;
+            transition: all 0.3s ease;
+            min-width: calc(33.333% - 14px);
+            flex-shrink: 0;
+        }
+
+        .achievements-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(34, 34, 34, 0.9);
+            border: 1px solid #444;
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .achievements-nav:hover {
+            background: #333;
+            border-color: #666;
+        }
+
+        .achievements-nav.prev {
+            left: 0;
+        }
+
+        .achievements-nav.next {
+            right: 0;
+        }
+
+        .achievements-nav.disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .achievement-card:hover {
+            transform: translateX(5px);
+            background: #2a2a2a;
+        }
+
+        .achievement-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .achievement-title {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .achievement-desc {
+            color: #999;
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+
         /* Team Members */
         .members-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
             gap: 24px;
         }
 
@@ -273,7 +439,7 @@
 
         .member-photo {
             width: 100%;
-            height: 200px;
+            height: 220px;
             background: linear-gradient(135deg, #2a2a2a 0%, #3a3a3a 100%);
             display: flex;
             align-items: center;
@@ -312,6 +478,13 @@
             font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            margin-bottom: 10px;
+        }
+
+        .member-description {
+            font-size: 0.85em;
+            color: #999;
+            line-height: 1.5;
         }
 
         /* Moments Section */
@@ -324,10 +497,23 @@
             gap: 15px;
         }
 
-        .upload-moment:hover {
+        .view-all-btn {
+            background: #ffffff;
+            color: #000;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 10px;
+            font-size: 0.9em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .view-all-btn:hover {
             background: #e0e0e0;
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
         }
 
         .moments-grid {
@@ -500,52 +686,254 @@
             color: #666;
             text-transform: uppercase;
             letter-spacing: 1px;
+            margin-bottom: 30px;
         }
-/* Contact */
-.contact-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-}
 
-.contact-item {
-    background: #222;
-    padding: 24px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    transition: all 0.3s ease;
-}
+        .modal-actions {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+        }
 
-.contact-item:hover {
-    background: #2a2a2a;
-    transform: translateX(4px);
-}
+        .modal-action-btn {
+            background: #222;
+            border: 1px solid #444;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
 
-.contact-link {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    text-decoration: none;
-    color: inherit;
-}
+        .modal-action-btn:hover {
+            background: #333;
+            border-color: #666;
+            transform: translateY(-2px);
+        }
 
-.contact-icon-img {
-    width: 32px;
-    height: 32px;
-    object-fit: cover;
-    border-radius: 6px; /* Можно убрать или изменить */
-}
+        /* Moments Page */
+        .moments-page {
+            display: none;
+        }
 
-.contact-text {
-    color: #b0b0b0;
-    font-size: 0.95em;
-    font-weight: 500;
-}
+        .moments-page.active {
+            display: block;
+        }
 
+        .main-page.hidden {
+            display: none;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .back-btn {
+            background: #222;
+            border: 1px solid #444;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-btn:hover {
+            background: #333;
+            border-color: #666;
+        }
+
+        .moments-full-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        /* Contact */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .contact-item {
+            background: #222;
+            padding: 24px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: #2a2a2a;
+            transform: translateX(4px);
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .contact-icon {
+            font-size: 1.8em;
+            min-width: 40px;
+        }
+
+        .contact-icon-img {
+            width: 32px;
+            height: 32px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+
+        .contact-text {
+            color: #b0b0b0;
+            font-size: 0.95em;
+            font-weight: 500;
+        }
+
+        /* Footer */
+        .footer {
+            background: #0a0a0a;
+            border-top: 1px solid #222;
+            padding: 60px 0 30px;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            color: #fff;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .footer-section p {
+            color: #666;
+            line-height: 1.8;
+            font-size: 0.9em;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+            font-size: 0.9em;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #fff;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            background: #222;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            text-decoration: none;
+            font-size: 1.2em;
+            transition: all 0.3s;
+        }
+
+        .footer-social a:hover {
+            background: #333;
+            color: #fff;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 40px 0;
+            border-top: 1px solid #222;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #666;
+            font-size: 0.85em;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .footer-logo img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
 
         @media (max-width: 768px) {
+            body {
+                padding-top: 100px;
+            }
+
+            .navbar {
+                padding: 0 20px;
+            }
+
+            .navbar-menu {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
             .ticker-item {
                 font-size: 1em;
                 padding: 0 30px;
@@ -571,11 +959,41 @@
                 grid-template-columns: repeat(2, 1fr);
             }
 
-            .members-grid, .moments-grid, .contact-grid {
+            .robot-showcase {
+                grid-template-columns: 1fr;
+                padding: 30px;
+            }
+
+            .robot-image {
+                height: 300px;
+            }
+
+            .members-grid, .moments-grid, .contact-grid, .moments-full-grid, .achievements-grid {
                 grid-template-columns: 1fr;
             }
 
-            .moments-header {
+            .achievements-container {
+                padding: 0 20px;
+            }
+
+            .achievement-card {
+                min-width: 100%;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                padding: 0 20px;
+                gap: 30px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+                padding: 20px;
+            }
+
+            .moments-header, .page-header {
                 flex-direction: column;
                 align-items: flex-start;
             }
@@ -586,6 +1004,15 @@
 
             .modal-details {
                 padding: 30px 20px;
+            }
+
+            .modal-actions {
+                flex-direction: column;
+            }
+
+            .modal-action-btn {
+                width: 100%;
+                justify-content: center;
             }
         }
     </style>
@@ -605,202 +1032,191 @@
         </div>
     </div>
 
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div class="navbar-logo">
+                <img src="images/logo.png" alt="Logo">
+                <span>ӨЗГЕ</span>
+            </div>
+            <ul class="navbar-menu">
+                <li><a href="#about">О команде</a></li>
+                <li><a href="#robot">Робот</a></li>
+                <li><a href="#achievements">Достижения</a></li>
+                <li><a href="#team">Участники</a></li>
+                <li><a href="#moments">Моменты</a></li>
+                <li><a href="#contact">Контакты</a></li>
+            </ul>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
+
     <div class="container">
-        <div class="card">
-            <div class="logo-upload-section">
-                <div class="logo-container">
-                    <img src="logo.png" alt="Team Logo">
-                </div>
-                <div style="color:#777; margin-top:12px; font-size:0.9em;">
-                    Логотип команды
-                </div>
-            </div>
-            
-
-            <!-- Header -->
-            <div class="header">
-                <div class="team-name">ӨЗГЕ</div>
-                <div class="team-location">FTC Team • Астана, Казахстан</div>
-            </div>
-
-            <!-- Content -->
-            <div class="content">
-                <!-- About -->
-                <div class="section">
-                    <h2 class="section-title">О команде</h2>
-                    <p class="about-text">
-                        Команда "Өзге" — это группа молодых инженеров и программистов из Астаны, участвующих в международных соревнованиях FIRST Tech Challenge. Мы разрабатываем автономных роботов, решаем сложные технические задачи и стремимся к инновациям в робототехнике.
-                    </p>
-                </div>
-
-                <!-- Stats -->
-                <div class="section">
-                    <h2 class="section-title">Статистика</h2>
-                    <div class="stats">
-                        <div class="stat-item">
-                            <div class="stat-value">2024</div>
-                            <div class="stat-label">Год</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-value">7</div>
-                            <div class="stat-label">Участников</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-value">5+</div>
-                            <div class="stat-label">Проектов</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-value">FTC</div>
-                            <div class="stat-label">Лига</div>
-                        </div>
+        <!-- Главная страница -->
+        <div class="main-page">
+            <div class="card">
+                <div class="logo-upload-section">
+                    <div class="logo-container">
+                        <img src="images/logo.png" alt="Team Logo">
+                    </div>
+                    <div style="color:#777; margin-top:12px; font-size:0.9em;">
+                        Логотип команды
                     </div>
                 </div>
 
-                <!-- Team Members -->
-                <div class="section">
-                    <h2 class="section-title">Команда</h2>
-                    <div class="members-grid">
-                        <div class="member-card">
-                            <div class="member-photo">
-                                <span class="photo-placeholder">👤</span>
-                            </div>
-                            <div class="member-info">
-                                <div class="member-name">Тимур</div>
-                                <div class="member-role">Сборщик/SMM</div>
-                            </div>
-                        </div>
-                        <div class="member-card">
-                            <div class="member-photo">
-                                <span class="photo-placeholder">👤</span>
-                            </div>
-                            <div class="member-info">
-                                <div class="member-name">Жан</div>
-                                <div class="member-role">Программист</div>
-                            </div>
-                        </div>
-                        <div class="member-card">
-                            <div class="member-photo">
-                                <span class="photo-placeholder">👤</span>
-                            </div>
-                            <div class="member-info">
-                                <div class="member-name">Дамир</div>
-                                <div class="member-role">Сборщик</div>
-                            </div>
-                        </div>
-                        <div class="member-card">
-                            <div class="member-photo">
-                                <span class="photo-placeholder">👤</span>
-                            </div>
-                            <div class="member-info">
-                                <div class="member-name">Алишер</div>
-                                <div class="member-role">Сборщик</div>
-                            </div>
-                        </div>
-                        <div class="member-card">
-                            <div class="member-photo">
-                                <span class="photo-placeholder">👤</span>
-                            </div>
-                            <div class="member-info">
-                                <div class="member-name">Наби</div>
-                                <div class="member-role">Сборщик</div>
-                            </div>
-                        </div>
-                        <div class="member-card">
-                            <div class="member-photo">
-                                <span class="photo-placeholder">👤</span>
-                            </div>
-                            <div class="member-info">
-                                <div class="member-name">Иван</div>
-                                <div class="member-role">Программист</div>
-                            </div>
-                        </div>
-                        <div class="member-card">
-                            <div class="member-photo">
-                                <span class="photo-placeholder">👤</span>
-                            </div>
-                            <div class="member-info">
-                                <div class="member-name">Ерасыл</div>
-                                <div class="member-role">Ментор</div>
-                            </div>
-                        </div>
-                    </div>
+                <!-- Header -->
+                <div class="header">
+                    <div class="team-name">ӨЗГЕ</div>
+                    <div class="team-location">FTC Team • Астана, Казахстан</div>
                 </div>
 
-                <!-- Moments -->
-                <div class="section">
-                    <div class="moments-header">
-                        <h2 class="section-title" style="margin-bottom: 0;">Наши моменты</h2>
+                <!-- Content -->
+                <div class="content">
+                    <!-- About -->
+                    <div class="section" id="about" data-aos="fade-up">
+                        <h2 class="section-title">О команде</h2>
+                        <p class="about-text">
+                            Команда "Өзге" — это группа молодых инженеров и программистов из Астаны, участвующих в международных соревнованиях FIRST Tech Challenge. Мы разрабатываем автономных роботов, решаем сложные технические задачи и стремимся к инновациям в робототехнике.
+                        </p>
                     </div>
-                    <input type="file" id="momentUpload" class="file-input" accept="image/*" onchange="handleMomentUpload(event)">
-                    
-                    <div class="moments-grid" id="momentsGrid">
-                        <div class="moment-card" onclick="openModal(0)">
-                            <div class="moment-image">
-                                <span class="photo-placeholder">📷</span>
-                            </div>
-                            <div class="moment-details">
-                                <div class="moment-caption">
-                                    Первая встреча команды. Обсуждение концепции робота и распределение ролей.
+
+                    <!-- Team Members -->
+                    <div class="section" id="team" data-aos="fade-up" data-aos-delay="400">
+                        <h2 class="section-title">Команда</h2>
+                        <div class="members-grid">
+                            <div class="member-card">
+                                <div class="member-photo">
+                                    <span class="photo-placeholder">👤</span>
                                 </div>
-                                <div class="moment-footer">
-                                    <div class="moment-date">17 ноября 2024</div>
-                                    <button class="moment-view-btn" onclick="event.stopPropagation(); openModal(0)">Подробнее</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="moment-card" onclick="openModal(1)">
-                            <div class="moment-image">
-                                <span class="photo-placeholder">🔧</span>
-                            </div>
-                            <div class="moment-details">
-                                <div class="moment-caption">
-                                    Тестирование прототипа. Первые успешные испытания системы захвата объектов.
-                                </div>
-                                <div class="moment-footer">
-                                    <div class="moment-date">15 ноября 2024</div>
-                                    <button class="moment-view-btn" onclick="event.stopPropagation(); openModal(1)">Подробнее</button>
+                                <div class="member-info">
+                                    <div class="member-name">Тимур</div>
+                                    <div class="member-role">Сборщик/SMM</div>
+                                    <div class="member-description">Отвечает за механическую сборку и ведение соцсетей команды</div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="moment-card" onclick="openModal(2)">
-                            <div class="moment-image">
-                                <span class="photo-placeholder">💻</span>
-                            </div>
-                            <div class="moment-details">
-                                <div class="moment-caption">
-                                    Ночная сессия программирования автономного режима робота.
+                            <div class="member-card">
+                                <div class="member-photo">
+                                    <span class="photo-placeholder">👤</span>
                                 </div>
-                                <div class="moment-footer">
-                                    <div class="moment-date">12 ноября 2024</div>
-                                    <button class="moment-view-btn" onclick="event.stopPropagation(); openModal(2)">Подробнее</button>
+                                <div class="member-info">
+                                    <div class="member-name">Жан</div>
+                                    <div class="member-role">Программист</div>
+                                    <div class="member-description">Разработка автономного режима и телеуправления</div>
+                                </div>
+                            </div>
+                            <div class="member-card">
+                                <div class="member-photo">
+                                    <span class="photo-placeholder">👤</span>
+                                </div>
+                                <div class="member-info">
+                                    <div class="member-name">Дамир</div>
+                                    <div class="member-role">Сборщик</div>
+                                    <div class="member-description">Механическая часть робота и оптимизация конструкции</div>
+                                </div>
+                            </div>
+                            <div class="member-card">
+                                <div class="member-photo">
+                                    <span class="photo-placeholder">👤</span>
+                                </div>
+                                <div class="member-info">
+                                    <div class="member-name">Алишер</div>
+                                    <div class="member-role">Сборщик</div>
+                                    <div class="member-description">Работа над системами захвата и подъема</div>
+                                </div>
+                            </div>
+                            <div class="member-card">
+                                <div class="member-photo">
+                                    <span class="photo-placeholder">👤</span>
+                                </div>
+                                <div class="member-info">
+                                    <div class="member-name">Наби</div>
+                                    <div class="member-role">Сборщик</div>
+                                    <div class="member-description">Тестирование и улучшение механизмов робота</div>
+                                </div>
+                            </div>
+                            <div class="member-card">
+                                <div class="member-photo">
+                                    <span class="photo-placeholder">👤</span>
+                                </div>
+                                <div class="member-info">
+                                    <div class="member-name">Иван</div>
+                                    <div class="member-role">Программист</div>
+                                    <div class="member-description">Компьютерное зрение и алгоритмы навигации</div>
+                                </div>
+                            </div>
+                            <div class="member-card">
+                                <div class="member-photo">
+                                    <span class="photo-placeholder">👤</span>
+                                </div>
+                                <div class="member-info">
+                                    <div class="member-name">Ерасыл</div>
+                                    <div class="member-role">Ментор</div>
+                                    <div class="member-description">Наставник команды, координация проектов</div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Contact -->
-                <div class="section">
-                    <h2 class="section-title">Контакты</h2>
-                    <div class="contact-grid">
-                        <div class="contact-item">
-                            <a href="https://www.instagram.com/shanyraq_01/" target="_blank" class="contact-link">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
-                                     alt="Instagram"
+                    <!-- Moments Preview -->
+                    <div class="section" id="moments" data-aos="fade-up" data-aos-delay="500">
+                        <div class="moments-header">
+                            <h2 class="section-title" style="margin-bottom: 0;">Наши моменты</h2>
+                            <button class="view-all-btn" onclick="showMomentsPage()">Все моменты →</button>
+                        </div>
+                        
+                        <div class="moments-grid" id="momentsPreview">
+                            <!-- Показываются только последние 3 момента -->
+                        </div>
+                    </div>
+
+                    <!-- Contact -->
+                    <div class="section" id="contact" data-aos="fade-up" data-aos-delay="600">
+                        <h2 class="section-title">Контакты</h2>
+                        <div class="contact-grid">
+                            <div class="contact-item">
+                                <a href="https://www.instagram.com/shanyraq_01/" target="_blank" class="contact-link">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
+                                         alt="Instagram"
+                                         class="contact-icon-img">
+                                    <span class="contact-text">@shanyraq_01</span>
+                                </a>
+                            </div>
+                            <div class="contact-item">
+                            <a href="https://www.tiktok.com/@ozgeshanyraq_" target="_blank" class="contact-link">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Tiktok_icon.svg"
+                                     alt="TikTok"
                                      class="contact-icon-img">
-                                <span class="contact-text">@shanyraq_01</span>
+                                <span class="contact-text">@ozgeshanyraq_</span>
                             </a>
-                        </div>
-
-                        <div class="contact-item">
-                            <span class="contact-icon">📍</span>
-                            <span class="contact-text">Астана, Казахстан</span>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-link">
+                                    <span class="contact-icon">📍</span>
+                                    <span class="contact-text">Астана, Казахстан</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Страница всех моментов -->
+        <div class="moments-page">
+            <div class="card">
+                <div class="content">
+                    <div class="page-header">
+                        <button class="back-btn" onclick="showMainPage()">← Назад</button>
+                        <h2 class="section-title" style="margin-bottom: 0;">Все моменты команды</h2>
+                    </div>
+                    <div class="moments-full-grid" id="momentsFullGrid">
+                        <!-- Все моменты отображаются здесь -->
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
 
     <!-- Modal -->
     <div class="modal" id="momentModal">
@@ -812,78 +1228,397 @@
             <div class="modal-details">
                 <div class="modal-caption" id="modalCaption"></div>
                 <div class="modal-date" id="modalDate"></div>
+                <div class="modal-actions" id="modalActions">
+                    <!-- Кнопки будут добавляться динамически -->
+                </div>
             </div>
         </div>
     </div>
 
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+        // Инициализация AOS (анимации при скролле)
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+
         const moments = [
             {
                 caption: "Первая встреча команды. Обсуждение концепции робота и распределение ролей между участниками. На этой встрече мы определили основные цели сезона и разработали первоначальный план действий.",
                 date: "17 ноября 2024",
                 image: null,
-                placeholder: "📷"
+                placeholder: "📷",
+                links: [
+                    { text: "Instagram пост", url: "https://instagram.com", icon: "📱" },
+                    { text: "Подробнее в блоге", url: "#", icon: "📝" }
+                ]
             },
             {
                 caption: "Тестирование прототипа. Первые успешные испытания системы захвата объектов. Робот смог поднять и переместить игровой элемент, что стало важной вехой в разработке.",
                 date: "15 ноября 2024",
                 image: null,
-                placeholder: "🔧"
+                placeholder: "🔧",
+                links: [
+                    { text: "Видео тестирования", url: "#", icon: "🎥" },
+                    { text: "Технические детали", url: "#", icon: "⚙️" }
+                ]
             },
             {
                 caption: "Ночная сессия программирования автономного режима робота. Команда программистов работала над алгоритмами навигации и компьютерного зрения для точного позиционирования.",
                 date: "12 ноября 2024",
                 image: null,
-                placeholder: "💻"
+                placeholder: "💻",
+                links: [
+                    { text: "GitHub репозиторий", url: "#", icon: "💾" },
+                    { text: "Документация кода", url: "#", icon: "📄" }
+                ]
+            },
+            {
+                caption: "Сборка основной конструкции робота. Механическая часть принимает форму согласно нашему дизайну.",
+                date: "10 ноября 2024",
+                image: null,
+                placeholder: "🔩",
+                links: [
+                    { text: "3D модели", url: "#", icon: "🎨" }
+                ]
+            },
+            {
+                caption: "Тренировка драйверов. Отработка маневров и координации во время матча.",
+                date: "8 ноября 2024",
+                image: null,
+                placeholder: "🎮",
+                links: [
+                    { text: "Результаты тренировки", url: "#", icon: "📊" }
+                ]
             }
         ];
 
-
-        function handleMomentUpload(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const today = new Date().toLocaleDateString('ru-RU', { 
-                    day: 'numeric', 
-                    month: 'long', 
-                    year: 'numeric' 
-                });
-                
-                const newMoment = {
-                    caption: "Новый момент команды Өзге. Добавьте описание к этому моменту, кликнув на кнопку 'Подробнее'.",
-                    date: today,
-                    image: e.target.result,
-                    placeholder: null
-                };
-                
-                moments.unshift(newMoment);
-                renderMoments();
-            };
-            reader.readAsDataURL(file);
+        function renderMomentsPreview() {
+            const previewGrid = document.getElementById('momentsPreview');
+            previewGrid.innerHTML = '';
+            
+            const previewMoments = moments.slice(0, 3);
+            previewMoments.forEach((moment, index) => {
+                const card = createMomentCard(moment, index);
+                previewGrid.appendChild(card);
+            });
         }
 
-        function renderMoments() {
-            const momentsGrid = document.getElementById('momentsGrid');
-            momentsGrid.innerHTML = '';
+        function renderAllMoments() {
+            const fullGrid = document.getElementById('momentsFullGrid');
+            fullGrid.innerHTML = '';
             
             moments.forEach((moment, index) => {
-                const momentCard = document.createElement('div');
-                momentCard.className = 'moment-card';
-                momentCard.onclick = () => openModal(index);
-                
-                const imageContent = moment.image 
-                    ? `<img src="${moment.image}" alt="Момент ${index + 1}">`
-                    : `<span class="photo-placeholder">${moment.placeholder}</span>`;
-                
-                const shortCaption = moment.caption.length > 100 
-                    ? moment.caption.substring(0, 100) + '...' 
-                    : moment.caption;
-                
-                momentCard.innerHTML = `
-                    <div class="moment-image">
-                        ${imageContent}
+                const card = createMomentCard(moment, index);
+                fullGrid.appendChild(card);
+            });
+        }
+
+        function createMomentCard(moment, index) {
+            const card = document.createElement('div');
+            card.className = 'moment-card';
+            card.onclick = () => openModal(index);
+            
+            const imageContent = moment.image 
+                ? `<img src="${moment.image}" alt="Момент ${index + 1}" loading="lazy">`
+                : `<span class="photo-placeholder">${moment.placeholder}</span>`;
+            
+            const shortCaption = moment.caption.length > 100 
+                ? moment.caption.substring(0, 100) + '...' 
+                : moment.caption;
+            
+            card.innerHTML = `
+                <div class="moment-image">
+                    ${imageContent}
+                </div>
+                <div class="moment-details">
+                    <div class="moment-caption">${shortCaption}</div>
+                    <div class="moment-footer">
+                        <div class="moment-date">${moment.date}</div>
+                        <button class="moment-view-btn" onclick="event.stopPropagation(); openModal(${index})">Подробнее</button>
                     </div>
-                    <div class="moment-details">
-                        <div class="moment-caption">${shortCap
+                </div>
+            `;
+            
+            return card;
+        }
+
+        function openModal(index) {
+            const modal = document.getElementById('momentModal');
+            const modalImage = document.getElementById('modalImage');
+            const modalCaption = document.getElementById('modalCaption');
+            const modalDate = document.getElementById('modalDate');
+            const modalActions = document.getElementById('modalActions');
+            
+            const moment = moments[index];
+            
+            if (moment.image) {
+                modalImage.innerHTML = `<img src="${moment.image}" alt="Момент ${index + 1}">`;
+            } else {
+                modalImage.innerHTML = `<span class="photo-placeholder">${moment.placeholder}</span>`;
+            }
+            
+            modalCaption.textContent = moment.caption;
+            modalDate.textContent = moment.date;
+            
+            // Добавляем кнопки действий
+            modalActions.innerHTML = '';
+            if (moment.links && moment.links.length > 0) {
+                moment.links.forEach(link => {
+                    const btn = document.createElement('a');
+                    btn.href = link.url;
+                    btn.target = '_blank';
+                    btn.className = 'modal-action-btn';
+                    btn.innerHTML = `<span>${link.icon}</span><span>${link.text}</span>`;
+                    modalActions.appendChild(btn);
+                });
+            }
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('momentModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function showMomentsPage() {
+            document.querySelector('.main-page').classList.add('hidden');
+            document.querySelector('.moments-page').classList.add('active');
+            renderAllMoments();
+            window.scrollTo(0, 0);
+        }
+
+        function showMainPage() {
+            document.querySelector('.main-page').classList.remove('hidden');
+            document.querySelector('.moments-page').classList.remove('active');
+            window.scrollTo(0, 0);
+        }
+
+        // Плавная прокрутка к секциям
+        document.querySelectorAll('.navbar-menu a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    const offsetTop = targetSection.offsetTop - 120;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Закрытие модального окна по клику вне контента
+        document.getElementById('momentModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Закрытие по Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Инициализация
+        renderMomentsPreview();
+
+        // Прокрутка достижений
+        let achievementsScroll = 0;
+        const achievementsGrid = document.getElementById('achievementsGrid');
+        const achievementCards = document.querySelectorAll('.achievement-card');
+        const cardsPerView = 3;
+        const maxScroll = achievementCards.length - cardsPerView;
+
+        function scrollAchievements(direction) {
+            if (direction === 'next' && achievementsScroll < maxScroll) {
+                achievementsScroll++;
+            } else if (direction === 'prev' && achievementsScroll > 0) {
+                achievementsScroll--;
+            }
+
+            const cardWidth = achievementCards[0].offsetWidth;
+            const gap = 20;
+            const offset = -(achievementsScroll * (cardWidth + gap));
+            achievementsGrid.style.transform = `translateX(${offset}px)`;
+
+            updateAchievementsNav();
+        }
+
+        function updateAchievementsNav() {
+            const prevBtn = document.getElementById('achievementsPrev');
+            const nextBtn = document.getElementById('achievementsNext');
+
+            if (achievementsScroll === 0) {
+                prevBtn.classList.add('disabled');
+            } else {
+                prevBtn.classList.remove('disabled');
+            }
+
+            if (achievementsScroll >= maxScroll) {
+                nextBtn.classList.add('disabled');
+            } else {
+                nextBtn.classList.remove('disabled');
+            }
+        }
+
+        // Инициализация навигации достижений
+        updateAchievementsNav();
+
+        // Обновление при изменении размера окна
+        window.addEventListener('resize', () => {
+            achievementsScroll = 0;
+            achievementsGrid.style.transform = 'translateX(0)';
+            updateAchievementsNav();
+        });
+    </script>
+</body>
+</html>    <!-- Stats -->
+                    <div class="section" data-aos="fade-up" data-aos-delay="100">
+                        <h2 class="section-title">Статистика</h2>
+                        <div class="stats">
+                            <div class="stat-item">
+                                <div class="stat-value">2024</div>
+                                <div class="stat-label">Год</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">7</div>
+                                <div class="stat-label">Участников</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">5+</div>
+                                <div class="stat-label">Проектов</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">FTC</div>
+                                <div class="stat-label">Лига</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Robot Section -->
+                    <div class="section" id="robot" data-aos="fade-up" data-aos-delay="200">
+                        <h2 class="section-title">Наш робот сезона 2024/25</h2>
+                        <div class="robot-showcase">
+                            <div class="robot-image">
+                                <span class="photo-placeholder">🤖</span>
+                            </div>
+                            <div class="robot-info">
+                                <h3>Робот "INTO THE DEEP"</h3>
+                                <p>Наш робот разработан специально для задач сезона INTO THE DEEP. Конструкция включает инновационные механизмы захвата и размещения игровых элементов.</p>
+                                <div class="robot-features">
+                                    <div class="robot-feature">
+                                        <span>⚙️</span>
+                                        <span>Система подъема с 4 степенями свободы</span>
+                                    </div>
+                                    <div class="robot-feature">
+                                        <span>🎯</span>
+                                        <span>Компьютерное зрение для автономного режима</span>
+                                    </div>
+                                    <div class="robot-feature">
+                                        <span>🔋</span>
+                                        <span>Оптимизированное энергопотребление</span>
+                                    </div>
+                                    <div class="robot-feature">
+                                        <span>🏗️</span>
+                                        <span>Алюминиевая рама из профилей 40x40</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Achievements -->
+                    <div class="section" id="achievements" data-aos="fade-up" data-aos-delay="300">
+                        <h2 class="section-title">Достижения</h2>
+                        <div class="achievements-container">
+                            <button class="achievements-nav prev" onclick="scrollAchievements('prev')" id="achievementsPrev">‹</button>
+                            <div class="achievements-grid" id="achievementsGrid">
+                                <div class="achievement-card">
+                                    <div class="achievement-icon">🏆</div>
+                                    <div class="achievement-title">Региональный этап 2024</div>
+                                    <div class="achievement-desc">Участие в региональных соревнованиях FTC</div>
+                                </div>
+                                <div class="achievement-card">
+                                    <div class="achievement-icon">🎓</div>
+                                    <div class="achievement-title">Мастер-классы</div>
+                                    <div class="achievement-desc">Проведение воркшопов по робототехнике для школьников</div>
+                                </div>
+                                <div class="achievement-card">
+                                    <div class="achievement-icon">🤝</div>
+                                    <div class="achievement-title">Outreach</div>
+                                    <div class="achievement-desc">Популяризация STEM образования в Астане</div>
+                                </div>
+                                <div class="achievement-card">
+                                    <div class="achievement-icon">💡</div>
+                                    <div class="achievement-title">Инновации</div>
+                                    <div class="achievement-desc">Разработка уникальных технических решений</div>
+                                </div>
+                                <div class="achievement-card">
+                                    <div class="achievement-icon">🌟</div>
+                                    <div class="achievement-title">Командная работа</div>
+                                    <div class="achievement-desc">Эффективное сотрудничество и развитие навыков</div>
+                                </div>
+                                <div class="achievement-card">
+                                    <div class="achievement-icon">🚀</div>
+                                    <div class="achievement-title">Технологии будущего</div>
+                                    <div class="achievement-desc">Использование передовых решений в робототехнике</div>
+                                </div>
+                            </div>
+                            <button class="achievements-nav next" onclick="scrollAchievements('next')" id="achievementsNext">›</button>
+                        </div>
+                    </div>
+
+                        <!-- Footer -->
+                    <footer class="footer">
+                        <div class="footer-content">
+                            <div class="footer-section">
+                                <h3>FTC Team ӨЗГЕ</h3>
+                                <p>Команда молодых инженеров и программистов из Астаны. Мы создаем инновационных роботов и развиваем робототехнику в Казахстане.</p>
+                                <div class="footer-social">
+                                    <a href="https://www.instagram.com/shanyraq_01/" target="_blank">📱</a>
+                                    <a href="#" target="_blank">💬</a>
+                                </div>
+                            </div>
+                            <div class="footer-section">
+                                <h3>Навигация</h3>
+                                <ul class="footer-links">
+                                    <li><a href="#about">О команде</a></li>
+                                    <li><a href="#robot">Наш робот</a></li>
+                                    <li><a href="#achievements">Достижения</a></li>
+                                    <li><a href="#team">Участники</a></li>
+                                </ul>
+                            </div>
+                            <div class="footer-section">
+                                <h3>Ресурсы</h3>
+                                <ul class="footer-links">
+                                    <li><a href="#moments">Моменты</a></li>
+                                    <li><a href="#contact">Контакты</a></li>
+                                    <li><a href="https://www.firstinspires.org/robotics/ftc" target="_blank">FIRST Tech Challenge</a></li>
+                                </ul>
+                            </div>
+                            <div class="footer-section">
+                                <h3>Контакты</h3>
+                                <ul class="footer-links">
+                                    <li>📍 Астана, Казахстан</li>
+                                    <li>📱 Instagram: @shanyraq_01</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="footer-bottom">
+                            <div class="footer-logo">
+                                <img src="images/logo.png" alt="Logo">
+                                <span>FTC Team ӨЗГЕ</span>
+                            </div>
+                            <div>© 2024 FTC Team ӨЗГЕ. Все права защищены.</div>
+                        </div>
+                    </footer>
