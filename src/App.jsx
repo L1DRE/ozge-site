@@ -124,7 +124,7 @@ const App = () => {
                   OZGE
                 </h1>
                 <p className="font-medium color-light mb-0-5">
-                  FTC Team #XXXXX
+                  FTC Team #25034
                 </p>
                 <p className="font-medium color-light max-width-600 line-height-1-6">
                   Команда робототехники из Астаны, участвующая в международных соревнованиях FIRST Tech Challenge
