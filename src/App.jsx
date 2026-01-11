@@ -43,10 +43,7 @@ const App = () => {
   ];
 
   const achievements = [
-    { year: '2024', event: 'Региональный чемпионат FTC', award: 'Финалисты' },
-    { year: '2024', event: 'Квалификационный турнир', award: '1 место - Inspire Award' },
-    { year: '2023', event: 'Межрегиональный турнир', award: 'Think Award' },
-    { year: '2023', event: 'Местный турнир', award: 'Design Award' }
+    { year: '2025', event: '-', award: '-' },
   ];
 
   return (
@@ -202,9 +199,9 @@ const App = () => {
             <section id="robot" className="section">
               <h2 className="font-large mb-2 font-weight-600">Наш робот</h2>
               <div className="card mb-2">
-                <h3 className="font-medium mb-1 font-weight-600">Сезон 2024-2025</h3>
+                <h3 className="font-medium mb-1 font-weight-600">Сезон 2025-2026</h3>
                 <p className="color-light line-height-1-8 mb-1-5">
-                  Наш робот разработан для выполнения задач текущего сезона FTC. Мы использовали инновационные подходы в проектировании шасси, системы захвата и автономного управления.
+                  Наш робот разработан для выполнения задач текущего сезона FTC. Мы использовали инновационные подходы в проектировании шасси, системы захвата мяча и автономного управления.
                 </p>
                 <div className="grid-small">
                   <div>
@@ -214,9 +211,9 @@ const App = () => {
                     </p>
                   </div>
                   <div>
-                    <h4 className="font-small mb-0-5 font-weight-600">Манипулятор</h4>
+                    <h4 className="font-small mb-0-5 font-weight-600">Рампа</h4>
                     <p className="color-light line-height-1-6">
-                      Двухстепенный захват с сервоприводами
+                      2 сервопривода для выстрела
                     </p>
                   </div>
                   <div>
@@ -291,19 +288,13 @@ const App = () => {
                   <div className="contact-item">
                     <Mail size={20} style={{ color: 'var(--accent)' }} aria-label="Email" />
                     <a href="mailto:team@ozge.kz" className="color-accent" style={{ textDecoration: 'none' }}>
-                      team@ozge.kz
+                      -
                     </a>
                   </div>
                   <div className="contact-item">
                     <span style={{ fontSize: '1.25rem' }}>📱</span>
-                    <a href="https://instagram.com/ozge_ftc" className="color-accent" rel="noopener noreferrer" aria-label="Instagram">
-                      Instagram: @ozge_ftc
-                    </a>
-                  </div>
-                  <div className="contact-item">
-                    <span style={{ fontSize: '1.25rem' }}>🌐</span>
-                    <a href="https://facebook.com/ozge_ftc" className="color-accent" rel="noopener noreferrer" aria-label="Facebook">
-                      Facebook: OZGE Robotics
+                    <a href="https://instagram.com/ozge.ftc/" className="color-accent" rel="noopener noreferrer" aria-label="Instagram">
+                      Instagram: @ozge.ftc
                     </a>
                   </div>
                 </div>
