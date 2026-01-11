@@ -27,24 +27,21 @@ const App = () => {
   ];
 
   const teamMembers = [
-    { name: 'Алексей Иванов', role: 'Капитан команды' },
-    { name: 'Мария Петрова', role: 'Программист' },
-    { name: 'Дмитрий Сидоров', role: 'Инженер-механик' },
-    { name: 'Анна Козлова', role: 'Дизайнер CAD' },
-    { name: 'Иван Смирнов', role: 'Оператор' },
-    { name: 'Елена Волкова', role: 'Аутрич-координатор' }
+    { name: 'Дамир', role: 'Капитан команды' },
+    { name: 'Жан', role: 'Программист 1' },
+    { name: 'Иван', role: 'Программист 2' },
+    { name: 'Наби', role: 'Инженер-механик' },
+    { name: 'Малика', role: 'Дизайнер CAD' },
+    { name: 'Алишер', role: 'Драйвер' },
+    { name: 'Тимур', role: 'Аутрич-координатор' }
   ];
 
   const mentors = [
-    { name: 'Сергей Николаев', role: 'Главный ментор' },
-    { name: 'Ольга Морозова', role: 'Технический консультант' }
+    { name: 'Ерасыл', role: 'Главный ментор' },
   ];
 
   const achievements = [
-    { year: '2024', event: 'Региональный чемпионат FTC', award: 'Финалисты' },
-    { year: '2024', event: 'Квалификационный турнир', award: '1 место - Inspire Award' },
-    { year: '2023', event: 'Межрегиональный турнир', award: 'Think Award' },
-    { year: '2023', event: 'Местный турнир', award: 'Design Award' }
+    { year: '2025', event: 'Квалификационный турнир(Региональный)', award: 'Зрители' }
   ];
 
   return (
@@ -122,7 +119,7 @@ const App = () => {
                   OZGE
                 </h1>
                 <p className="font-medium color-light mb-0-5">
-                  FTC Team #XXXXX
+                  FTC Team #25034
                 </p>
                 <p className="font-medium color-light max-width-600 line-height-1-6">
                   Команда робототехники из Астаны, участвующая в международных соревнованиях FIRST Tech Challenge

@@ -1,19 +1,23 @@
 :root {
-  --bg: #f8f9fa;
-  --card: #ffffff;
-  --text: #2c3e50;
+  --bg: #ffffff;
+  --card: #f8f9fa;
+  --text: #212529;
   --text-light: #6c757d;
-  --border: #e0e0e0;
-  --accent: #3498db;
-  --accent-hover: #2980b9;
+  --border: #dee2e6;
+  --accent: #007bff;
+  --accent-hover: #0056b3;
+  --shadow: rgba(0, 0, 0, 0.1);
 }
 
 .dark {
-  --bg: #1a1a1a;
-  --card: #2d2d2d;
-  --text: #e0e0e0;
-  --text-light: #a0a0a0;
-  --border: #404040;
+  --bg: #121212;
+  --card: #1e1e1e;
+  --text: #ffffff;
+  --text-light: #b0b0b0;
+  --border: #333333;
+  --accent: #4dabf7;
+  --accent-hover: #339af0;
+  --shadow: rgba(0, 0, 0, 0.3);
 }
 
 body {
@@ -81,17 +85,21 @@ body {
 .theme-button {
   background: none;
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: 8px;
   padding: 0.5rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   color: var(--text);
+  box-shadow: 0 2px 4px var(--shadow);
   transition: all 0.2s ease;
 }
 
 .theme-button:hover {
-  background-color: var(--bg);
+  background-color: var(--accent);
+  color: white;
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px var(--shadow);
 }
 
 .mobile-controls {
@@ -157,7 +165,13 @@ body {
   padding: 2rem;
   border-radius: 8px;
   border: 1px solid var(--border);
-  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 4px var(--shadow);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow);
 }
 
 .grid {
@@ -322,6 +336,11 @@ body {
 
 .color-accent {
   color: var(--accent);
+  transition: color 0.2s ease;
+}
+
+.color-accent:hover {
+  color: var(--accent-hover);
 }
 
 .line-height-1-6 {
