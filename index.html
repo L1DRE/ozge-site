@@ -55,7 +55,8 @@
   }
 
   /* NAV */
-  nav {
+/* NAV — CENTERED LOGO LAYOUT */
+nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 900;
     display: flex; align-items: center; justify-content: space-between;
     padding: 18px 48px;
@@ -64,34 +65,65 @@
     border-bottom: 1px solid rgba(0,240,255,0.15);
   }
   .nav-logo {
-    display: flex; align-items: center; gap: 14px;
+    display: flex;
+    align-items: center; /* Выравнивает текст строго по центру высоты логотипа */
   }
+  /* Контейнер теперь того же размера, что и лого, чтобы текст выравнивался по его центру */
   .tiger-logo {
-    width: 42px; height: 42px;
+    width: 54px; /* Совпадает с размером img */
+    height: 54px; 
     position: relative;
+    display: flex; /* Добавляем flex, чтобы гарантировать центровку внутри */
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px; /* Отступ от текста */
+  }
+
+  /* Само изображение */
+  .tiger-logo img {
+    width: 108px; 
+    height: 108px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 8px var(--accent));
+    display: block;
   }
   .tiger-logo svg { filter: drop-shadow(0 0 8px var(--accent)); }
+
   .nav-title {
     font-family: 'Orbitron', monospace;
-    font-size: 12px; font-weight: 700;
-    letter-spacing: 3px; color: var(--accent);
+    font-size: 14px; font-weight: 900;
+    letter-spacing: 4px; color: var(--accent);
+    text-shadow: var(--glow);
   }
-  .nav-num { font-size: 10px; color: #666; letter-spacing: 2px; }
-  .nav-links { display: flex; gap: 36px; list-style: none; }
+
+  .nav-links { 
+    display: flex; 
+    gap: 36px; 
+    list-style: none; 
+  }
+
+  .nav-links.left { justify-content: flex-start; }
+  .nav-links.right { justify-content: flex-end; }
+
   .nav-links a {
     font-family: 'Share Tech Mono', monospace;
     font-size: 12px; letter-spacing: 2px;
     color: #888; text-decoration: none;
-    transition: color 0.2s, text-shadow 0.2s;
-    position: relative;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
   }
-  .nav-links a::after {
-    content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
-    height: 1px; background: var(--accent);
-    transform: scaleX(0); transition: transform 0.2s;
-  }
+
   .nav-links a:hover { color: var(--accent); text-shadow: 0 0 12px var(--accent); }
-  .nav-links a:hover::after { transform: scaleX(1); }
+
+  /* Адаптивность для мобилок */
+  @media (max-width: 768px) {
+    nav {
+      grid-template-columns: 1fr; /* В одну колонку на мобилках */
+      padding: 10px;
+    }
+    .nav-links { display: none; } /* Прячем ссылки на очень маленьких экранах или делаем бургер */
+    .nav-logo { grid-column: 1; }
+  }
 
   /* GRID CANVAS BG */
   #grid-canvas {
@@ -109,14 +141,20 @@
     min-height: 100vh;
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
-    text-align: center; padding: 120px 24px 80px;
+    text-align: center; 
+    padding: 60px 24px 80px; /* <-- УМЕНЬШЕНО со 120px до 60px */
     overflow: hidden;
   }
   .hero-tiger {
-    width: 260px; height: 260px;
-    margin-bottom: 40px;
+    width: 600px; height: 600px;
+    max-width: 90vw; max-height: 90vw;
+    
+    margin-top: -40px;    /* <-- ПОДНИМАЕМ логотип выше */
+    margin-bottom: -80px; /* <-- ПОДТЯГИВАЕМ текст снизу еще сильнее */
+    
     position: relative;
     animation: breathe 3s ease-in-out infinite;
+    z-index: 2;
   }
   @keyframes breathe {
     0%,100% { filter: drop-shadow(0 0 20px #00F0FF66) drop-shadow(0 0 60px #00F0FF22); }
@@ -126,6 +164,12 @@
     width: 100%; height: 100%;
     animation: electric-in 1.2s ease forwards;
     opacity: 0;
+  }
+  .hero-tiger img {
+    width: 100%; height: 100%;
+    object-fit: contain;
+    animation: electric-in 1.2s ease forwards;
+    filter: brightness(1.2) contrast(1.1);
   }
   @keyframes electric-in {
     0% { opacity: 0; filter: brightness(10) saturate(0); }
@@ -141,6 +185,7 @@
     background: linear-gradient(135deg, #fff 30%, var(--accent));
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     animation: slide-up 1s 0.8s both;
+    margin-top: 0;
   }
   .hero-sub {
     font-family: 'Share Tech Mono', monospace;
@@ -550,86 +595,38 @@
 <!-- CURSOR -->
 <div class="cursor" id="cursor"></div>
 <div class="cursor-dot" id="cursor-dot"></div>
-
-<!-- SCROLL PROGRESS -->
 <div id="scroll-progress"></div>
-
-<!-- BG GRID -->
 <canvas id="grid-canvas"></canvas>
 
-<!-- NAV -->
 <nav>
-  <div class="nav-logo">
-    <div class="tiger-logo">
-      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <polygon points="20,2 36,12 36,28 20,38 4,28 4,12" fill="none" stroke="#00F0FF" stroke-width="1.5"/>
-        <path d="M14 16 L18 20 L14 24 M22 14 L26 14 M22 26 L26 26 M16 12 L20 8 L24 12 M20 20 L20 28" stroke="#00F0FF" stroke-width="1" fill="none"/>
-        <circle cx="16" cy="18" r="2" fill="#00F0FF"/>
-        <circle cx="24" cy="18" r="2" fill="#00F0FF"/>
-      </svg>
-    </div>
-    <div>
-      <div class="nav-title">OZGE</div>
-      <div class="nav-num">FTC TEAM #34350</div>
-    </div>
-  </div>
-  <ul class="nav-links">
+  <ul class="nav-links left">
     <li><a href="#machine">РОБОТ</a></li>
     <li><a href="#team">КОМАНДА</a></li>
-    <li><a href="#portfolio">ПОРТФОЛИО</a></li>
-    <li><a href="#outreach">АУТРИЧ</a></li>
+  </ul>
+
+  <div class="nav-logo">
+    <div class="tiger-logo">
+      <img src="wwwc.png" alt="OZGE Logo">
+    </div>
+    <div class="nav-title">OZGE</div>
+    <div class="nav-num">#34350</div>
+  </div>
+
+  <ul class="nav-links right">
+    <li><a href="#portfolio">ЖУРНАЛ</a></li>
     <li><a href="#footer">КОНТАКТЫ</a></li>
   </ul>
 </nav>
 
 <!-- HERO -->
 <section id="hero">
-  <div class="hero-tiger">
-    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-      <!-- Tiger SVG - stylized geometric -->
-      <defs>
-        <radialGradient id="tigerGlow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="#00F0FF" stop-opacity="0.3"/>
-          <stop offset="100%" stop-color="#00F0FF" stop-opacity="0"/>
-        </radialGradient>
-      </defs>
-      <circle cx="100" cy="100" r="95" fill="url(#tigerGlow)" stroke="#00F0FF" stroke-width="1" opacity="0.5"/>
-      <!-- Head outline -->
-      <path d="M60 70 L50 55 L65 60 L70 50 L80 65 L100 58 L120 65 L130 50 L135 60 L150 55 L140 70 L145 90 L140 115 L120 135 L100 142 L80 135 L60 115 L55 90 Z" fill="#0D0D0D" stroke="#00F0FF" stroke-width="1.5"/>
-      <!-- Eyes -->
-      <ellipse cx="80" cy="88" rx="10" ry="8" fill="#00F0FF" opacity="0.9"/>
-      <ellipse cx="120" cy="88" rx="10" ry="8" fill="#00F0FF" opacity="0.9"/>
-      <ellipse cx="80" cy="88" rx="4" ry="7" fill="#0D0D0D"/>
-      <ellipse cx="120" cy="88" rx="4" ry="7" fill="#0D0D0D"/>
-      <!-- Nose -->
-      <path d="M94 105 L100 110 L106 105 L100 102 Z" fill="#00F0FF" opacity="0.7"/>
-      <!-- Mouth -->
-      <path d="M85 118 L100 112 L115 118" fill="none" stroke="#00F0FF" stroke-width="1.5" opacity="0.6"/>
-      <!-- Stripes -->
-      <path d="M75 75 L68 82" stroke="#00F0FF" stroke-width="2" opacity="0.4"/>
-      <path d="M72 85 L62 88" stroke="#00F0FF" stroke-width="1.5" opacity="0.4"/>
-      <path d="M125 75 L132 82" stroke="#00F0FF" stroke-width="2" opacity="0.4"/>
-      <path d="M128 85 L138 88" stroke="#00F0FF" stroke-width="1.5" opacity="0.4"/>
-      <!-- Ears -->
-      <path d="M65 62 L58 44 L78 58" fill="#00F0FF" opacity="0.2" stroke="#00F0FF" stroke-width="1"/>
-      <path d="M135 62 L142 44 L122 58" fill="#00F0FF" opacity="0.2" stroke="#00F0FF" stroke-width="1"/>
-      <!-- Team number badge -->
-      <rect x="82" y="148" width="36" height="16" rx="2" fill="none" stroke="#00F0FF" stroke-width="1" opacity="0.6"/>
-      <text x="100" y="160" text-anchor="middle" font-family="Orbitron,monospace" font-size="7" fill="#00F0FF" opacity="0.8">FTC #34350</text>
-    </svg>
-  </div>
-
-  <div class="claw-divider">
-    <span></span><span></span><span></span><span></span>
-  </div>
-
-  <h1 class="hero-h1">OZGE<br>OF THE ARENA.</h1>
-  <p class="hero-sub">FTC TEAM <span>#34350</span> &nbsp;|&nbsp; ENGINEERING PRECISION. <span>CODE PERFECTION.</span></p>
-
-  <a href="#machine" class="cta-btn">▶ УВИДЕТЬ ЗВЕРЯ В ДЕЛЕ</a>
-
-  <div class="scroll-hint">↓ SCROLL TO DIVE IN</div>
-</section>
+    <div class="hero-tiger">
+      <img src="wwwc.png" alt="OZGE Tiger">
+    </div>
+    <h1 class="hero-h1">OZGE<br>OF THE ARENA.</h1>
+    <p class="hero-sub">FTC TEAM <span>#34350</span> &nbsp;|&nbsp; ENGINEERING PRECISION.</p>
+    <a href="#machine" class="cta-btn">▶ УВИДЕТЬ ЗВЕРЯ</a>
+  </section>
 
 <!-- THE MACHINE -->
 <section id="machine">
