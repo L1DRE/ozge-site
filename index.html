@@ -53,6 +53,17 @@
   @keyframes slide-up { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
   .member-photo { width: 80px; height: 80px; border-radius: 50%; background: #333; margin-bottom: 20px; border: 2px solid #444; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
   .member-photo img { width: 100%; height: 100%; object-fit: cover; }
+  .member-name a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0, 240, 255, 0.3);
+  transition: border-color 0.2s, text-shadow 0.2s;
+}
+
+.member-name a:hover {
+  border-bottom-color: var(--accent);
+  text-shadow: 0 0 12px var(--accent);
+}
   .cta-btn { margin-top: 48px; display: inline-block; padding: 16px 48px; font-family: "Orbitron", monospace; font-size: 13px; letter-spacing: 3px; font-weight: 700; color: var(--bg); background: var(--accent); border: none; cursor: none; text-decoration: none; clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%); box-shadow: var(--glow); animation: slide-up 1s 1.4s both; transition: transform 0.2s, box-shadow 0.2s; position: relative; overflow: hidden; }
   .cta-btn::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); transform: translateX(-100%); transition: transform 0.4s; }
   .cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 40px #00F0FFaa, 0 0 80px #00F0FF44; }
