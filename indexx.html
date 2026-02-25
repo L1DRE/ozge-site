@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apex Predators · FTC Team #XXXXX | Engineering Precision. Code Perfection.</title>
+<meta name="description" content="Команда робототехники FTC #XXXXX — Apex Predators. Мы проектируем, программируем и побеждаем. Узнайте о нашем роботе, команде и STEM-аутриче.">
+<meta property="og:title" content="Apex Predators · FTC Team #XXXXX">
+<meta property="og:description" content="Engineered to Roar. Built to Win. FTC Robotics Team.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐯</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Share+Tech+Mono&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0D0D0D; --bg2:#1a1a1a; --text:#E0E0E0; --muted:#888;
+  --accent:#00F0FF; --hot:#FF6B00;
+  --glow:0 0 24px #00F0FF66,0 0 60px #00F0FF22;
+  --nav-h:72px; --max-w:1360px; --px:clamp(20px,5vw,80px);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Rajdhani',sans-serif;font-weight:400;overflow-x:hidden;cursor:none;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+
+/* CURSOR */
+@media(pointer:fine){
+  .cursor{width:18px;height:18px;border:2px solid var(--accent);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .15s,border-color .25s,width .2s,height .2s,background .2s;box-shadow:var(--glow)}
+  .cursor-dot{width:4px;height:4px;background:var(--accent);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+  .cursor.hover{width:40px;height:40px;border-color:var(--hot);background:rgba(255,107,0,.07)}
+}
+
+/* PROGRESS */
+#scrollbar{position:fixed;top:0;left:0;z-index:1100;height:3px;width:0%;background:linear-gradient(90deg,var(--accent),var(--hot));box-shadow:0 0 10px var(--accent);transition:width .08s linear}
+
+/* CANVAS */
+#grid-canvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:.35}
+
+/* LAYOUT */
+.container{width:100%;max-width:var(--max-w);margin-inline:auto;padding-inline:var(--px)}
+section{position:relative;z-index:1}
+.section-tag{font-family:'Share Tech Mono',monospace;font-size:12px;letter-spacing:5px;color:var(--accent);margin-bottom:14px;display:block}
+.section-title{font-family:'Orbitron',monospace;font-size:clamp(32px,4.5vw,62px);font-weight:900;letter-spacing:2px;line-height:1.1;margin-bottom:56px}
+.accent-dot{color:var(--accent)}
+
+/* ===== NAV ===== */
+header{position:fixed;top:0;left:0;right:0;z-index:900;height:var(--nav-h);display:flex;align-items:center;background:rgba(13,13,13,.75);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,240,255,.12)}
+.nav-inner{width:100%;max-width:var(--max-w);margin-inline:auto;padding-inline:var(--px);display:flex;align-items:center;justify-content:space-between;gap:24px}
+.nav-brand{display:flex;align-items:center;gap:14px;flex-shrink:0}
+.nav-brand svg{filter:drop-shadow(0 0 8px var(--accent));width:40px;height:40px}
+.brand-name{font-family:'Orbitron',monospace;font-size:13px;font-weight:700;letter-spacing:3px;color:var(--accent)}
+.brand-num{font-family:'Share Tech Mono',monospace;font-size:11px;color:#444;letter-spacing:2px}
+.nav-links{display:flex;align-items:center;gap:4px}
+.nav-links a{font-family:'Share Tech Mono',monospace;font-size:14px;letter-spacing:2px;color:var(--muted);padding:12px 18px;min-height:44px;display:flex;align-items:center;position:relative;transition:color .3s}
+.nav-links a::after{content:'';position:absolute;bottom:8px;left:18px;right:18px;height:1px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .3s ease}
+.nav-links a:hover{color:var(--accent)}
+.nav-links a:hover::after{transform:scaleX(1)}
+
+/* Burger */
+.burger{display:none;flex-direction:column;gap:5px;width:44px;height:44px;align-items:center;justify-content:center;cursor:none;background:none;border:none}
+.burger span{display:block;width:24px;height:2px;background:var(--text);transition:transform .3s,opacity .3s,background .3s}
+.burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);background:var(--accent)}
+.burger.open span:nth-child(2){opacity:0}
+.burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);background:var(--accent)}
+
+/* Mobile nav */
+.mobile-nav{display:none;position:fixed;top:var(--nav-h);left:0;right:0;background:rgba(10,10,10,.98);border-bottom:1px solid rgba(0,240,255,.15);z-index:850;padding:20px var(--px) 28px;flex-direction:column;gap:2px}
+.mobile-nav.open{display:flex}
+.mobile-nav a{font-family:'Share Tech Mono',monospace;font-size:17px;letter-spacing:3px;color:var(--muted);padding:14px 0;border-bottom:1px solid #181818;transition:color .3s,padding-left .3s}
+.mobile-nav a:hover{color:var(--accent);padding-left:12px}
+
+/* ===== HERO ===== */
+#hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:calc(var(--nav-h) + 60px) var(--px) 100px;overflow:hidden}
+.hero-tiger{width:clamp(200px,28vw,290px);height:clamp(200px,28vw,290px);margin-bottom:40px;animation:breathe 3.5s ease-in-out infinite}
+.hero-tiger svg{width:100%;height:100%;animation:electric-in 1.4s ease forwards;opacity:0}
+@keyframes breathe{0%,100%{filter:drop-shadow(0 0 18px #00F0FF55) drop-shadow(0 0 50px #00F0FF1a)}50%{filter:drop-shadow(0 0 38px #00F0FF99) drop-shadow(0 0 90px #00F0FF33)}}
+@keyframes electric-in{0%{opacity:0;filter:brightness(12) saturate(0)}25%{opacity:1;filter:brightness(4) saturate(2)}55%{opacity:.8;filter:brightness(6)}100%{opacity:1;filter:brightness(1) saturate(1)}}
+.claw-mark{display:flex;justify-content:center;gap:8px;margin-bottom:24px}
+.claw-mark span{display:block;width:3px;background:var(--accent);box-shadow:0 0 10px var(--accent);border-radius:2px}
+.claw-mark span:nth-child(1){height:38px;transform:rotate(-10deg)}
+.claw-mark span:nth-child(2){height:54px}
+.claw-mark span:nth-child(3){height:48px;transform:rotate(4deg)}
+.claw-mark span:nth-child(4){height:40px;transform:rotate(10deg)}
+.hero-h1{font-family:'Orbitron',monospace;font-size:clamp(28px,5.5vw,76px);font-weight:900;letter-spacing:4px;line-height:1.1;background:linear-gradient(140deg,#fff 40%,var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:fade-up 1s .9s both}
+.hero-sub{font-family:'Share Tech Mono',monospace;font-size:clamp(12px,1.5vw,15px);letter-spacing:4px;color:#555;margin-top:18px;animation:fade-up 1s 1.2s both}
+.hero-sub strong{color:var(--accent);font-weight:400}
+.hero-cta{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:52px;animation:fade-up 1s 1.5s both}
+
+/* Buttons */
+.btn-primary{display:inline-flex;align-items:center;gap:10px;padding:18px 44px;font-family:'Orbitron',monospace;font-size:14px;letter-spacing:3px;font-weight:700;color:var(--bg);background:var(--accent);clip-path:polygon(14px 0%,100% 0%,calc(100% - 14px) 100%,0% 100%);box-shadow:var(--glow);transition:transform .3s,box-shadow .3s;position:relative;overflow:hidden;cursor:none}
+.btn-primary::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);transform:translateX(-100%);transition:transform .5s}
+.btn-primary:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 0 50px #00F0FFaa,0 0 100px #00F0FF33}
+.btn-primary:hover::before{transform:translateX(100%)}
+.btn-secondary{display:inline-flex;align-items:center;gap:10px;padding:17px 40px;font-family:'Orbitron',monospace;font-size:14px;letter-spacing:3px;font-weight:700;color:var(--accent);background:transparent;border:1px solid rgba(0,240,255,.35);transition:all .3s;cursor:none}
+.btn-secondary:hover{background:rgba(0,240,255,.08);border-color:var(--accent);box-shadow:0 0 30px #00F0FF22}
+.btn-outline{display:inline-flex;align-items:center;gap:10px;margin-top:28px;padding:14px 32px;font-family:'Share Tech Mono',monospace;font-size:13px;letter-spacing:2px;color:var(--accent);background:transparent;border:1px solid rgba(0,240,255,.35);transition:all .3s;cursor:none}
+.btn-outline:hover{background:var(--accent);color:var(--bg);box-shadow:var(--glow)}
+
+.scroll-hint{position:absolute;bottom:36px;font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:4px;color:#333;animation:pulse-hint 2.5s ease-in-out infinite}
+@keyframes pulse-hint{0%,100%{opacity:.2;transform:translateY(0)}50%{opacity:.8;transform:translateY(-4px)}}
+@keyframes fade-up{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:translateY(0)}}
+
+/* ===== MACHINE ===== */
+#machine{padding:clamp(80px,12vw,160px) 0}
+.machine-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(40px,6vw,90px);align-items:center}
+.robot-showcase{aspect-ratio:1;background:var(--bg2);border:1px solid #252525;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.robot-showcase::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 60%,#00F0FF0d,transparent 65%)}
+.scan-line{position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent) 50%,transparent);opacity:.7;animation:scan-anim 2.4s linear infinite}
+@keyframes scan-anim{0%{top:-2px}100%{top:100%}}
+.cm{position:absolute;width:22px;height:22px;border-color:var(--accent);border-style:solid;opacity:.55}
+.cm.tl{top:0;left:0;border-width:2px 0 0 2px}.cm.tr{top:0;right:0;border-width:2px 2px 0 0}
+.cm.bl{bottom:0;left:0;border-width:0 0 2px 2px}.cm.br{bottom:0;right:0;border-width:0 2px 2px 0}
+.robot-inner{display:flex;flex-direction:column;align-items:center;gap:16px;position:relative;z-index:1}
+.robot-lbl-main{font-family:'Orbitron',monospace;font-size:14px;letter-spacing:4px;color:var(--accent);text-align:center}
+.robot-lbl-sub{font-family:'Share Tech Mono',monospace;font-size:11px;color:#333;letter-spacing:2px;text-align:center}
+
+.hud-panel{display:flex;flex-direction:column;gap:0}
+.hud-header{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:4px;color:#333;margin-bottom:28px}
+.hud-item{background:var(--bg2);border:1px solid #222;border-left:3px solid var(--accent);padding:18px 22px 16px;margin-bottom:10px;position:relative;overflow:hidden;transition:border-color .3s,box-shadow .3s,transform .3s}
+.hud-item:hover{box-shadow:-6px 0 24px #00F0FF22;transform:translateX(4px)}
+.hud-item::after{content:'';position:absolute;top:0;right:0;width:80px;height:100%;background:linear-gradient(90deg,transparent,#00F0FF06)}
+.hud-item.hot{border-left-color:var(--hot)}.hud-item.hot:hover{box-shadow:-6px 0 24px #FF6B0022}
+.hud-label{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:3px;color:#444;margin-bottom:6px}
+.hud-val{font-family:'Orbitron',monospace;font-size:17px;font-weight:700;color:var(--text)}
+.hud-bar{margin-top:10px;height:2px;background:#252525}
+.hud-fill{height:100%;background:var(--accent);box-shadow:0 0 8px var(--accent);transition:width 1.4s cubic-bezier(.16,1,.3,1)}
+.hud-fill.hot-fill{background:var(--hot);box-shadow:0 0 8px var(--hot)}
+
+/* ===== TEAM ===== */
+#team{padding:clamp(80px,12vw,160px) 0;background:linear-gradient(180deg,transparent,rgba(0,0,0,.5) 50%,transparent)}
+.team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:20px}
+.member-card{background:var(--bg2);border:1px solid #222;padding:36px 28px 28px;position:relative;overflow:hidden;transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s;cursor:none}
+.member-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent) 50%,transparent);transform:scaleX(0);transform-origin:center;transition:transform .4s ease}
+.member-card::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,#00F0FF08,transparent 60%);opacity:0;transition:opacity .4s}
+.member-card:hover{transform:translateY(-10px);box-shadow:0 24px 60px rgba(0,240,255,.1)}
+.member-card:hover::before{transform:scaleX(1)}
+.member-card:hover::after{opacity:1}
+.member-num{position:absolute;top:18px;right:22px;font-family:'Orbitron',monospace;font-size:36px;font-weight:900;color:#1e1e1e;line-height:1}
+.member-avatar{width:72px;height:72px;border-radius:50%;background:#252525;border:2px solid #2e2e2e;display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:20px;transition:border-color .3s;position:relative;z-index:1}
+.member-card:hover .member-avatar{border-color:var(--accent)}
+.member-name{font-family:'Orbitron',monospace;font-size:15px;font-weight:700;letter-spacing:2px;margin-bottom:6px;position:relative;z-index:1}
+.member-role{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--accent);margin-bottom:20px;position:relative;z-index:1}
+.skills{display:flex;flex-wrap:wrap;gap:8px;position:relative;z-index:1}
+.skill{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:1px;padding:5px 12px;border:1px solid #2e2e2e;color:#555;transition:border-color .3s,color .3s}
+.member-card:hover .skill{border-color:rgba(0,240,255,.35);color:var(--accent)}
+
+/* ===== PORTFOLIO ===== */
+#portfolio{padding:clamp(80px,12vw,160px) 0}
+.timeline{position:relative;padding-left:36px}
+.timeline::before{content:'';position:absolute;left:10px;top:8px;bottom:8px;width:1px;background:linear-gradient(180deg,var(--accent) 0%,#00F0FF22 80%,transparent 100%)}
+.tl-item{position:relative;margin-bottom:24px;padding:24px 28px;background:var(--bg2);border:1px solid #222;transition:border-color .3s,box-shadow .3s,transform .3s}
+.tl-item::before{content:'';position:absolute;left:-29px;top:30px;width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 14px var(--accent);transition:box-shadow .3s}
+.tl-item:hover{border-color:#2e2e2e;box-shadow:6px 0 30px #00F0FF0d;transform:translateX(6px)}
+.tl-item:hover::before{box-shadow:0 0 24px var(--accent)}
+.tl-date{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:3px;color:var(--accent);margin-bottom:8px}
+.tl-title{font-family:'Orbitron',monospace;font-size:17px;font-weight:700;letter-spacing:2px;margin-bottom:10px}
+.tl-desc{font-size:15px;color:#777;line-height:1.65;font-weight:400}
+.tl-link{display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--accent);padding-bottom:2px;border-bottom:1px solid rgba(0,240,255,.25);transition:border-color .3s,gap .3s}
+.tl-link:hover{border-color:var(--accent);gap:12px}
+
+/* ===== OUTREACH ===== */
+#outreach{padding:clamp(80px,12vw,160px) 0;background:linear-gradient(180deg,transparent,rgba(0,0,0,.5) 50%,transparent)}
+.outreach-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,7vw,100px);align-items:start}
+.manifesto{font-size:17px;line-height:1.9;color:#888;font-weight:400}
+.manifesto p{margin-bottom:22px}
+.manifesto strong{color:var(--text);font-weight:700}
+.manifesto em{color:var(--accent);font-style:normal}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.stat-card{background:var(--bg2);border:1px solid #222;padding:28px 22px 24px;text-align:center;position:relative;overflow:hidden;transition:box-shadow .35s,transform .35s}
+.stat-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);transform:scaleX(0);transition:transform .4s}
+.stat-card:hover{box-shadow:0 0 48px rgba(0,240,255,.12);transform:translateY(-4px)}
+.stat-card:hover::after{transform:scaleX(1)}
+.stat-icon{font-size:26px;margin-bottom:14px;display:block}
+.stat-num{font-family:'Orbitron',monospace;font-size:40px;font-weight:900;color:var(--accent);display:block;line-height:1}
+.stat-lbl{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:#3a3a3a;margin-top:10px;display:block}
+
+/* ===== FOOTER ===== */
+footer{position:relative;z-index:1;border-top:1px solid #181818;padding:clamp(60px,8vw,100px) 0 0}
+.sponsors-section{margin-bottom:60px}
+.sponsors-title{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:5px;color:#282828;text-align:center;margin-bottom:28px}
+.sponsors-row{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:10px}
+.sponsor-pill{font-family:'Orbitron',monospace;font-size:11px;font-weight:700;letter-spacing:3px;color:#282828;border:1px solid #1e1e1e;padding:10px 22px;transition:color .3s,border-color .3s}
+.sponsor-pill:hover{color:var(--text);border-color:#3a3a3a}
+.footer-mid{display:grid;grid-template-columns:1fr auto 1fr;align-items:start;gap:40px;padding:48px 0;border-top:1px solid #181818;border-bottom:1px solid #181818}
+.footer-logo-big{font-family:'Orbitron',monospace;font-size:20px;font-weight:900;letter-spacing:3px;color:var(--text);margin-bottom:12px}
+.footer-logo-big span{color:var(--accent)}
+.footer-tagline{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:2px;color:#2e2e2e;line-height:1.8;max-width:220px}
+.footer-nav{display:flex;flex-direction:column;gap:8px;align-items:center}
+.footer-nav a{font-family:'Share Tech Mono',monospace;font-size:12px;letter-spacing:3px;color:#3a3a3a;padding:6px 0;transition:color .3s}
+.footer-nav a:hover{color:var(--accent)}
+.footer-col-right{display:flex;flex-direction:column;align-items:flex-end;gap:20px}
+.social-row{display:flex;gap:10px}
+.social-link{width:44px;height:44px;border:1px solid #1e1e1e;display:flex;align-items:center;justify-content:center;color:#3a3a3a;font-size:17px;transition:color .3s,border-color .3s,box-shadow .3s;cursor:none}
+.social-link:hover{color:var(--accent);border-color:var(--accent);box-shadow:0 0 20px #00F0FF22}
+.footer-contact{font-family:'Share Tech Mono',monospace;font-size:12px;letter-spacing:2px;color:#2e2e2e;transition:color .3s}
+.footer-contact:hover{color:var(--accent)}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:20px 0}
+.copyright{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:2px;color:#242424}
+.ftc-badge{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:#1e1e1e}
+
+/* REVEAL */
+.reveal,.reveal-l,.reveal-r{opacity:0;transition:opacity .75s ease,transform .75s cubic-bezier(.16,1,.3,1)}
+.reveal{transform:translateY(40px)}.reveal-l{transform:translateX(-50px)}.reveal-r{transform:translateX(50px)}
+.reveal.in,.reveal-l.in,.reveal-r.in{opacity:1;transform:none}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .nav-links{display:none}.burger{display:flex}
+  .machine-grid,.outreach-grid,.footer-mid{grid-template-columns:1fr}
+  .footer-col-right{align-items:flex-start}
+}
+@media(max-width:600px){
+  .stats-grid,.hero-cta{grid-template-columns:1fr;flex-direction:column;align-items:center}
+  .btn-primary,.btn-secondary{width:100%;justify-content:center}
+  .team-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="cursor" id="cur" aria-hidden="true"></div>
+<div class="cursor-dot" id="curdot" aria-hidden="true"></div>
+<div id="scrollbar" aria-hidden="true"></div>
+<canvas id="grid-canvas" aria-hidden="true"></canvas>
+
+<!-- HEADER -->
+<header role="banner">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-brand" aria-label="Apex Predators — главная">
+      <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
+        <polygon points="20,2 37,11 37,29 20,38 3,29 3,11" fill="none" stroke="#00F0FF" stroke-width="1.4"/>
+        <ellipse cx="14" cy="18" rx="4" ry="4.5" fill="#00F0FF" opacity=".85"/>
+        <ellipse cx="26" cy="18" rx="4" ry="4.5" fill="#00F0FF" opacity=".85"/>
+        <ellipse cx="14" cy="18" rx="1.5" ry="4" fill="#0D0D0D"/>
+        <ellipse cx="26" cy="18" rx="1.5" ry="4" fill="#0D0D0D"/>
+        <path d="M16 25 Q20 27.5 24 25" stroke="#00F0FF" stroke-width="1.2" fill="none" opacity=".6"/>
+        <path d="M8 13 L4 11 M32 13 L36 11" stroke="#00F0FF" stroke-width="1" opacity=".45"/>
+      </svg>
+      <div>
+        <div class="brand-name">APEX PREDATORS</div>
+        <div class="brand-num">FTC TEAM #XXXXX</div>
+      </div>
+    </a>
+    <nav class="nav-links" role="navigation" aria-label="Основная навигация">
+      <a href="#machine">РОБОТ</a>
+      <a href="#team">КОМАНДА</a>
+      <a href="#portfolio">ПОРТФОЛИО</a>
+      <a href="#outreach">АУТРИЧ</a>
+      <a href="#footer">КОНТАКТЫ</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobile-nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<nav class="mobile-nav" id="mobile-nav" aria-label="Мобильное меню">
+  <a href="#machine" class="mlink">РОБОТ</a>
+  <a href="#team" class="mlink">КОМАНДА</a>
+  <a href="#portfolio" class="mlink">ПОРТФОЛИО</a>
+  <a href="#outreach" class="mlink">АУТРИЧ</a>
+  <a href="#footer" class="mlink">КОНТАКТЫ</a>
+</nav>
+
+<main>
+<!-- HERO -->
+<section id="hero" aria-label="Главный экран">
+  <figure class="hero-tiger" aria-label="Логотип тигра">
+    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="hg" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#00F0FF" stop-opacity=".2"/>
+          <stop offset="100%" stop-color="#00F0FF" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <circle cx="100" cy="100" r="94" fill="url(#hg)" stroke="#00F0FF" stroke-width="1" opacity=".4"/>
+      <path d="M58 68 L48 50 L66 57 L72 46 L82 62 L100 54 L118 62 L128 46 L134 57 L152 50 L142 68 L148 88 L144 116 L122 136 L100 144 L78 136 L56 116 L52 88 Z" fill="#0D0D0D" stroke="#00F0FF" stroke-width="1.5"/>
+      <ellipse cx="78" cy="88" rx="11" ry="9" fill="#00F0FF" opacity=".9"/>
+      <ellipse cx="122" cy="88" rx="11" ry="9" fill="#00F0FF" opacity=".9"/>
+      <ellipse cx="78" cy="88" rx="4.5" ry="8" fill="#060606"/>
+      <ellipse cx="122" cy="88" rx="4.5" ry="8" fill="#060606"/>
+      <circle cx="74" cy="85" r="2" fill="#fff" opacity=".6"/>
+      <circle cx="118" cy="85" r="2" fill="#fff" opacity=".6"/>
+      <path d="M93 107 L100 113 L107 107 L100 103 Z" fill="#00F0FF" opacity=".75"/>
+      <path d="M84 121 L100 115 L116 121" stroke="#00F0FF" stroke-width="1.5" fill="none" opacity=".5"/>
+      <path d="M73 72 L64 80" stroke="#00F0FF" stroke-width="2.5" stroke-linecap="round" opacity=".4"/>
+      <path d="M70 83 L58 87" stroke="#00F0FF" stroke-width="2" stroke-linecap="round" opacity=".35"/>
+      <path d="M127 72 L136 80" stroke="#00F0FF" stroke-width="2.5" stroke-linecap="round" opacity=".4"/>
+      <path d="M130 83 L142 87" stroke="#00F0FF" stroke-width="2" stroke-linecap="round" opacity=".35"/>
+      <path d="M63 60 L55 40 L79 56" fill="#00F0FF" opacity=".15" stroke="#00F0FF" stroke-width="1.2"/>
+      <path d="M137 60 L145 40 L121 56" fill="#00F0FF" opacity=".15" stroke="#00F0FF" stroke-width="1.2"/>
+      <rect x="80" y="148" width="40" height="16" rx="3" fill="none" stroke="#00F0FF" stroke-width=".8" opacity=".5"/>
+      <text x="100" y="160" text-anchor="middle" font-family="Orbitron,monospace" font-size="7" fill="#00F0FF" opacity=".7">#XXXXX</text>
+    </svg>
+  </figure>
+  <div class="claw-mark" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+  <h1 class="hero-h1">APEX PREDATORS<br>OF THE ARENA.</h1>
+  <p class="hero-sub">FTC TEAM <strong>#XXXXX</strong> &nbsp;·&nbsp; ENGINEERING PRECISION. <strong>CODE PERFECTION.</strong></p>
+  <div class="hero-cta">
+    <a href="#machine" class="btn-primary">▶&nbsp; УВИДЕТЬ ЗВЕРЯ В ДЕЛЕ</a>
+    <a href="#portfolio" class="btn-secondary">📄&nbsp; НАШЕ ПОРТФОЛИО</a>
+  </div>
+  <p class="scroll-hint" aria-hidden="true">↓ &nbsp;SCROLL DOWN</p>
+</section>
+
+<!-- MACHINE -->
+<section id="machine" aria-labelledby="machine-h">
+  <div class="container">
+    <span class="section-tag">// UNIT_01 — ROBOT</span>
+    <h2 class="section-title reveal" id="machine-h">THE MACHINE<span class="accent-dot">.</span></h2>
+    <div class="machine-grid">
+      <div class="robot-showcase reveal-l" role="img" aria-label="Схема робота TIGRIS MK-IV">
+        <div class="cm tl"></div><div class="cm tr"></div><div class="cm bl"></div><div class="cm br"></div>
+        <div class="scan-line" aria-hidden="true"></div>
+        <div class="robot-inner">
+          <svg viewBox="0 0 180 180" width="200" height="200" fill="none" aria-hidden="true">
+            <rect x="35" y="60" width="110" height="75" rx="5" stroke="#00F0FF" stroke-width="1.5" opacity=".8"/>
+            <rect x="50" y="44" width="80" height="18" rx="3" stroke="#00F0FF" stroke-width="1" opacity=".6"/>
+            <rect x="18" y="85" width="20" height="38" rx="5" stroke="#00F0FF" stroke-width="1.2" opacity=".55"/>
+            <rect x="142" y="85" width="20" height="38" rx="5" stroke="#00F0FF" stroke-width="1.2" opacity=".55"/>
+            <circle cx="45" cy="138" r="13" stroke="#00F0FF" stroke-width="1.5" opacity=".7"/>
+            <circle cx="135" cy="138" r="13" stroke="#00F0FF" stroke-width="1.5" opacity=".7"/>
+            <circle cx="45" cy="138" r="5" stroke="#00F0FF" stroke-width="1" opacity=".4"/>
+            <circle cx="135" cy="138" r="5" stroke="#00F0FF" stroke-width="1" opacity=".4"/>
+            <rect x="78" y="62" width="24" height="32" rx="2" stroke="#00F0FF" stroke-width="1" opacity=".5"/>
+            <line x1="60" y1="95" x2="120" y2="95" stroke="#00F0FF" stroke-width=".5" stroke-dasharray="5 5" opacity=".3"/>
+            <line x1="60" y1="110" x2="120" y2="110" stroke="#00F0FF" stroke-width=".5" stroke-dasharray="5 5" opacity=".3"/>
+            <path d="M80 72 L90 64 L100 72" stroke="#FF6B00" stroke-width="2" stroke-linecap="round" fill="none" opacity=".9"/>
+            <circle cx="65" cy="75" r="3" fill="#00F0FF" opacity=".6"/>
+            <circle cx="115" cy="75" r="3" fill="#00F0FF" opacity=".6"/>
+          </svg>
+          <p class="robot-lbl-main">TIGRIS MK-IV</p>
+          <p class="robot-lbl-sub">[ ЗАГРУЗИТЕ ФОТО ВАШЕГО РОБОТА ]</p>
+        </div>
+      </div>
+      <div class="hud-panel reveal-r">
+        <p class="hud-header">■ ROBOT_SPECS // SEASON_2025</p>
+        <div class="hud-item"><div class="hud-label">CHASSIS SYSTEM</div><div class="hud-val">MECANUM DRIVE</div><div class="hud-bar"><div class="hud-fill" data-w="88"></div></div></div>
+        <div class="hud-item"><div class="hud-label">MAX SPEED</div><div class="hud-val">2.5 M/S</div><div class="hud-bar"><div class="hud-fill" data-w="74"></div></div></div>
+        <div class="hud-item"><div class="hud-label">INTAKE SYSTEM</div><div class="hud-val">DUAL ACTIVE ROLLER</div><div class="hud-bar"><div class="hud-fill" data-w="82"></div></div></div>
+        <div class="hud-item"><div class="hud-label">LIFT MECHANISM</div><div class="hud-val">4-STAGE LINEAR SLIDE</div><div class="hud-bar"><div class="hud-fill" data-w="100"></div></div></div>
+        <div class="hud-item hot"><div class="hud-label">AUTONOMOUS SCORE</div><div class="hud-val" style="color:var(--hot)">AVG. 50+ PTS</div><div class="hud-bar"><div class="hud-fill hot-fill" data-w="80"></div></div></div>
+        <a href="#" class="btn-outline" aria-label="Скачать CAD чертёж">⬇&nbsp; СКАЧАТЬ CAD-ЧЕРТЁЖ</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team" aria-labelledby="team-h">
+  <div class="container">
+    <span class="section-tag">// UNIT_02 — CREW</span>
+    <h2 class="section-title reveal" id="team-h">THE PRIDE<span class="accent-dot">.</span></h2>
+    <div class="team-grid" role="list">
+      <article class="member-card reveal" role="listitem" style="transition-delay:0s"><span class="member-num" aria-hidden="true">01</span><div class="member-avatar" aria-hidden="true">🧠</div><h3 class="member-name">ALEX R.</h3><p class="member-role">LEAD PROGRAMMER</p><ul class="skills"><li class="skill">💻 Java</li><li class="skill">🤖 Autonomous</li><li class="skill">⚡ RoadRunner</li></ul></article>
+      <article class="member-card reveal" role="listitem" style="transition-delay:.08s"><span class="member-num" aria-hidden="true">02</span><div class="member-avatar" aria-hidden="true">🔧</div><h3 class="member-name">SAM K.</h3><p class="member-role">HEAD OF CAD</p><ul class="skills"><li class="skill">🛠️ Fusion 360</li><li class="skill">📐 3D Print</li><li class="skill">⚙️ Mech Design</li></ul></article>
+      <article class="member-card reveal" role="listitem" style="transition-delay:.16s"><span class="member-num" aria-hidden="true">03</span><div class="member-avatar" aria-hidden="true">🏗️</div><h3 class="member-name">MIRA T.</h3><p class="member-role">BUILD LEAD</p><ul class="skills"><li class="skill">🔩 Assembly</li><li class="skill">📏 Prototyping</li><li class="skill">⚡ Wiring</li></ul></article>
+      <article class="member-card reveal" role="listitem" style="transition-delay:.24s"><span class="member-num" aria-hidden="true">04</span><div class="member-avatar" aria-hidden="true">📣</div><h3 class="member-name">LENA P.</h3><p class="member-role">CAPTAIN / OUTREACH</p><ul class="skills"><li class="skill">📢 Strategy</li><li class="skill">🌍 Community</li><li class="skill">🤝 Scouting</li></ul></article>
+      <article class="member-card reveal" role="listitem" style="transition-delay:.32s"><span class="member-num" aria-hidden="true">05</span><div class="member-avatar" aria-hidden="true">📝</div><h3 class="member-name">DAN V.</h3><p class="member-role">DOCUMENTATION</p><ul class="skills"><li class="skill">📋 Eng. Notebook</li><li class="skill">🎨 Design</li><li class="skill">✍️ Writing</li></ul></article>
+      <article class="member-card reveal" role="listitem" style="transition-delay:.40s;opacity:.4;border-style:dashed"><span class="member-num" aria-hidden="true">??</span><div class="member-avatar" aria-hidden="true">➕</div><h3 class="member-name">ВАШЕ ИМЯ</h3><p class="member-role">ВАША РОЛЬ</p><ul class="skills"><li class="skill">Добавьте участника</li></ul></article>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio" aria-labelledby="portfolio-h">
+  <div class="container">
+    <span class="section-tag">// UNIT_03 — DOCS</span>
+    <h2 class="section-title reveal" id="portfolio-h">ENGINEERING LOG<span class="accent-dot">.</span></h2>
+    <div class="timeline" role="list">
+      <article class="tl-item reveal" role="listitem"><p class="tl-date">SEPT 2024 — KICKOFF</p><h3 class="tl-title">GAME ANALYSIS &amp; STRATEGY</h3><p class="tl-desc">Разбор правил игры INTO THE DEEP. Мозговой штурм стратегий, первые скетчи концепций робота и распределение ролей в команде.</p><a href="#" class="tl-link">→ Открыть документ</a></article>
+      <article class="tl-item reveal" role="listitem"><p class="tl-date">OCT 2024 — DESIGN PHASE</p><h3 class="tl-title">CAD &amp; MECHANISM PROTOTYPING</h3><p class="tl-desc">Создание 3D-моделей в Fusion 360. Тестирование 3 версий захвата, выбор Mecanum-шасси и первые 3D-распечатки.</p><a href="#" class="tl-link">→ Открыть CAD-файлы</a></article>
+      <article class="tl-item reveal" role="listitem"><p class="tl-date">NOV 2024 — BUILD PHASE</p><h3 class="tl-title">ROBOT ASSEMBLY V1 → V3</h3><p class="tl-desc">Сборка первого прототипа. Итерации дизайна по результатам тестов. Финальная сборка TIGRIS MK-IV с полной системой подъёма.</p><a href="#" class="tl-link">→ Инженерный журнал</a></article>
+      <article class="tl-item reveal" role="listitem"><p class="tl-date">DEC 2024 — CODE</p><h3 class="tl-title">AUTONOMOUS &amp; TELEOP PROGRAMS</h3><p class="tl-desc">Разработка автономной программы на RoadRunner. Оптимизация TeleOp-режима, систем управления и автоматического выравнивания.</p><a href="https://github.com" class="tl-link">→ GitHub Repository</a></article>
+    </div>
+  </div>
+</section>
+
+<!-- OUTREACH -->
+<section id="outreach" aria-labelledby="outreach-h">
+  <div class="container">
+    <span class="section-tag">// UNIT_04 — IMPACT</span>
+    <h2 class="section-title reveal" id="outreach-h">BEYOND THE BOTS<span class="accent-dot">.</span></h2>
+    <div class="outreach-grid">
+      <div class="manifesto reveal-l">
+        <p><strong>Мы не просто строим роботов.</strong></p>
+        <p>Мы строим <em>будущих инженеров.</em> Каждый мастер-класс, каждое демо в школе — это ещё одна искра, которая может превратиться в настоящий пожар любви к технологиям.</p>
+        <p>FTC научил нас, что <strong>командная работа, настойчивость и инновации</strong> побеждают любую техническую задачу. Мы хотим передать это следующему поколению — не через слова, а через живые примеры.</p>
+        <p>Потому что <em>apex predator</em> — это не тот, кто охотится в одиночку. Это тот, кто <strong>доминирует в экосистеме.</strong></p>
+      </div>
+      <div class="stats-grid reveal-r">
+        <div class="stat-card"><span class="stat-icon">🎓</span><span class="stat-num" data-target="500">0</span><span class="stat-lbl">ЧЕЛОВЕК ОБУЧЕНО</span></div>
+        <div class="stat-card"><span class="stat-icon">🏆</span><span class="stat-num" data-target="3">0</span><span class="stat-lbl">РЕГИОНАЛЬНЫХ НАГРАДЫ</span></div>
+        <div class="stat-card"><span class="stat-icon">⏱️</span><span class="stat-num" data-target="150">0</span><span class="stat-lbl">ЧАСОВ ВОЛОНТЁРСТВА</span></div>
+        <div class="stat-card"><span class="stat-icon">🏫</span><span class="stat-num" data-target="12">0</span><span class="stat-lbl">ШКОЛ ОХВАЧЕНО</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- FOOTER -->
+<footer id="footer" role="contentinfo">
+  <div class="container">
+    <div class="sponsors-section">
+      <p class="sponsors-title">// PARTNERS &amp; SPONSORS //</p>
+      <div class="sponsors-row" aria-label="Спонсоры">
+        <span class="sponsor-pill">TECHCORP</span>
+        <span class="sponsor-pill">INNOVA LAB</span>
+        <span class="sponsor-pill">STEM FUND</span>
+        <span class="sponsor-pill">ROBOPARTS</span>
+        <span class="sponsor-pill">YOUR SPONSOR</span>
+      </div>
+    </div>
+    <div class="footer-mid">
+      <div>
+        <p class="footer-logo-big">APEX<span> PREDATORS</span></p>
+        <p class="footer-tagline">Engineered to Roar.<br>Built to Win.<br>Built to Inspire.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Навигация подвала">
+        <a href="#hero">ГЛАВНАЯ</a>
+        <a href="#machine">РОБОТ</a>
+        <a href="#team">КОМАНДА</a>
+        <a href="#portfolio">ПОРТФОЛИО</a>
+        <a href="#outreach">АУТРИЧ</a>
+      </nav>
+      <div class="footer-col-right">
+        <div class="social-row" aria-label="Социальные сети">
+          <a href="https://instagram.com" class="social-link" aria-label="Instagram">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          </a>
+          <a href="https://youtube.com" class="social-link" aria-label="YouTube">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </a>
+          <a href="https://github.com" class="social-link" aria-label="GitHub">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          </a>
+        </div>
+        <a href="mailto:team@apexpredators.ftc" class="footer-contact">team@apexpredators.ftc</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="copyright">© 2025 APEX PREDATORS FTC TEAM #XXXXX. ALL RIGHTS RESERVED.</p>
+      <p class="ftc-badge">FIRST TECH CHALLENGE · POWERED BY PASSION</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* CURSOR */
+const cur=document.getElementById('cur'),cd=document.getElementById('curdot');
+if(cur){
+  let mx=0,my=0,cx=0,cy=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+  (function loop(){cx+=(mx-cx)*.14;cy+=(my-cy)*.14;cur.style.left=cx+'px';cur.style.top=cy+'px';cd.style.left=mx+'px';cd.style.top=my+'px';requestAnimationFrame(loop)})();
+  document.querySelectorAll('a,button,.member-card,.hud-item,.stat-card,.tl-item').forEach(el=>{
+    el.addEventListener('mouseenter',()=>cur.classList.add('hover'));
+    el.addEventListener('mouseleave',()=>cur.classList.remove('hover'));
+  });
+}
+
+/* BURGER */
+const burger=document.getElementById('burger'),mnav=document.getElementById('mobile-nav');
+burger.addEventListener('click',()=>{
+  const o=mnav.classList.toggle('open');
+  burger.classList.toggle('open',o);
+  burger.setAttribute('aria-expanded',o);
+});
+document.querySelectorAll('.mlink').forEach(a=>a.addEventListener('click',()=>{
+  mnav.classList.remove('open');burger.classList.remove('open');burger.setAttribute('aria-expanded',false);
+}));
+
+/* SCROLL PROGRESS */
+const sb=document.getElementById('scrollbar');
+window.addEventListener('scroll',()=>{sb.style.width=Math.min(window.scrollY/(document.body.scrollHeight-window.innerHeight)*100,100)+'%'},{passive:true});
+
+/* GRID CANVAS */
+const cv=document.getElementById('grid-canvas'),ctx=cv.getContext('2d');
+function rz(){cv.width=window.innerWidth;cv.height=window.innerHeight}rz();
+window.addEventListener('resize',rz,{passive:true});
+let t=0;
+(function draw(){
+  ctx.clearRect(0,0,cv.width,cv.height);
+  const s=64;
+  ctx.strokeStyle='#00F0FF14';ctx.lineWidth=.5;
+  for(let x=0;x<=cv.width+s;x+=s){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,cv.height);ctx.stroke()}
+  for(let y=0;y<=cv.height+s;y+=s){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(cv.width,y);ctx.stroke()}
+  for(let i=0;i<16;i++){
+    const px=(Math.sin(t*.25+i*1.8)*.5+.5)*cv.width;
+    const py=(Math.cos(t*.18+i*2.5)*.5+.5)*cv.height;
+    ctx.globalAlpha=.2+Math.sin(t+i)*.12;
+    ctx.fillStyle=i%4===0?'#FF6B00':'#00F0FF';
+    ctx.beginPath();ctx.arc(px,py,1.5,0,Math.PI*2);ctx.fill();
+  }
+  ctx.globalAlpha=1;t+=.008;requestAnimationFrame(draw);
+})();
+
+/* REVEAL */
+const revEls=document.querySelectorAll('.reveal,.reveal-l,.reveal-r');
+const ro=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');ro.unobserve(e.target)}})},{threshold:.12});
+revEls.forEach(el=>ro.observe(el));
+
+/* HUD BARS */
+const fills=document.querySelectorAll('.hud-fill');
+fills.forEach(f=>f.style.width='0%');
+const ho=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){setTimeout(()=>{e.target.style.width=e.target.dataset.w+'%'},200);ho.unobserve(e.target)}})},{threshold:.5});
+fills.forEach(f=>ho.observe(f));
+
+/* STAT COUNTERS */
+const so=new IntersectionObserver(es=>{es.forEach(e=>{
+  if(!e.isIntersecting)return;
+  const el=e.target,tgt=+el.dataset.target,sfx=tgt>=100?'+':'';
+  let cur=0,inc=tgt/55;
+  const ti=setInterval(()=>{cur+=inc;if(cur>=tgt){cur=tgt;clearInterval(ti)}el.textContent=Math.floor(cur)+sfx},28);
+  so.unobserve(el);
+})},{threshold:.6});
+document.querySelectorAll('.stat-num[data-target]').forEach(el=>so.observe(el));
+</script>
+</body>
+</html>
