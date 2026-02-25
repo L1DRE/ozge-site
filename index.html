@@ -198,6 +198,18 @@ nav {
     from { opacity: 0; transform: translateY(30px); }
     to { opacity: 1; transform: translateY(0); }
   }
+  .member-photo {
+    width: 80px; height: 80px; border-radius: 50%;
+    background: #333; margin-bottom: 20px;
+    border: 2px solid #444;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden; /* Скрывает края фото, выходящие за круг */
+  }
+  .member-photo img {
+    width: 100%; height: 100%;
+    object-fit: cover; /* Важно: сохраняет пропорции лица */
+  }
+
   .cta-btn {
     margin-top: 48px;
     display: inline-block; padding: 16px 48px;
@@ -606,7 +618,7 @@ nav {
 
   <div class="nav-logo">
     <div class="tiger-logo">
-      <img src="media/wwwc.png" alt="OZGE Logo">
+      <img src="wwwc.png" alt="OZGE Logo">
     </div>
     <div class="nav-title">OZGE</div>
     <div class="nav-num">#34350</div>
@@ -621,7 +633,7 @@ nav {
 <!-- HERO -->
 <section id="hero">
     <div class="hero-tiger">
-      <img src="media/wwwc.png" alt="OZGE Tiger">
+      <img src="wwwc.png" alt="OZGE Tiger">
     </div>
     <h1 class="hero-h1">OZGE<br>OF THE ARENA.</h1>
     <p class="hero-sub">FTC TEAM <span>#34350</span> &nbsp;|&nbsp; ENGINEERING PRECISION.</p>
@@ -695,38 +707,67 @@ nav {
   </div>
 </section>
 
-<!-- TEAM -->
+<!-- WSK TEAM -->
+<section id="team">
+    <div class="team-inner">
+      <div class="section-tag">// UNIT_404</div>
+      <div class="section-title reveal">THE WSK<span style="color:var(--accent)">.</span></div>
+  
+      <div class="team-grid">
+        <div class="member-card reveal">
+          <div class="member-num">01</div>
+          <div class="member-photo">
+            <img src="nabi.jpg" alt="Nabi O."> </div>
+          <div class="member-name">NABI O.</div>
+          <div class="member-role">HEAD OF CAD</div>
+          <div class="skills-row">
+            <span class="skill-tag">🛠️ Fusion 360</span>
+            <span class="skill-tag">📐 3D Print</span>
+            <span class="skill-tag">⚙️ Mech Design</span>
+          </div>
+        </div>
+          
+        <div class="member-card reveal" style="transition-delay:0.1s">
+          <div class="member-num">02</div>
+          <div class="member-photo">
+            <img src="sultan.jpg" alt="Sultan S."> </div>
+          <div class="member-name">SULTAN S.</div>
+          <div class="member-role">MAIN WSK PROGRAMMER</div>
+          <div class="skills-row">
+            <span class="skill-tag">💻 Java</span>
+            <span class="skill-tag">🤖 Autonomous</span>
+            <span class="skill-tag">⚡ VMX</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- FTC TEAM -->
 <section id="team">
   <div class="team-inner">
     <div class="section-tag">// UNIT_02</div>
-    <div class="section-title reveal">THE PRIDE<span style="color:var(--accent)">.</span></div>
+    <div class="section-title reveal">THE FTC<span style="color:var(--accent)">.</span></div>
 
     <div class="team-grid">
       <div class="member-card reveal">
         <div class="member-num">01</div>
-        <div class="member-photo">🧠</div>
-        <div class="member-name">IAVN S.</div>
-        <div class="member-role">MAIN PROGRAMMER</div>
-        <div class="skills-row">
+        <div class="member-photo">
+          <img src="iavn.jpg" alt="Iavn S."> </div>
+        <div class="member-name">IVAN S.</div>
+        <div class="member-role">MAIN FTC PROGRAMMER</div>
+        <div class="skills-row">    
           <span class="skill-tag">💻 Java</span>
           <span class="skill-tag">🤖 Autonomous</span>
           <span class="skill-tag">⚡ RoadRunner</span>
         </div>
       </div>
-      <div class="member-card reveal" style="transition-delay:0.1s">
-        <div class="member-num">02</div>
-        <div class="member-photo">🔧</div>
-        <div class="member-name">NABI O.</div>
-        <div class="member-role">HEAD OF CAD</div>
-        <div class="skills-row">
-          <span class="skill-tag">🛠️ Fusion 360</span>
-          <span class="skill-tag">📐 3D Print</span>
-          <span class="skill-tag">⚙️ Mech Design</span>
-        </div>
-      </div>
+
       <div class="member-card reveal" style="transition-delay:0.2s">
-        <div class="member-num">03</div>
-        <div class="member-photo">🏗️</div>
+        <div class="member-num">02</div>
+        <div class="member-photo">
+          <img src="alisher.jpg" alt="Alisher J.">
+        </div>
         <div class="member-name">ALISHER J.</div>
         <div class="member-role">BUILD LEAD</div>
         <div class="skills-row">
@@ -735,9 +776,12 @@ nav {
           <span class="skill-tag">⚡ Wiring</span>
         </div>
       </div>
+
       <div class="member-card reveal" style="transition-delay:0.3s">
-        <div class="member-num">04</div>
-        <div class="member-photo">📣</div>
+        <div class="member-num">03</div>
+        <div class="member-photo">
+          <img src="timur.jpg" alt="Timur K.">
+        </div>
         <div class="member-name">TIMUR K.</div>
         <div class="member-role">CAPTAIN / OUTREACH</div>
         <div class="skills-row">
@@ -746,9 +790,12 @@ nav {
           <span class="skill-tag">🤝 Scouting</span>
         </div>
       </div>
+
       <div class="member-card reveal" style="transition-delay:0.4s">
-        <div class="member-num">05</div>
-        <div class="member-photo">📝</div>
+        <div class="member-num">04</div>
+        <div class="member-photo">
+          <img src="malika.jpg" alt="Malika B.">
+        </div>
         <div class="member-name">MALIKA B.</div>
         <div class="member-role">DOCUMENTATION</div>
         <div class="skills-row">
@@ -757,19 +804,9 @@ nav {
           <span class="skill-tag">✍️ Writing</span>
         </div>
       </div>
-      <!-- <div class="member-card reveal" style="transition-delay:0.5s;border-style:dashed;opacity:0.5;">
-        <div class="member-num">??</div>
-        <div class="member-photo">➕</div>
-        <div class="member-name">YOUR NAME</div>
-        <div class="member-role">YOUR ROLE</div>
-        <div class="skills-row">
-          <span class="skill-tag">Добавьте участника</span>
-        </div>
-      </div>
     </div>
-  </div> -->
+  </div>
 </section>
-
 <!-- PORTFOLIO -->
 <section id="portfolio">
   <div class="portfolio-inner">
