@@ -243,6 +243,253 @@
     footer { padding: 60px 24px 30px; }
   }
 </style>
+  <style id="aitym-css-snippet">
+/* ═══════════════════════════════════
+   PARTNER AITYM SECTION
+═══════════════════════════════════ */
+#partner-aitym {
+  padding: 120px 48px;
+  background: linear-gradient(180deg, transparent, #100a05 40%, transparent);
+  position: relative; z-index: 1;
+}
+.aitym-inner { max-width: 1200px; margin: 0 auto; }
+
+.aitym-card {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 0;
+  border: 1px solid #2a2a2a;
+  background: #111;
+  position: relative; overflow: hidden;
+}
+.aitym-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent2), #ffaa00, transparent);
+  box-shadow: 0 0 20px #FF6B0066;
+}
+
+/* ── LEFT PANEL ── */
+.aitym-left {
+  background: linear-gradient(160deg, #1f0d00 0%, #150a00 60%, #0d0d0d 100%);
+  border-right: 1px solid #2a2a2a;
+  padding: 48px 36px;
+  display: flex; flex-direction: column; align-items: center;
+  position: relative; overflow: hidden; text-align: center;
+}
+.aitym-left::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(255,107,0,.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.aitym-avatar-wrap { position: relative; margin-bottom: 28px; }
+.aitym-avatar {
+  width: 130px; height: 130px;
+  border-radius: 50%;
+  border: 1px solid #3a2010;
+  overflow: hidden;
+  position: relative; z-index: 1;
+  background: #1a1a1a;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 52px;
+}
+.aitym-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+
+.aitym-avatar-ring {
+  position: absolute; inset: -6px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  background: conic-gradient(
+    var(--accent2) 0deg, transparent 80deg,
+    #ffaa00 180deg, transparent 260deg,
+    var(--accent2) 360deg
+  ) border-box;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  animation: ring-spin 6s linear infinite;
+  z-index: 0;
+}
+
+.aitym-badge {
+  position: absolute; bottom: -4px; left: 50%; transform: translateX(-50%);
+  background: var(--accent2); color: #0D0D0D;
+  font-family: "Share Tech Mono", monospace;
+  font-size: 9px; letter-spacing: 2px;
+  padding: 3px 12px; white-space: nowrap; z-index: 2;
+}
+
+.aitym-name {
+  font-family: "Orbitron", monospace;
+  font-size: 15px; font-weight: 900; letter-spacing: 2px;
+  color: #fff; margin-bottom: 4px; line-height: 1.3;
+}
+.aitym-title {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 10px; letter-spacing: 3px; color: var(--accent2);
+  margin-bottom: 28px;
+}
+
+/* stat counters row */
+.aitym-counters {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px; width: 100%; margin-bottom: 24px;
+}
+.aitym-counter {
+  background: rgba(255,107,0,.05);
+  border: 1px solid rgba(255,107,0,.15);
+  padding: 12px 8px; text-align: center;
+}
+.aitym-counter-num {
+  font-family: "Orbitron", monospace;
+  font-size: 18px; font-weight: 900; color: var(--accent2);
+  line-height: 1; display: block;
+}
+.aitym-counter-label {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 8px; letter-spacing: 1px; color: #555;
+  margin-top: 4px; display: block; line-height: 1.3;
+}
+
+.aitym-meta { width: 100%; display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+.aitym-meta-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  background: rgba(255,107,0,.03);
+  border: 1px solid #221505; padding: 10px 14px; text-align: left;
+}
+.aitym-meta-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+.aitym-meta-text {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 10px; color: #888; letter-spacing: 1px; line-height: 1.5;
+}
+.aitym-meta-text strong { color: #ccc; display: block; letter-spacing: 2px; font-size: 9px; margin-bottom: 2px; }
+
+.aitym-tags-title {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 9px; letter-spacing: 4px; color: #444;
+  margin-bottom: 10px; width: 100%; text-align: left;
+}
+.aitym-tags { display: flex; flex-wrap: wrap; gap: 7px; width: 100%; }
+.aitym-tag {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 9px; letter-spacing: 1px;
+  padding: 5px 11px;
+  border: 1px solid rgba(255,107,0,.2); color: #775533;
+  transition: all .25s;
+}
+.aitym-tag:hover { border-color: var(--accent2); color: var(--accent2); }
+.aitym-tag.fire { border-color: rgba(255,107,0,.4); color: #cc6622; }
+
+.aitym-instagram {
+  margin-top: 20px; width: 100%;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 11px 16px;
+  border: 1px solid rgba(255,107,0,.25);
+  text-decoration: none;
+  font-family: "Share Tech Mono", monospace;
+  font-size: 10px; letter-spacing: 2px; color: #774422;
+  transition: all .25s; background: rgba(255,107,0,.03);
+}
+.aitym-instagram:hover {
+  border-color: var(--accent2); color: var(--accent2);
+  box-shadow: 0 0 16px rgba(255,107,0,.2);
+  background: rgba(255,107,0,.06);
+}
+
+/* ── RIGHT PANEL ── */
+.aitym-right {
+  padding: 48px 44px;
+  display: flex; flex-direction: column; gap: 32px;
+}
+
+.aitym-bio-label {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 9px; letter-spacing: 4px; color: var(--accent2);
+  opacity: .8; margin-bottom: 12px;
+  display: flex; align-items: center; gap: 12px;
+}
+.aitym-bio-label::after { content: ""; flex: 1; height: 1px; background: #221505; }
+
+.aitym-bio-text {
+  font-family: "Rajdhani", sans-serif;
+  font-size: 16px; line-height: 1.8; color: #999;
+}
+.aitym-bio-text strong { color: var(--text); }
+.aitym-bio-text em { color: var(--accent2); font-style: normal; }
+
+/* JANA MEN highlight strip */
+.janamen-strip {
+  display: flex; align-items: center; gap: 20px;
+  background: linear-gradient(90deg, rgba(255,107,0,.07), transparent);
+  border: 1px solid rgba(255,107,0,.2);
+  border-left: 3px solid var(--accent2);
+  padding: 18px 24px;
+}
+.jm-icon { font-size: 28px; flex-shrink: 0; }
+.jm-text { flex: 1; }
+.jm-label {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 9px; letter-spacing: 3px; color: var(--accent2); margin-bottom: 4px;
+}
+.jm-title {
+  font-family: "Orbitron", monospace;
+  font-size: 13px; font-weight: 700; letter-spacing: 1px; color: #fff;
+}
+.jm-sub {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 10px; color: #666; letter-spacing: 1px; margin-top: 3px;
+}
+
+/* milestones timeline */
+.aitym-timeline { display: flex; flex-direction: column; gap: 0; }
+.aitym-milestone {
+  display: grid; grid-template-columns: 80px 1fr;
+  gap: 0; border-bottom: 1px solid #1a1a1a; padding: 12px 0;
+  transition: background .2s;
+}
+.aitym-milestone:last-child { border-bottom: none; }
+.aitym-milestone:hover { background: rgba(255,107,0,.03); }
+.aitym-ms-year {
+  font-family: "Orbitron", monospace;
+  font-size: 11px; font-weight: 700; color: var(--accent2);
+  padding-top: 2px;
+}
+.aitym-ms-content {}
+.aitym-ms-title {
+  font-family: "Orbitron", monospace;
+  font-size: 11px; font-weight: 700; letter-spacing: 1px; color: #ccc;
+  margin-bottom: 2px;
+}
+.aitym-ms-desc {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 9px; color: #555; letter-spacing: 1px; line-height: 1.5;
+}
+
+/* quote block */
+.aitym-quote {
+  border-left: 2px solid var(--accent2);
+  padding: 16px 20px;
+  background: rgba(255,107,0,.04);
+  font-family: "Rajdhani", sans-serif;
+  font-size: 15px; line-height: 1.7; color: #888; font-style: italic;
+}
+.aitym-quote cite {
+  display: block; margin-top: 8px;
+  font-family: "Share Tech Mono", monospace;
+  font-size: 9px; letter-spacing: 3px; color: var(--accent2); font-style: normal;
+}
+
+@media (max-width: 900px) {
+  .aitym-card { grid-template-columns: 1fr; }
+  .aitym-left { border-right: none; border-bottom: 1px solid #2a2a2a; }
+  #partner-aitym { padding: 80px 24px; }
+  .aitym-right { padding: 32px 28px; }
+}
+</style>
+
+
 </head>
 <body>
 
@@ -492,6 +739,164 @@
   </div>
 </section>
 
+  <section id="partner-aitym">
+  <div class="aitym-inner">
+    <div class="section-tag">// PARTNER · AMBASSADOR</div>
+    <div class="section-title reveal">THE IRON WILL<span style="color:var(--accent2)">.</span></div>
+
+    <div class="aitym-card reveal">
+
+      <!-- LEFT PANEL -->
+      <div class="aitym-left">
+        <div class="aitym-avatar-wrap">
+          <div class="aitym-avatar-ring"></div>
+          <div class="aitym-avatar">
+            <img src="media/partner/Aitym.png" alt="Айтым Жакупов">
+          </div>
+          <div class="aitym-badge">PARTNER</div>
+        </div>
+
+        <div class="aitym-name">АЙТЫМ<br>ЖАКУПОВ</div>
+        <div class="aitym-title">FOUNDER · BAR BARS · JANA MEN</div>
+
+        <!-- stat counters -->
+        <div class="aitym-counters">
+          <div class="aitym-counter">
+            <span class="aitym-counter-num">75+</span>
+            <span class="aitym-counter-label">СТРАН НА ЧМ</span>
+          </div>
+          <div class="aitym-counter">
+            <span class="aitym-counter-num">12+</span>
+            <span class="aitym-counter-label">ЛЕТ В ДВИЖЕНИИ</span>
+          </div>
+          <div class="aitym-counter">
+            <span class="aitym-counter-num">1</span>
+            <span class="aitym-counter-label">РЕКОРД ГИННЕССА</span>
+          </div>
+        </div>
+
+        <div class="aitym-meta">
+          <div class="aitym-meta-item">
+            <div class="aitym-meta-icon">🏙️</div>
+            <div class="aitym-meta-text">
+              <strong>БАЗИРОВАНИЕ</strong>
+              Казахстан, г. Астана
+            </div>
+          </div>
+          <div class="aitym-meta-item">
+            <div class="aitym-meta-icon">🌍</div>
+            <div class="aitym-meta-text">
+              <strong>СТАТУС</strong>
+              Основатель Street Workout KZ<br>Амбассадор ЗОЖ
+            </div>
+          </div>
+          <div class="aitym-meta-item">
+            <div class="aitym-meta-icon">🏆</div>
+            <div class="aitym-meta-text">
+              <strong>ПРИЗНАНИЕ</strong>
+              «100 новых лиц Казахстана» 2017
+            </div>
+          </div>
+        </div>
+
+        <div class="aitym-tags-title">// СФЕРЫ</div>
+        <div class="aitym-tags">
+          <span class="aitym-tag fire">💪 Street Workout</span>
+          <span class="aitym-tag fire">🔥 Bar Bars</span>
+          <span class="aitym-tag">🧠 Менторство</span>
+          <span class="aitym-tag">🎖️ Спецподразделения</span>
+          <span class="aitym-tag">📺 Медиа</span>
+          <span class="aitym-tag fire">🇰🇿 JANA MEN</span>
+          <span class="aitym-tag">🏗️ Инфраструктура</span>
+        </div>
+
+        <a href="https://www.instagram.com/aitymzhakupov/" target="_blank" class="aitym-instagram">
+          ▶ @AITYMZHAKUPOV
+        </a>
+      </div>
+
+      <!-- RIGHT PANEL -->
+      <div class="aitym-right">
+
+        <!-- BIO -->
+        <div>
+          <div class="aitym-bio-label">// BIOGRAPHY</div>
+          <p class="aitym-bio-text">
+            <strong>Айтым Жакупов</strong> — основатель движения <em>Street Workout</em> в Казахстане
+            и создатель профессиональной команды <em>Bar Bars</em>. Человек, который превратил
+            дворовые турники в мощное социальное движение и вывел Казахстан на мировую арену воркаута.
+            <br><br>
+            В <strong>2014 году</strong> провёл в Астане Чемпионат мира по Street Workout,
+            собрав атлетов из <strong>75+ стран</strong> и официально закрепив за Казахстаном
+            статус <em>«столицы воркаута»</em>. В 2022 году организовал <strong>Tartyl Fest</strong> —
+            фестиваль, в рамках которого был установлен рекорд Книги Гиннесса по массовым подтягиваниям.
+          </p>
+        </div>
+
+        <!-- JANA MEN strip -->
+        <div class="janamen-strip">
+          <div class="jm-icon">🔥</div>
+          <div class="jm-text">
+            <div class="jm-label">// ПРОЕКТ</div>
+            <div class="jm-title">JANA MEN — «НОВЫЙ Я»</div>
+            <div class="jm-sub">Трансформационная мужская экосистема · Дисциплина · Братство · Результат</div>
+          </div>
+          <div style="font-size:24px;flex-shrink:0;">🇰🇿</div>
+        </div>
+
+        <!-- MILESTONES -->
+        <div>
+          <div class="aitym-bio-label">// KEY MILESTONES</div>
+          <div class="aitym-timeline">
+            <div class="aitym-milestone">
+              <div class="aitym-ms-year">2012</div>
+              <div class="aitym-ms-content">
+                <div class="aitym-ms-title">ОСНОВАНИЕ ДВИЖЕНИЯ</div>
+                <div class="aitym-ms-desc">Запуск Street Workout в Казахстане · Создание Bar Bars</div>
+              </div>
+            </div>
+            <div class="aitym-milestone">
+              <div class="aitym-ms-year">2014</div>
+              <div class="aitym-ms-content">
+                <div class="aitym-ms-title">ЧЕМПИОНАТ МИРА · АСТАНА</div>
+                <div class="aitym-ms-desc">75+ стран · Казахстан — мировая столица воркаута</div>
+              </div>
+            </div>
+            <div class="aitym-milestone">
+              <div class="aitym-ms-year">2017</div>
+              <div class="aitym-ms-content">
+                <div class="aitym-ms-title">100 НОВЫХ ЛИЦ КАЗАХСТАНА</div>
+                <div class="aitym-ms-desc">Государственное признание вклада в развитие спорта</div>
+              </div>
+            </div>
+            <div class="aitym-milestone">
+              <div class="aitym-ms-year">2022</div>
+              <div class="aitym-ms-content">
+                <div class="aitym-ms-title">TARTYL FEST · РЕКОРД ГИННЕССА</div>
+                <div class="aitym-ms-desc">Массовые подтягивания в разных городах КЗ · Мировой рекорд</div>
+              </div>
+            </div>
+            <div class="aitym-milestone">
+              <div class="aitym-ms-year">NOW</div>
+              <div class="aitym-ms-content">
+                <div class="aitym-ms-title">JANA MEN · ПАРТНЁР OZGE</div>
+                <div class="aitym-ms-desc">Платформа мужской трансформации · Поддержка STEM-молодёжи</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- QUOTE -->
+        <div class="aitym-quote">
+          «Моя задача — чтобы каждый ребёнок в Казахстане, выходя из подъезда,<br>видел не сигарету, а турник.»
+          <cite>— АЙТЫМ ЖАКУПОВ</cite>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+  
 <section id="portfolio">
   <div class="portfolio-inner">
     <div class="section-tag">// UNIT_04</div>
