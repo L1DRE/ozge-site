@@ -143,6 +143,20 @@
   .sponsor-name{font-family:"Share Tech Mono",monospace;font-size:11px;letter-spacing:3px;color:var(--text2);transition:color .3s;font-weight:600}
   .sponsor-logo-btn:hover .sponsor-name{color:#eee}
   .sponsors-row { display: flex; align-items: center; flex-wrap: wrap; gap: 15px; }
+  .sponsor-photo {
+  width: 66px;   /* Ширина как у вашего SVG */
+  height: 38px;  /* Высота как у вашего SVG */
+  object-fit: cover; /* Фото заполнит область без искажений */
+  border-radius: 4px; /* Опционально: скругление углов */
+  vertical-align: middle;
+}
+
+.sponsor-logo-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Расстояние между фото и текстом */
+  text-decoration: none;
+}
   .footer-bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; }
   .footer-logo { font-family: "Orbitron", monospace; font-size: 12px; font-weight: 700; letter-spacing: 4px; color: var(--accent); }
   .social-row { display: flex; gap: 20px; }
