@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ivan S. · OZGE #34350</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M9.83824 18.4467C10.0103 18.7692 10.1826 19.0598 10.3473 19.3173C8.59745 18.9238 7.07906 17.9187 6.02838 16.5383C6.72181 16.1478 7.60995 15.743 8.67766 15.4468C8.98112 16.637 9.40924 17.6423 9.83824 18.4467ZM11.1618 17.7408C10.7891 17.0421 10.4156 16.1695 10.1465 15.1356C10.7258 15.0496 11.3442 15 12.0001 15C12.6559 15 13.2743 15.0496 13.8535 15.1355C13.5844 16.1695 13.2109 17.0421 12.8382 17.7408C12.5394 18.3011 12.2417 18.7484 12 19.0757C11.7583 18.7484 11.4606 18.3011 11.1618 17.7408ZM9.75 12C9.75 12.5841 9.7893 13.1385 9.8586 13.6619C10.5269 13.5594 11.2414 13.5 12.0001 13.5C12.7587 13.5 13.4732 13.5593 14.1414 13.6619C14.2107 13.1384 14.25 12.5841 14.25 12C14.25 11.4159 14.2107 10.8616 14.1414 10.3381C13.4732 10.4406 12.7587 10.5 12.0001 10.5C11.2414 10.5 10.5269 10.4406 9.8586 10.3381C9.7893 10.8615 9.75 11.4159 9.75 12ZM8.38688 10.0288C8.29977 10.6478 8.25 11.3054 8.25 12C8.25 12.6946 8.29977 13.3522 8.38688 13.9712C7.11338 14.3131 6.05882 14.7952 5.24324 15.2591C4.76698 14.2736 4.5 13.168 4.5 12C4.5 10.832 4.76698 9.72644 5.24323 8.74088C6.05872 9.20472 7.1133 9.68686 8.38688 10.0288ZM10.1465 8.86445C10.7258 8.95042 11.3442 9 12.0001 9C12.6559 9 13.2743 8.95043 13.8535 8.86447C13.5844 7.83055 13.2109 6.95793 12.8382 6.2592C12.5394 5.69894 12.2417 5.25156 12 4.92432C11.7583 5.25156 11.4606 5.69894 11.1618 6.25918C10.7891 6.95791 10.4156 7.83053 10.1465 8.86445ZM15.6131 10.0289C15.7002 10.6479 15.75 11.3055 15.75 12C15.75 12.6946 15.7002 13.3521 15.6131 13.9711C16.8866 14.3131 17.9412 14.7952 18.7568 15.2591C19.233 14.2735 19.5 13.1679 19.5 12C19.5 10.8321 19.233 9.72647 18.7568 8.74093C17.9413 9.20477 16.8867 9.6869 15.6131 10.0289ZM17.9716 7.46178C17.2781 7.85231 16.39 8.25705 15.3224 8.55328C15.0189 7.36304 14.5908 6.35769 14.1618 5.55332C13.9897 5.23077 13.8174 4.94025 13.6527 4.6827C15.4026 5.07623 16.921 6.08136 17.9716 7.46178ZM8.67765 8.55325C7.61001 8.25701 6.7219 7.85227 6.02839 7.46173C7.07906 6.08134 8.59745 5.07623 10.3472 4.6827C10.1826 4.94025 10.0103 5.23076 9.83823 5.5533C9.40924 6.35767 8.98112 7.36301 8.67765 8.55325ZM15.3224 15.4467C15.0189 16.637 14.5908 17.6423 14.1618 18.4467C13.9897 18.7692 13.8174 19.0598 13.6527 19.3173C15.4026 18.9238 16.921 17.9186 17.9717 16.5382C17.2782 16.1477 16.3901 15.743 15.3224 15.4467ZM12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z' fill='%2300F0FF'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Share+Tech+Mono&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0D0D0D; --bg2:#161616; --bg3:#202020; --bg4:#2a2a2a;
+  --text:#E8E8E8; --text2:#b0b0b0;
+  --accent:#00F0FF; --hot:#FF6B00; --green:#00ff88;
+  --border:#3a3a3a; --border2:#2e2e2e;
+  --glow:0 0 24px #00F0FF55,0 0 60px #00F0FF1a;
+  --glow-hot:0 0 20px #FF6B0055;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'Rajdhani',sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 20px;overflow-x:hidden;cursor:none;-webkit-font-smoothing:antialiased}
+@media(pointer:fine){
+  .cursor{width:16px;height:16px;border:2px solid var(--accent);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .15s,border-color .2s,width .2s,height .2s;box-shadow:var(--glow)}
+  .cursor-dot{width:4px;height:4px;background:var(--accent);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+  .cursor.hover{width:36px;height:36px;border-color:var(--hot);background:rgba(255,107,0,.07)}
+}
+#grid-canvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:.4}
+.card-wrap{position:relative;z-index:1;width:100%;max-width:430px;animation:card-in 1s cubic-bezier(.16,1,.3,1) both}
+@keyframes card-in{from{opacity:0;transform:translateY(40px) scale(.97)}to{opacity:1;transform:none}}
+.card{background:var(--bg2);border:1px solid var(--border);position:relative;overflow:hidden;box-shadow:0 0 80px rgba(0,0,0,.7),0 0 0 1px #1a1a1a}
+.cm{position:absolute;width:20px;height:20px;border-color:var(--accent);border-style:solid;z-index:2;opacity:.9;pointer-events:none}
+.cm.tl{top:0;left:0;border-width:2px 0 0 2px}.cm.tr{top:0;right:0;border-width:2px 2px 0 0}
+.cm.bl{bottom:0;left:0;border-width:0 0 2px 2px}.cm.br{bottom:0;right:0;border-width:0 2px 2px 0}
+.scan{position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent) 50%,transparent);opacity:.6;animation:scan 3s linear infinite;z-index:1;pointer-events:none}
+@keyframes scan{0%{top:-2px}100%{top:100%}}
+/* HEADER */
+.card-header{background:linear-gradient(135deg,#0f2223 0%,#0d1b25 55%,#111 100%);padding:28px 28px 24px;border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+.card-header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 130%,#00F0FF16,transparent 60%)}
+.header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;position:relative;z-index:1}
+.team-badge{display:flex;align-items:center;gap:10px;font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--accent)}
+.team-logo{display:flex;align-items:center;filter:drop-shadow(0 0 6px #F5871266);flex-shrink:0}
+.member-idx{font-family:'Orbitron',monospace;font-size:42px;font-weight:900;color:#303030;line-height:1}
+.avatar-row{display:flex;align-items:flex-end;gap:20px;position:relative;z-index:1}
+.avatar-wrap{position:relative;flex-shrink:0}
+.avatar{width:88px;height:88px;border-radius:50%;background:var(--bg4);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:38px;position:relative;overflow:hidden}
+.avatar-img{width:100%;height:100%;object-fit:cover;display:block}
+.avatar-ring{position:absolute;inset:-5px;border-radius:50%;border:1px solid transparent;background:conic-gradient(var(--accent) 0deg,transparent 120deg,var(--hot) 240deg,transparent 360deg) border-box;-webkit-mask:linear-gradient(#fff 0 0) padding-box,linear-gradient(#fff 0 0);mask:linear-gradient(#fff 0 0) padding-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:ring-spin 6s linear infinite}
+@keyframes ring-spin{to{transform:rotate(360deg)}}
+.status-dot{position:absolute;bottom:4px;right:4px;width:14px;height:14px;border-radius:50%;background:var(--green);border:2px solid var(--bg2);box-shadow:0 0 12px #00ff88cc;animation:pdot 2s ease-in-out infinite}
+@keyframes pdot{0%,100%{box-shadow:0 0 8px #00ff88aa}50%{box-shadow:0 0 22px #00ff88ee}}
+.name-block{flex:1;padding-bottom:4px}
+.member-name{font-family:'Orbitron',monospace;font-size:20px;font-weight:900;letter-spacing:3px;line-height:1.2;margin-bottom:6px;color:#fff}
+.member-role{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:3px;color:var(--accent);margin-bottom:10px}
+.member-status{display:inline-flex;align-items:center;gap:7px;font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--text2);padding:5px 14px;border:1px solid var(--border);background:var(--bg3)}
+.status-green{color:var(--green);text-shadow:0 0 8px #00ff88bb}
+/* BODY */
+.card-body{padding:22px 28px}
+.section-label{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:4px;color:var(--accent);margin-bottom:12px;display:flex;align-items:center;gap:12px;opacity:.85}
+.section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+/* SKILLS */
+.skills-wrap{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.skill-tag{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:1.5px;padding:7px 14px;border:1px solid var(--border);color:var(--text2);background:var(--bg3);transition:color .25s,border-color .25s,box-shadow .25s,background .25s;cursor:default}
+.skill-tag:hover{color:var(--accent);border-color:rgba(0,240,255,.6);box-shadow:0 0 16px #00F0FF1e;background:rgba(0,240,255,.05)}
+.skill-tag.hot-skill{border-color:rgba(255,107,0,.4);color:#cc8844}
+.skill-tag.hot-skill:hover{color:var(--hot);border-color:rgba(255,107,0,.7);box-shadow:var(--glow-hot);background:rgba(255,107,0,.06)}
+/* LINKS */
+.links-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:22px}
+.link-btn{display:flex;align-items:center;gap:10px;padding:13px 14px;border:1px solid var(--border);background:var(--bg3);font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--text2);text-decoration:none;transition:color .25s,border-color .25s,box-shadow .25s,transform .2s,background .25s;position:relative;overflow:hidden;cursor:none}
+.link-btn::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--accent);transform:scaleY(0);transform-origin:bottom;transition:transform .3s}
+.link-btn:hover{color:var(--accent);border-color:rgba(0,240,255,.55);box-shadow:4px 0 24px #00F0FF16,inset 0 0 20px #00F0FF07;background:rgba(0,240,255,.05);transform:translateX(3px)}
+.link-btn:hover::before{transform:scaleY(1)}
+.link-btn .icon{font-size:16px;flex-shrink:0;display:flex;align-items:center;color:var(--text2);transition:color .25s}
+.link-btn:hover .icon{color:var(--accent)}
+.link-btn .lbl{line-height:1.2;font-weight:600}
+.link-btn .sub{font-size:9px;color:#666;letter-spacing:1px;display:block;margin-top:2px;font-weight:400;transition:color .25s}
+.link-btn:hover .sub{color:#999}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border) 30%,var(--border) 70%,transparent);margin:18px 0}
+/* TEAM SOCIALS */
+.team-socials{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.team-soc-btn{flex:1;min-width:calc(33% - 6px);display:flex;flex-direction:column;align-items:center;gap:7px;padding:16px 8px 13px;border:1px solid var(--border);background:var(--bg3);font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--text2);text-decoration:none;transition:color .25s,border-color .25s,box-shadow .25s,transform .25s,background .25s;cursor:none}
+.team-soc-btn:hover{transform:translateY(-5px)}
+.team-soc-btn.ig:hover{color:#e1306c;border-color:rgba(225,48,108,.65);box-shadow:0 8px 28px rgba(225,48,108,.2);background:rgba(225,48,108,.05)}
+.team-soc-btn.site:hover{color:var(--accent);border-color:rgba(0,240,255,.55);box-shadow:0 8px 28px rgba(0,240,255,.15);background:rgba(0,240,255,.05)}
+.team-soc-btn.gh:hover{color:#f0f0f0;border-color:rgba(255,255,255,.45);box-shadow:0 8px 28px rgba(255,255,255,.1);background:rgba(255,255,255,.04)}
+.team-soc-btn .soc-icon{line-height:1;display:flex;align-items:center;justify-content:center}
+/* SPONSORS */
+.sponsors-wrap{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.sponsor-logo-btn{display:flex;align-items:center;gap:12px;border:1px solid var(--border);background:var(--bg3);padding:11px 20px 11px 14px;text-decoration:none;transition:border-color .3s,box-shadow .3s,transform .25s,background .3s;cursor:none;position:relative;overflow:hidden}
+.sponsor-logo-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(245,135,18,.1),transparent 60%);opacity:0;transition:opacity .3s}
+.sponsor-logo-btn:hover{border-color:rgba(245,135,18,.65);box-shadow:0 0 30px rgba(245,135,18,.2);transform:translateY(-2px);background:rgba(245,135,18,.04)}
+.sponsor-logo-btn:hover::before{opacity:1}
+.sponsor-logo-btn:hover svg{filter:drop-shadow(0 0 6px #F5871266)}
+.sponsor-name{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:3px;color:var(--text2);transition:color .3s;font-weight:600}
+.sponsor-logo-btn:hover .sponsor-name{color:#eee}
+/* FOOTER */
+.card-footer{background:#111;border-top:1px solid var(--border);padding:16px 28px;display:flex;align-items:center;justify-content:space-between}
+.season-badge{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:3px;color:#555}
+.score-badge{font-family:'Orbitron',monospace;font-size:11px;font-weight:700;letter-spacing:2px;color:var(--hot);text-shadow:var(--glow-hot)}
+.card-tag-bottom{text-align:center;margin-top:10px;font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:3px;color:#333}
+</style>
+</head>
+<body>
+<div class="cursor" id="cur" aria-hidden="true"></div>
+<div class="cursor-dot" id="curdot" aria-hidden="true"></div>
+<canvas id="grid-canvas" aria-hidden="true"></canvas>
+<div class="card-wrap">
+  <div class="card">
+    <div class="cm tl"></div><div class="cm tr"></div>
+    <div class="cm bl"></div><div class="cm br"></div>
+    <div class="scan" aria-hidden="true"></div>
+    <div class="card-header">
+      <div class="header-top">
+        <div class="team-badge">
+          <div class="team-logo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="68" height="40" viewBox="0 0 101 59" fill="none">
+              <path d="M73.5474 30.9104H68.0604L68.6364 25.6013H62.7609L59.7843 30.9104H54.1231C56.0065 27.9665 65.8232 10.7147 68.1944 7.06201H75.7283L73.5474 30.9104ZM33.7154 30.9104H28.2257L28.8044 25.6013H22.9261L19.9468 30.9104H14.291C16.1718 27.9665 25.9912 10.7147 28.3623 7.06201H35.8963L33.7154 30.9104ZM7.68402 31.2342C6.36048 31.2342 5.09589 31.0643 4.26801 30.8546L5.68532 26.7454C6.30422 26.8781 6.80792 26.91 7.41878 26.91C9.09062 26.91 9.65325 26.2118 10.3713 24.1254L16.2843 7.05935H21.833L15.9762 23.9316C14.2964 28.7735 12.7103 31.2342 7.68402 31.2342ZM54.5383 3.38281L51.902 6.67975H48.703L49.7077 3.38281H9.5059L0 32.3544H34.8299L42.1174 9.01574H49.1879L50.4338 22.9972L55.7306 5.35248H62.225L53.188 28.6328H46.9052L45.4906 14.6726L38.8568 32.3571H78.6942L86.1237 25.1102L88.3582 32.3571H90.8687L100.375 3.38547H54.5383V3.38281Z" fill="#F58712"/>
+              <path d="M21.828 7.0625L15.9712 23.9347C14.294 28.7766 12.7079 31.2374 7.68164 31.2374C6.3581 31.2374 5.09351 31.0702 4.26562 30.8578L5.68562 26.7486C6.30452 26.8813 6.80821 26.9131 7.41908 26.9131C9.08823 26.9131 9.65355 26.215 10.3689 24.1285L16.282 7.0625H21.828Z" fill="white"/>
+              <path d="M29.4106 21.1873H25.2873C27.4387 17.2851 29.424 13.5343 30.627 11.0709H30.7449C30.3564 13.4068 29.8661 17.2878 29.4106 21.1873ZM28.3604 7.0625C25.9892 10.7178 16.1699 27.9697 14.2891 30.9109H19.9449L22.9242 25.6018H28.8024L28.2237 30.9109H33.7135L35.8917 7.0625H28.3604Z" fill="white"/>
+              <path d="M30.744 11.0703C30.3582 13.4063 29.8652 17.2872 29.4124 21.1868H25.2891C27.4405 17.2846 29.4258 13.5337 30.6288 11.0703H30.744Z" fill="#F58712"/>
+              <path d="M62.2226 5.35156L53.1856 28.6319H46.9055L45.4882 14.6717L38.8571 32.3535L38.7981 32.5128H34.7793L34.8275 32.3535L42.115 9.01482H49.1882L50.4313 22.9963L55.7282 5.35156H62.2226Z" fill="white"/>
+              <path d="M69.2466 21.1873H65.1232C67.2773 17.2851 69.26 13.5343 70.4656 11.0709H70.5835C70.1977 13.4068 69.702 17.2878 69.2466 21.1873ZM68.1963 7.0625C65.8252 10.7178 56.0085 27.9697 54.125 30.9109H59.7835L62.7602 25.6018H68.6384L68.0623 30.9109H73.5494L75.7276 7.0625H68.1963Z" fill="white"/>
+              <path d="M70.5853 11.0703C70.1995 13.4063 69.7038 17.2872 69.2483 21.1868H65.125C67.2791 17.2846 69.2617 13.5337 70.4674 11.0703H70.5853Z" fill="#F58712"/>
+              <path d="M57.2479 0L54.5392 3.38454L51.9029 6.68148H48.7012L49.7086 3.38454L50.7427 0H57.2479Z" fill="white"/>
+              <path d="M63.9274 36.7548L65.4974 32.3536H52.5835L44.1922 56.2471H57.7142L59.3914 51.8698H51.1528L53.1756 46.0643H60.3158L61.859 41.6631H54.7188L56.4389 36.7522H63.9274V36.7548ZM41.9872 32.3563L34.4264 39.7253L32.1544 32.3563H24.7731L16.4648 56.3666H21.4455L27.8141 36.8504L30.6728 46.0378H34.7934L43.667 36.8796L36.6662 56.3666H41.9818L50.2928 32.3563H41.9872ZM86.1274 25.1094L78.6979 32.3563H81.5433L74.9042 50.4682L73.9664 34.7931H67.681L58.2152 58.9999H64.715L70.4379 40.4314L71.2068 56.125H78.2746L85.6452 32.3563H88.3619L86.1274 25.1094Z" fill="#888"/>
+            </svg>
+          </div>
+          #34350
+        </div>
+        <div class="member-idx">01</div>
+      </div>
+      <div class="avatar-row">
+        <div class="avatar-wrap">
+          <div class="avatar">
+            <img src="media/FTC/ivan.jfif" alt="Avatar" class="avatar-img">
+          </div>
+          <div class="avatar-ring" aria-hidden="true"></div>
+          <div class="status-dot" title="Активен"></div>
+        </div>
+        <div class="name-block">
+          <h1 class="member-name">IVAN S.</h1>
+          <p class="member-role">MAIN FTC PROGRAMMER</p>
+          <div class="member-status"><span class="status-green">●</span> ACTIVE MEMBER</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="section-label">// SKILLS</p>
+      <div class="skills-wrap">
+        <span class="skill-tag">💻 JAVA</span>
+        <span class="skill-tag">🤖 AUTONOMOUS</span>
+        <span class="skill-tag">⚡ PEDROPATHING</span>
+        <span class="skill-tag hot-skill">🔥 VISION</span>
+        <span class="skill-tag">🧠 PID CONTROL</span>
+        <span class="skill-tag hot-skill">⚙️ FTCLIB</span>
+      </div>
+      <p class="section-label">// PERSONAL LINKS</p>
+      <div class="links-grid">
+        <a href="https://github.com/L1DRE" class="link-btn">
+          <span class="icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg></span>
+          <span class="lbl">GITHUB<span class="sub">@L1DRE</span></span>
+        </a>
+        <a href="https://instagram.com/gostnamelw" class="link-btn">
+          <span class="icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></span>
+          <span class="lbl">INSTAGRAM<span class="sub">gostnamelw</span></span>
+        </a>
+        <a href="mailto:namiaclclv@gmail.com" class="link-btn">
+          <span class="icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></span>
+          <span class="lbl">EMAIL<span class="sub">namiaclclv@gmail</span></span>
+        </a>
+        <a href="https://t.me/YotoAmanoT" class="link-btn">
+          <span class="icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></span>
+          <span class="lbl">TELEGRAM<span class="sub">@YotoAmanoT</span></span>
+        </a>
+      </div>
+      <div class="divider"></div>
+      <p class="section-label">// TEAM SOCIALS</p>
+      <div class="team-socials">
+        <a href="https://instagram.com/ozge.ftc" class="team-soc-btn ig">
+          <span class="soc-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></span>
+          INSTAGRAM
+        </a>
+        <a href="https://l1dre.github.io/ozge-site/" class="team-soc-btn site">
+          <span class="soc-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.83824 18.4467C10.0103 18.7692 10.1826 19.0598 10.3473 19.3173C8.59745 18.9238 7.07906 17.9187 6.02838 16.5383C6.72181 16.1478 7.60995 15.743 8.67766 15.4468C8.98112 16.637 9.40924 17.6423 9.83824 18.4467ZM11.1618 17.7408C10.7891 17.0421 10.4156 16.1695 10.1465 15.1356C10.7258 15.0496 11.3442 15 12.0001 15C12.6559 15 13.2743 15.0496 13.8535 15.1355C13.5844 16.1695 13.2109 17.0421 12.8382 17.7408C12.5394 18.3011 12.2417 18.7484 12 19.0757C11.7583 18.7484 11.4606 18.3011 11.1618 17.7408ZM9.75 12C9.75 12.5841 9.7893 13.1385 9.8586 13.6619C10.5269 13.5594 11.2414 13.5 12.0001 13.5C12.7587 13.5 13.4732 13.5593 14.1414 13.6619C14.2107 13.1384 14.25 12.5841 14.25 12C14.25 11.4159 14.2107 10.8616 14.1414 10.3381C13.4732 10.4406 12.7587 10.5 12.0001 10.5C11.2414 10.5 10.5269 10.4406 9.8586 10.3381C9.7893 10.8615 9.75 11.4159 9.75 12ZM8.38688 10.0288C8.29977 10.6478 8.25 11.3054 8.25 12C8.25 12.6946 8.29977 13.3522 8.38688 13.9712C7.11338 14.3131 6.05882 14.7952 5.24324 15.2591C4.76698 14.2736 4.5 13.168 4.5 12C4.5 10.832 4.76698 9.72644 5.24323 8.74088C6.05872 9.20472 7.1133 9.68686 8.38688 10.0288ZM10.1465 8.86445C10.7258 8.95042 11.3442 9 12.0001 9C12.6559 9 13.2743 8.95043 13.8535 8.86447C13.5844 7.83055 13.2109 6.95793 12.8382 6.2592C12.5394 5.69894 12.2417 5.25156 12 4.92432C11.7583 5.25156 11.4606 5.69894 11.1618 6.25918C10.7891 6.95791 10.4156 7.83053 10.1465 8.86445ZM15.6131 10.0289C15.7002 10.6479 15.75 11.3055 15.75 12C15.75 12.6946 15.7002 13.3521 15.6131 13.9711C16.8866 14.3131 17.9412 14.7952 18.7568 15.2591C19.233 14.2735 19.5 13.1679 19.5 12C19.5 10.8321 19.233 9.72647 18.7568 8.74093C17.9413 9.20477 16.8867 9.6869 15.6131 10.0289ZM17.9716 7.46178C17.2781 7.85231 16.39 8.25705 15.3224 8.55328C15.0189 7.36304 14.5908 6.35769 14.1618 5.55332C13.9897 5.23077 13.8174 4.94025 13.6527 4.6827C15.4026 5.07623 16.921 6.08136 17.9716 7.46178ZM8.67765 8.55325C7.61001 8.25701 6.7219 7.85227 6.02839 7.46173C7.07906 6.08134 8.59745 5.07623 10.3472 4.6827C10.1826 4.94025 10.0103 5.23076 9.83823 5.5533C9.40924 6.35767 8.98112 7.36301 8.67765 8.55325ZM15.3224 15.4467C15.0189 16.637 14.5908 17.6423 14.1618 18.4467C13.9897 18.7692 13.8174 19.0598 13.6527 19.3173C15.4026 18.9238 16.921 17.9186 17.9717 16.5382C17.2782 16.1477 16.3901 15.743 15.3224 15.4467ZM12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z" fill="currentColor"/></svg></span>
+          SITE
+        </a>
+        <a href="https://github.com/L1DRE" class="team-soc-btn gh">
+          <span class="soc-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg></span>
+          GITHUB
+        </a>
+      </div>
+      <div class="divider"></div>
+      <p class="section-label">// PARTNERS</p>
+      <div class="sponsors-wrap">
+        <a href="https://www.instagram.com/janamen.health" class="sponsor-logo-btn" aria-label="Jana Men">
+          <svg xmlns="http://www.w3.org/2000/svg" width="66" height="38" viewBox="0 0 101 59" fill="none">
+            <path d="M73.5474 30.9104H68.0604L68.6364 25.6013H62.7609L59.7843 30.9104H54.1231C56.0065 27.9665 65.8232 10.7147 68.1944 7.06201H75.7283L73.5474 30.9104ZM33.7154 30.9104H28.2257L28.8044 25.6013H22.9261L19.9468 30.9104H14.291C16.1718 27.9665 25.9912 10.7147 28.3623 7.06201H35.8963L33.7154 30.9104ZM7.68402 31.2342C6.36048 31.2342 5.09589 31.0643 4.26801 30.8546L5.68532 26.7454C6.30422 26.8781 6.80792 26.91 7.41878 26.91C9.09062 26.91 9.65325 26.2118 10.3713 24.1254L16.2843 7.05935H21.833L15.9762 23.9316C14.2964 28.7735 12.7103 31.2342 7.68402 31.2342ZM54.5383 3.38281L51.902 6.67975H48.703L49.7077 3.38281H9.5059L0 32.3544H34.8299L42.1174 9.01574H49.1879L50.4338 22.9972L55.7306 5.35248H62.225L53.188 28.6328H46.9052L45.4906 14.6726L38.8568 32.3571H78.6942L86.1237 25.1102L88.3582 32.3571H90.8687L100.375 3.38547H54.5383V3.38281Z" fill="#F58712"/>
+            <path d="M21.828 7.0625L15.9712 23.9347C14.294 28.7766 12.7079 31.2374 7.68164 31.2374C6.3581 31.2374 5.09351 31.0702 4.26562 30.8578L5.68562 26.7486C6.30452 26.8813 6.80821 26.9131 7.41908 26.9131C9.08823 26.9131 9.65355 26.215 10.3689 24.1285L16.282 7.0625H21.828Z" fill="white"/>
+            <path d="M29.4106 21.1873H25.2873C27.4387 17.2851 29.424 13.5343 30.627 11.0709H30.7449C30.3564 13.4068 29.8661 17.2878 29.4106 21.1873ZM28.3604 7.0625C25.9892 10.7178 16.1699 27.9697 14.2891 30.9109H19.9449L22.9242 25.6018H28.8024L28.2237 30.9109H33.7135L35.8917 7.0625H28.3604Z" fill="white"/>
+            <path d="M30.744 11.0703C30.3582 13.4063 29.8652 17.2872 29.4124 21.1868H25.2891C27.4405 17.2846 29.4258 13.5337 30.6288 11.0703H30.744Z" fill="#F58712"/>
+            <path d="M62.2226 5.35156L53.1856 28.6319H46.9055L45.4882 14.6717L38.8571 32.3535L38.7981 32.5128H34.7793L34.8275 32.3535L42.115 9.01482H49.1882L50.4313 22.9963L55.7282 5.35156H62.2226Z" fill="white"/>
+            <path d="M69.2466 21.1873H65.1232C67.2773 17.2851 69.26 13.5343 70.4656 11.0709H70.5835C70.1977 13.4068 69.702 17.2878 69.2466 21.1873ZM68.1963 7.0625C65.8252 10.7178 56.0085 27.9697 54.125 30.9109H59.7835L62.7602 25.6018H68.6384L68.0623 30.9109H73.5494L75.7276 7.0625H68.1963Z" fill="white"/>
+            <path d="M70.5853 11.0703C70.1995 13.4063 69.7038 17.2872 69.2483 21.1868H65.125C67.2791 17.2846 69.2617 13.5337 70.4674 11.0703H70.5853Z" fill="#F58712"/>
+            <path d="M57.2479 0L54.5392 3.38454L51.9029 6.68148H48.7012L49.7086 3.38454L50.7427 0H57.2479Z" fill="white"/>
+            <path d="M63.9274 36.7548L65.4974 32.3536H52.5835L44.1922 56.2471H57.7142L59.3914 51.8698H51.1528L53.1756 46.0643H60.3158L61.859 41.6631H54.7188L56.4389 36.7522H63.9274V36.7548ZM41.9872 32.3563L34.4264 39.7253L32.1544 32.3563H24.7731L16.4648 56.3666H21.4455L27.8141 36.8504L30.6728 46.0378H34.7934L43.667 36.8796L36.6662 56.3666H41.9818L50.2928 32.3563H41.9872ZM86.1274 25.1094L78.6979 32.3563H81.5433L74.9042 50.4682L73.9664 34.7931H67.681L58.2152 58.9999H64.715L70.4379 40.4314L71.2068 56.125H78.2746L85.6452 32.3563H88.3619L86.1274 25.1094Z" fill="#888"/>
+          </svg>
+          <span class="sponsor-name">JANA MEN</span>
+        </a>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span class="season-badge">FTC · SEASON 2025/26 · DECODE</span>
+      <span class="score-badge">AVG 148+ PTS</span>
+    </div>
+  </div>
+  <p class="card-tag-bottom">// OZGE · ENGINEERED TO ROAR</p>
+</div>
+<script>
+const cur=document.getElementById('cur'),cd=document.getElementById('curdot');
+if(cur){let mx=0,my=0,cx=0,cy=0;document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});(function loop(){cx+=(mx-cx)*.14;cy+=(my-cy)*.14;cur.style.left=cx+'px';cur.style.top=cy+'px';cd.style.left=mx+'px';cd.style.top=my+'px';requestAnimationFrame(loop)})();document.querySelectorAll('a,.skill-tag').forEach(el=>{el.addEventListener('mouseenter',()=>cur.classList.add('hover'));el.addEventListener('mouseleave',()=>cur.classList.remove('hover'))});}
+const cv=document.getElementById('grid-canvas'),ctx=cv.getContext('2d');
+function rz(){cv.width=window.innerWidth;cv.height=window.innerHeight}rz();
+window.addEventListener('resize',rz,{passive:true});
+let t=0;
+(function draw(){ctx.clearRect(0,0,cv.width,cv.height);const s=60;ctx.strokeStyle='#00F0FF12';ctx.lineWidth=.5;for(let x=0;x<=cv.width+s;x+=s){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,cv.height);ctx.stroke()}for(let y=0;y<=cv.height+s;y+=s){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(cv.width,y);ctx.stroke()}for(let i=0;i<10;i++){const px=(Math.sin(t*.2+i*1.9)*.5+.5)*cv.width;const py=(Math.cos(t*.15+i*2.6)*.5+.5)*cv.height;ctx.globalAlpha=.2+Math.sin(t+i)*.1;ctx.fillStyle=i%3===0?'#FF6B00':'#00F0FF';ctx.beginPath();ctx.arc(px,py,1.4,0,Math.PI*2);ctx.fill();}ctx.globalAlpha=1;t+=.006;requestAnimationFrame(draw);})();
+</script>
+</body>
+</html>
