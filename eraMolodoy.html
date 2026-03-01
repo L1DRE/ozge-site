@@ -64,6 +64,41 @@
     padding: 8px 14px;
     border-bottom: 1px solid #1a1a1a;
     background: #111;
+    position: relative;
+  }
+
+  /* Hole cutout */
+  .hole-wrap {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+  .hole {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #0a0a0a;
+    border: 2px solid #ff6600;
+    box-shadow: 0 0 0 2px #111, inset 0 0 4px rgba(0,0,0,0.8);
+    position: relative;
+  }
+  .hole::after {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #1a1a1a, #000);
+  }
+  .hole-wrap .event-code {
+    color: #444;
+    font-size: 9px;
+    letter-spacing: 2px;
+    margin-top: 2px;
   }
   .top-bar .logo {
     font-family: 'Orbitron', monospace;
@@ -396,7 +431,10 @@
     <!-- Top bar -->
     <div class="top-bar">
       <div class="logo">OZGE</div>
-      <div class="event-code" id="disp-event">FTC · DECODE · 2025/26</div>
+      <div class="hole-wrap">
+        <div class="hole"></div>
+        <div class="event-code" id="disp-event">FTC · DECODE · 2025/26</div>
+      </div>
       <div class="badge-num" id="disp-badgenum">#34350</div>
     </div>
 
