@@ -5,592 +5,831 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>OZGE Badge Editor</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&family=Orbitron:wght@700;900&display=swap');
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --orange: #e8620a;
+  --dark: #1a1a1a;
+  --darker: #111;
+  --card-bg: #1e1e1e;
+  --border: #e8620a;
+}
 
-  body {
-    background: #0a0a0a;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    font-family: 'Share Tech Mono', monospace;
-    color: #fff;
-    padding: 20px;
-  }
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-  h1 {
-    font-family: 'Orbitron', monospace;
-    color: #ff6600;
-    font-size: 14px;
-    letter-spacing: 4px;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-  }
+body {
+  background: #0e0e0e;
+  min-height: 100vh;
+  font-family: 'Share Tech Mono', monospace;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 20px;
+  gap: 0;
+}
 
-  .badge-wrap {
-    position: relative;
-    width: 530px;
-  }
+/* ======= BADGE ======= */
+.badge {
+  width: 560px;
+  background: #1c1c1c;
+  border: 2.5px solid var(--orange);
+  border-radius: 12px;
+  overflow: visible;
+  position: relative;
+  box-shadow: 0 0 40px rgba(232,98,10,0.2), inset 0 0 60px rgba(0,0,0,0.5);
+}
 
-  .badge {
-    width: 530px;
-    background: #0d0d0d;
-    border: 1px solid #ff6600;
-    position: relative;
-    overflow: hidden;
-    padding: 0;
-  }
+/* Circuit pattern overlay */
+.badge::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  background-image:
+    linear-gradient(rgba(232,98,10,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(232,98,10,0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+  pointer-events: none;
+  z-index: 0;
+}
 
-  /* Corner accents */
-  .badge::before, .badge::after {
-    content: '';
-    position: absolute;
-    width: 20px; height: 20px;
-    border-color: #ff6600;
-    border-style: solid;
-    z-index: 10;
-  }
-  .badge::before { top: 0; left: 0; border-width: 2px 0 0 2px; }
-  .badge::after { bottom: 0; right: 0; border-width: 0 2px 2px 0; }
+/* Right side circuit decoration */
+.circuit-deco {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+  overflow: hidden;
+  border-radius: 0 10px 10px 0;
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: 1;
+}
+.circuit-deco svg { width: 100%; height: 100%; }
 
-  /* Top bar */
-  .top-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 14px;
-    border-bottom: 1px solid #1a1a1a;
-    background: #111;
-    position: relative;
-  }
+/* TOP BAR */
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px 10px 16px;
+  position: relative;
+  z-index: 2;
+  border-bottom: 1px solid rgba(232,98,10,0.3);
+}
 
-  /* Hole cutout */
-  .hole-wrap {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2px;
-  }
-  .hole {
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    background: #0a0a0a;
-    border: 2px solid #ff6600;
-    box-shadow: 0 0 0 2px #111, inset 0 0 4px rgba(0,0,0,0.8);
-    position: relative;
-  }
-  .hole::after {
-    content: '';
-    position: absolute;
-    inset: 3px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 35% 35%, #1a1a1a, #000);
-  }
-  .hole-wrap .event-code {
-    color: #444;
-    font-size: 9px;
-    letter-spacing: 2px;
-    margin-top: 2px;
-  }
-  .top-bar .logo {
-    font-family: 'Orbitron', monospace;
-    color: #ff6600;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 2px;
-  }
-  .top-bar .event-code {
-    color: #555;
-    font-size: 10px;
-    letter-spacing: 3px;
-  }
-  .top-bar .badge-num {
-    color: #ff6600;
-    font-size: 12px;
-    font-weight: bold;
-    letter-spacing: 2px;
-  }
+.logo-ozge {
+  font-family: 'Orbitron', monospace;
+  color: var(--orange);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
 
-  /* Grid dots decoration */
-  .grid-decor {
-    position: absolute;
-    top: 10px;
-    right: 14px;
-    display: grid;
-    grid-template-columns: repeat(2,1fr);
-    gap: 3px;
-    opacity: 0.3;
-  }
-  .grid-decor span {
-    width: 28px; height: 28px;
-    border: 1px solid #ff6600;
-    display: block;
-    background: transparent;
-  }
+.center-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
 
-  /* Main content */
-  .main-content {
-    display: flex;
-    flex-direction: column;
-    padding: 20px 14px 10px 20px;
-    min-height: 160px;
-    position: relative;
-  }
+.ftc-logo {
+  width: 36px;
+  height: 36px;
+  position: relative;
+}
 
-  .name-section {
-    flex: 1;
-  }
+.ftc-logo-svg {
+  width: 36px; height: 36px;
+}
 
-  .name-display {
-    font-family: 'Orbitron', monospace;
-    font-size: 28px;
-    font-weight: 900;
-    line-height: 1.1;
-    color: #ffffff;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 6px;
-  }
+.event-title {
+  font-family: 'Orbitron', monospace;
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: #ccc;
+  text-transform: uppercase;
+}
 
-  .role-display {
-    color: #ff6600;
-    font-size: 11px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    margin-bottom: 14px;
-  }
+.badge-number {
+  font-family: 'Orbitron', monospace;
+  color: var(--orange);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
 
-  /* Tags */
-  .tags-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-    margin-bottom: 5px;
-  }
-  .tag {
-    border: 1px solid #333;
-    color: #aaa;
-    font-size: 8px;
-    padding: 3px 8px;
-    letter-spacing: 1px;
-    background: #111;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .tag:hover { border-color: #ff6600; color: #ff6600; }
-  .tag .icon { font-size: 9px; }
+/* HOLE */
+.hole-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -14px;
+  z-index: 10;
+}
+.hole {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #0e0e0e;
+  border: 2px solid var(--orange);
+  box-shadow: 0 0 8px rgba(232,98,10,0.5);
+}
 
-  /* Links */
-  .links-section {
-    margin-top: 8px;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-  .link-line {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: #555;
-    font-size: 9px;
-    letter-spacing: 1px;
-  }
-  .link-line span { color: #ff6600; }
+/* MAIN BODY */
+.badge-body {
+  display: flex;
+  padding: 14px 16px 10px 16px;
+  gap: 12px;
+  position: relative;
+  z-index: 2;
+  align-items: flex-start;
+}
 
-  /* Photo section */
-  .photo-section {
-    position: absolute;
-    right: 14px;
-    top: 16px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-  }
+.badge-left {
+  flex: 1;
+  min-width: 0;
+}
 
-  .photo-frame {
-    width: 90px;
-    height: 90px;
-    border: 2px solid #ff6600;
-    position: relative;
-    background: #111;
-    cursor: pointer;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .photo-frame::before, .photo-frame::after {
-    content: '';
-    position: absolute;
-    width: 10px; height: 10px;
-    border-color: #0d0d0d;
-    border-style: solid;
-    z-index: 2;
-  }
-  .photo-frame::before { top: -1px; left: -1px; border-width: 3px 0 0 3px; }
-  .photo-frame::after { bottom: -1px; right: -1px; border-width: 0 3px 3px 0; }
+.participant-name {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
-  .photo-frame img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    display: none;
-  }
-  .photo-frame img.loaded { display: block; }
+.participant-role {
+  font-family: 'Rajdhani', sans-serif;
+  color: var(--orange);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  line-height: 1.4;
+  margin-bottom: 10px;
+}
 
-  .photo-placeholder {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    color: #333;
-    font-size: 8px;
-    letter-spacing: 1px;
-    text-align: center;
-  }
-  .photo-placeholder .cam-icon { font-size: 20px; color: #444; }
+.tags-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 10px;
+}
 
-  .qr-frame {
-    width: 72px;
-    height: 72px;
-    border: 1px solid #333;
-    padding: 4px;
-    background: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .qr-frame canvas { image-rendering: pixelated; }
+.tag {
+  border: 1px solid #444;
+  color: #ccc;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  padding: 4px 10px;
+  letter-spacing: 1px;
+  background: rgba(255,255,255,0.03);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 2px;
+  transition: border-color 0.2s;
+  text-transform: uppercase;
+}
 
-  /* Bottom bar */
-  .bottom-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 6px 14px;
-    border-top: 1px solid #1a1a1a;
-    background: #0a0a0a;
-  }
-  .country { color: #333; font-size: 9px; letter-spacing: 2px; }
-  .slogan { color: #222; font-size: 8px; letter-spacing: 2px; text-align: right; }
-  .slogan span { color: #ff6600; }
+.tag .tag-icon { font-size: 10px; }
 
-  /* Scanline overlay */
-  .scanlines {
-    position: absolute;
-    inset: 0;
-    background: repeating-linear-gradient(
-      to bottom,
-      transparent,
-      transparent 3px,
-      rgba(0,0,0,0.03) 3px,
-      rgba(0,0,0,0.03) 4px
-    );
-    pointer-events: none;
-    z-index: 5;
-  }
+.links-section {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 4px;
+}
 
-  /* ---- EDITOR PANEL ---- */
-  .editor {
-    width: 530px;
-    background: #111;
-    border: 1px solid #222;
-    border-top: none;
-    padding: 16px;
-  }
-  .editor-title {
-    color: #ff6600;
-    font-size: 10px;
-    letter-spacing: 3px;
-    margin-bottom: 12px;
-    text-transform: uppercase;
-  }
-  .fields-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-bottom: 12px;
-  }
-  .field {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-  .field.full { grid-column: 1 / -1; }
-  .field label {
-    font-size: 9px;
-    color: #555;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-  }
-  .field input, .field textarea {
-    background: #0a0a0a;
-    border: 1px solid #222;
-    color: #fff;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 11px;
-    padding: 6px 8px;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-  .field input:focus, .field textarea:focus { border-color: #ff6600; }
-  .field textarea { resize: vertical; min-height: 50px; }
+.link-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 
-  .tags-editor {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-    margin-bottom: 8px;
-  }
-  .tag-edit {
-    display: flex;
-    align-items: center;
-    gap: 3px;
-    border: 1px solid #222;
-    padding: 3px 6px;
-    background: #0a0a0a;
-    font-size: 9px;
-    color: #aaa;
-  }
-  .tag-edit button {
-    background: none;
-    border: none;
-    color: #ff6600;
-    cursor: pointer;
-    font-size: 10px;
-    padding: 0;
-    line-height: 1;
-  }
-  .add-tag-row {
-    display: flex;
-    gap: 6px;
-    margin-bottom: 12px;
-  }
-  .add-tag-row input {
-    flex: 1;
-    background: #0a0a0a;
-    border: 1px solid #222;
-    color: #fff;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 11px;
-    padding: 6px 8px;
-    outline: none;
-  }
-  .add-tag-row input:focus { border-color: #ff6600; }
-  .btn {
-    background: none;
-    border: 1px solid #ff6600;
-    color: #ff6600;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 2px;
-    padding: 6px 14px;
-    cursor: pointer;
-    text-transform: uppercase;
-    transition: all 0.2s;
-  }
-  .btn:hover { background: #ff6600; color: #000; }
-  .btn-row {
-    display: flex;
-    gap: 8px;
-    justify-content: flex-end;
-    margin-top: 8px;
-  }
+.first-logo {
+  width: 32px; height: 32px;
+  margin-right: 2px;
+}
 
-  input[type="file"] { display: none; }
+.link-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
 
-  /* Glitch animation on name */
-  @keyframes glitch {
-    0%,95%,100% { text-shadow: none; transform: none; }
-    96% { text-shadow: -2px 0 #ff6600; transform: translateX(1px); }
-    97% { text-shadow: 2px 0 cyan; transform: translateX(-1px); }
-    98% { text-shadow: none; transform: none; }
-  }
-  .name-display { animation: glitch 5s infinite; }
+.link-handle {
+  font-size: 10px;
+  color: #aaa;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.link-handle .at { color: var(--orange); }
+
+.link-site {
+  font-size: 9px;
+  color: #666;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* TEAM LOGO BLOCK */
+.team-logo-block {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+  padding: 7px 10px;
+  border: 1px solid rgba(232,98,10,0.25);
+  border-radius: 3px;
+  background: rgba(232,98,10,0.04);
+  cursor: pointer;
+  transition: border-color 0.2s;
+  min-height: 46px;
+}
+.team-logo-block:hover { border-color: rgba(232,98,10,0.5); }
+
+.team-logo-img-wrap {
+  width: 36px; height: 36px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.team-logo-img-wrap img {
+  width: 36px; height: 36px;
+  object-fit: contain;
+  display: none;
+  border-radius: 2px;
+}
+.team-logo-img-wrap img.loaded { display: block; }
+.team-logo-placeholder-icon {
+  font-size: 22px;
+  opacity: 0.3;
+}
+
+.team-logo-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.team-name-label {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #ccc;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.team-name-label:empty::before {
+  content: 'НАЗВАНИЕ КОМАНДЫ';
+  color: #444;
+  font-size: 11px;
+}
+.team-logo-hint {
+  font-size: 8px;
+  color: #444;
+  letter-spacing: 1px;
+}
+
+.badge-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.photo-frame {
+  width: 110px;
+  height: 110px;
+  border: 2px solid var(--orange);
+  border-radius: 4px;
+  position: relative;
+  background: #111;
+  cursor: pointer;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.photo-frame::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(232,98,10,0.1) 0%, transparent 50%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Orange corner accents on photo */
+.photo-corner {
+  position: absolute;
+  width: 12px; height: 12px;
+  border-color: var(--orange);
+  border-style: solid;
+  z-index: 3;
+}
+.photo-corner.tl { top: -1px; left: -1px; border-width: 3px 0 0 3px; }
+.photo-corner.tr { top: -1px; right: -1px; border-width: 3px 3px 0 0; }
+.photo-corner.bl { bottom: -1px; left: -1px; border-width: 0 0 3px 3px; }
+.photo-corner.br { bottom: -1px; right: -1px; border-width: 0 3px 3px 0; }
+
+.photo-frame img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: none;
+  z-index: 2;
+  position: relative;
+}
+.photo-frame img.loaded { display: block; }
+
+.photo-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  color: #444;
+  font-size: 9px;
+  letter-spacing: 1px;
+  text-align: center;
+  z-index: 2;
+  position: relative;
+  transition: color 0.2s;
+}
+.photo-frame:hover .photo-placeholder { color: var(--orange); }
+.photo-placeholder .cam { font-size: 24px; }
+
+.qr-box {
+  width: 80px; height: 80px;
+  background: white;
+  padding: 5px;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.qr-box canvas { image-rendering: pixelated; }
+
+/* BOTTOM BAR */
+.bottom-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px 16px;
+  border-top: 1px solid rgba(232,98,10,0.3);
+  position: relative;
+  z-index: 2;
+}
+
+.country-text {
+  font-size: 10px;
+  color: #666;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.slogan-text {
+  font-size: 10px;
+  color: #555;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.slogan-text span { color: var(--orange); }
+
+/* Orange left/right border accents */
+.badge-border-left {
+  position: absolute;
+  left: 0; top: 40px; bottom: 40px;
+  width: 3px;
+  background: linear-gradient(to bottom, transparent, var(--orange) 30%, var(--orange) 70%, transparent);
+  border-radius: 0 2px 2px 0;
+}
+.badge-border-right {
+  position: absolute;
+  right: 0; top: 40px; bottom: 40px;
+  width: 3px;
+  background: linear-gradient(to bottom, transparent, var(--orange) 30%, var(--orange) 70%, transparent);
+  border-radius: 2px 0 0 2px;
+}
+
+/* ======= EDITOR ======= */
+.editor-panel {
+  width: 560px;
+  background: #151515;
+  border: 1px solid #2a2a2a;
+  border-top: none;
+  padding: 20px;
+  border-radius: 0 0 8px 8px;
+}
+
+.editor-section {
+  margin-bottom: 16px;
+}
+
+.editor-section-title {
+  color: var(--orange);
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.editor-section-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #2a2a2a;
+}
+
+.fields-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.field-full { grid-column: 1 / -1; }
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.field-group label {
+  font-size: 8px;
+  color: #555;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.field-group input {
+  background: #0e0e0e;
+  border: 1px solid #2a2a2a;
+  color: #fff;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  padding: 7px 10px;
+  outline: none;
+  border-radius: 2px;
+  transition: border-color 0.2s;
+  width: 100%;
+}
+.field-group input:focus { border-color: var(--orange); }
+
+/* Tags editor */
+.tags-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.tag-pill {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: #0e0e0e;
+  border: 1px solid #2a2a2a;
+  padding: 4px 8px;
+  font-size: 9px;
+  color: #aaa;
+  border-radius: 2px;
+}
+
+.tag-pill button {
+  background: none;
+  border: none;
+  color: #555;
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 1;
+  padding: 0;
+  transition: color 0.2s;
+}
+.tag-pill button:hover { color: var(--orange); }
+
+.add-tag-row {
+  display: flex;
+  gap: 6px;
+}
+.add-tag-row input {
+  flex: 1;
+  background: #0e0e0e;
+  border: 1px solid #2a2a2a;
+  color: #fff;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  padding: 7px 10px;
+  outline: none;
+  border-radius: 2px;
+  transition: border-color 0.2s;
+}
+.add-tag-row input:focus { border-color: var(--orange); }
+
+.btn {
+  background: none;
+  border: 1px solid var(--orange);
+  color: var(--orange);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  padding: 7px 16px;
+  cursor: pointer;
+  text-transform: uppercase;
+  border-radius: 2px;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.btn:hover { background: var(--orange); color: #000; }
+
+.btn-row {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 12px;
+}
+
+input[type="file"] { display: none; }
+
+/* FTC Logo SVG */
+.ftc-svg-icon {
+  width: 36px; height: 36px;
+}
+
+@media print {
+  body { background: #1c1c1c; padding: 0; justify-content: flex-start; }
+  h2, .editor-panel { display: none !important; }
+  .badge { box-shadow: none; }
+}
 </style>
 </head>
 <body>
 
-<h1>// OZGE BADGE EDITOR //</h1>
+<div style="font-family:'Orbitron',monospace;color:var(--orange);font-size:11px;letter-spacing:4px;margin-bottom:16px;opacity:0.7;">// OZGE BADGE EDITOR //</div>
 
-<div class="badge-wrap">
+<div style="position:relative; width:560px;">
+  <!-- Hole at top -->
+  <div class="hole-container">
+    <div class="hole"></div>
+  </div>
+
   <div class="badge" id="badge">
-    <div class="scanlines"></div>
+    <div class="badge-border-left"></div>
+    <div class="badge-border-right"></div>
 
-    <!-- Top bar -->
+    <!-- Circuit decoration right side -->
+    <div class="circuit-deco">
+      <svg viewBox="0 0 40 300" xmlns="http://www.w3.org/2000/svg">
+        <line x1="20" y1="0" x2="20" y2="300" stroke="#e8620a" stroke-width="1"/>
+        <line x1="10" y1="40" x2="30" y2="40" stroke="#e8620a" stroke-width="1"/>
+        <circle cx="20" cy="40" r="3" fill="none" stroke="#e8620a" stroke-width="1"/>
+        <line x1="10" y1="90" x2="30" y2="90" stroke="#e8620a" stroke-width="1"/>
+        <circle cx="20" cy="90" r="3" fill="none" stroke="#e8620a" stroke-width="1"/>
+        <line x1="10" y1="150" x2="30" y2="150" stroke="#e8620a" stroke-width="1"/>
+        <circle cx="20" cy="150" r="5" fill="none" stroke="#e8620a" stroke-width="1"/>
+        <line x1="10" y1="200" x2="30" y2="200" stroke="#e8620a" stroke-width="1"/>
+        <circle cx="20" cy="200" r="3" fill="none" stroke="#e8620a" stroke-width="1"/>
+        <line x1="10" y1="250" x2="30" y2="250" stroke="#e8620a" stroke-width="1"/>
+        <circle cx="20" cy="250" r="3" fill="none" stroke="#e8620a" stroke-width="1"/>
+      </svg>
+    </div>
+
+    <!-- TOP BAR -->
     <div class="top-bar">
-      <div class="logo">OZGE</div>
-      <div class="hole-wrap">
-        <div class="hole"></div>
-        <div class="event-code" id="disp-event">FTC · DECODE · 2025/26</div>
+      <div class="logo-ozge">OZGE</div>
+
+      <div class="center-header">
+        <!-- FTC Logo (geometric) -->
+        <svg class="ftc-svg-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="18,3 33,12 33,24 18,33 3,24 3,12" fill="none" stroke="#e8620a" stroke-width="2"/>
+          <polygon points="18,8 28,14 28,22 18,28 8,22 8,14" fill="none" stroke="#e8620a" stroke-width="1" opacity="0.5"/>
+          <circle cx="18" cy="18" r="4" fill="#e8620a"/>
+          <line x1="18" y1="3" x2="18" y2="8" stroke="#e8620a" stroke-width="2"/>
+          <line x1="33" y1="12" x2="28" y2="14" stroke="#e8620a" stroke-width="2"/>
+          <line x1="33" y1="24" x2="28" y2="22" stroke="#e8620a" stroke-width="2"/>
+          <line x1="18" y1="33" x2="18" y2="28" stroke="#e8620a" stroke-width="2"/>
+          <line x1="3" y1="24" x2="8" y2="22" stroke="#e8620a" stroke-width="2"/>
+          <line x1="3" y1="12" x2="8" y2="14" stroke="#e8620a" stroke-width="2"/>
+        </svg>
+
       </div>
-      <div class="badge-num" id="disp-badgenum">#34350</div>
+
+      <div class="badge-number" id="disp-num">#34350</div>
     </div>
 
-    <!-- Grid decoration -->
-    <div class="grid-decor">
-      <span></span><span></span>
-      <span></span><span></span>
-    </div>
-
-    <!-- Main content -->
-    <div class="main-content">
-      <div class="name-section">
-        <div class="name-display" id="disp-name">ЕРАСЫЛ<br>НУРЕКЕНОВ</div>
-        <div class="role-display" id="disp-role">TEAM LEAD · MENTOR</div>
+    <!-- BODY -->
+    <div class="badge-body">
+      <div class="badge-left">
+        <div class="participant-name" id="disp-name">АЙТЫМ ЖАКУПОВ</div>
+        <div class="participant-role" id="disp-role">FOUNDER / FTC TEAM MENTOR<br>BAR BARS - JANA MEN</div>
 
         <div class="tags-row" id="disp-tags">
-          <div class="tag"><span class="icon">⚙</span>MECHATRONICS</div>
-          <div class="tag"><span class="icon">🤖</span>AUTONOMOUS</div>
-          <div class="tag"><span class="icon">💻</span>JAVA / C++</div>
-          <div class="tag"><span class="icon">🐍</span>PYTHON</div>
-          <div class="tag"><span class="icon">🌍</span>FIRST GLOBAL '23</div>
-          <div class="tag"><span class="icon">🏆</span>WORLDSKILLS</div>
-          <div class="tag"><span class="icon">🔬</span>STEM MENTOR</div>
+          <div class="tag"><span class="tag-icon">⚙</span>STREET WORKOUT</div>
+          <div class="tag"><span class="tag-icon">🏋</span>BAR BARS</div>
+          <div class="tag"><span class="tag-icon">📚</span>МЕНТОРСТВО</div>
+          <div class="tag"><span class="tag-icon">🌿</span>JANA MEN</div>
+        </div>
+
+        <!-- TEAM LOGO BLOCK -->
+        <div class="team-logo-block" id="teamLogoBlock" onclick="document.getElementById('teamLogoFileInput').click()" title="Нажми чтобы загрузить лого">
+          <div class="team-logo-img-wrap">
+            <img id="teamLogoImg" src="" alt="team logo">
+            <div class="team-logo-placeholder-icon" id="teamLogoIcon">🛡</div>
+          </div>
+          <div class="team-logo-info">
+            <div class="team-name-label" id="disp-teamname"></div>
+            <div class="team-logo-hint" id="teamLogoHint">НАЖМИ ДЛЯ ЗАГРУЗКИ ЛОГО</div>
+          </div>
         </div>
 
         <div class="links-section">
-          <div class="link-line"><span>@</span><span id="disp-github">erasyl.nurekenov</span></div>
-          <div class="link-line"><span>⬡</span><span id="disp-site">lldse.github.io/ozge-site</span></div>
+          <div class="link-row">
+            <!-- FIRST logo -->
+            <svg class="first-logo" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="32" height="32" rx="4" fill="#1a1a1a" stroke="#e8620a" stroke-width="1"/>
+              <text x="16" y="21" font-family="'Orbitron',monospace" font-size="9" fill="#e8620a" text-anchor="middle" font-weight="700">FRC</text>
+              <line x1="4" y1="24" x2="28" y2="24" stroke="#e8620a" stroke-width="1" opacity="0.4"/>
+            </svg>
+            <div class="link-info">
+              <div class="link-handle"><span class="at">@</span><span id="disp-handle">AITYMZHAKUPOV</span></div>
+              <div class="link-site"><span style="color:var(--orange)">⬡</span><span id="disp-site">lldre.github.io/ozge-site</span></div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Photo + QR on the right -->
-      <div class="photo-section">
-        <div class="photo-frame" id="photoFrame" onclick="document.getElementById('photoInput').click()" title="Click to upload photo">
-          <img id="photoImg" src="" alt="photo">
+      <div class="badge-right">
+        <div class="photo-frame" id="photoFrame" onclick="document.getElementById('photoInput').click()">
+          <div class="photo-corner tl"></div>
+          <div class="photo-corner tr"></div>
+          <div class="photo-corner bl"></div>
+          <div class="photo-corner br"></div>
+          <img id="photoImg" src="" alt="">
           <div class="photo-placeholder" id="photoPlaceholder">
-            <div class="cam-icon">📷</div>
+            <div class="cam">📷</div>
             <div>UPLOAD<br>PHOTO</div>
           </div>
         </div>
-        <div class="qr-frame">
-          <canvas id="qrCanvas" width="64" height="64"></canvas>
+        <div class="qr-box">
+          <canvas id="qrCanvas" width="70" height="70"></canvas>
         </div>
       </div>
     </div>
 
-    <!-- Bottom bar -->
+    <!-- BOTTOM BAR -->
     <div class="bottom-bar">
-      <div class="country" id="disp-country">KAZAKHSTAN ·</div>
-      <div class="slogan">OZGE · <span>ENGINEERED TO ROAR</span></div>
+      <div class="country-text" id="disp-country">KAZAKHSTAN - ASTANA</div>
+      <div class="slogan-text">OZGE - <span>ENGINEERED TO ROAR</span></div>
     </div>
   </div>
 
-  <!-- Editor Panel -->
-  <div class="editor">
-    <div class="editor-title">&gt; EDIT BADGE DATA</div>
+  <!-- EDITOR -->
+  <div class="editor-panel">
 
-    <div class="fields-grid">
-      <div class="field full">
-        <label>Full Name (use | for line break)</label>
-        <input type="text" id="in-name" value="ЕРАСЫЛ|НУРЕКЕНОВ" oninput="updateBadge()">
-      </div>
-      <div class="field">
-        <label>Role / Title</label>
-        <input type="text" id="in-role" value="TEAM LEAD · MENTOR" oninput="updateBadge()">
-      </div>
-      <div class="field">
-        <label>Badge Number</label>
-        <input type="text" id="in-badgenum" value="#34350" oninput="updateBadge()">
-      </div>
-      <div class="field">
-        <label>Event Code</label>
-        <input type="text" id="in-event" value="FTC · DECODE · 2025/26" oninput="updateBadge()">
-      </div>
-      <div class="field">
-        <label>Country</label>
-        <input type="text" id="in-country" value="KAZAKHSTAN ·" oninput="updateBadge()">
-      </div>
-      <div class="field">
-        <label>@ Handle / GitHub</label>
-        <input type="text" id="in-github" value="erasyl.nurekenov" oninput="updateBadge()">
-      </div>
-      <div class="field full">
-        <label>Website / Link</label>
-        <input type="text" id="in-site" value="lldse.github.io/ozge-site" oninput="updateBadge()">
+    <div class="editor-section">
+      <div class="editor-section-title">&gt; PARTICIPANT</div>
+      <div class="fields-grid">
+        <div class="field-group field-full">
+          <label>Full Name</label>
+          <input type="text" id="in-name" value="АЙТЫМ ЖАКУПОВ" oninput="update()">
+        </div>
+        <div class="field-group field-full">
+          <label>Role / Title (use | for new line)</label>
+          <input type="text" id="in-role" value="FOUNDER / FTC TEAM MENTOR|BAR BARS - JANA MEN" oninput="update()">
+        </div>
+        <div class="field-group">
+          <label>@ Handle</label>
+          <input type="text" id="in-handle" value="AITYMZHAKUPOV" oninput="update()">
+        </div>
+        <div class="field-group">
+          <label>Website</label>
+          <input type="text" id="in-site" value="lldre.github.io/ozge-site" oninput="update()">
+        </div>
+        <div class="field-group">
+          <label>Country / City</label>
+          <input type="text" id="in-country" value="KAZAKHSTAN - ASTANA" oninput="update()">
+        </div>
       </div>
     </div>
 
-    <div class="editor-title" style="margin-top:4px;">&gt; SKILL TAGS</div>
-    <div class="tags-editor" id="tags-editor"></div>
-    <div class="add-tag-row">
-      <input type="text" id="new-tag-input" placeholder="ADD NEW TAG..." onkeydown="if(event.key==='Enter')addTag()">
-      <button class="btn" onclick="addTag()">+ ADD</button>
+    <div class="editor-section">
+      <div class="editor-section-title">&gt; BADGE INFO</div>
+      <div class="fields-grid">
+        <div class="field-group field-full">
+          <label>Badge Number</label>
+          <input type="text" id="in-num" value="#34350" oninput="update()">
+        </div>
+      </div>
+    </div>
+
+    <div class="editor-section">
+      <div class="editor-section-title">&gt; ЛОГО КОМАНДЫ</div>
+      <div class="fields-grid">
+        <div class="field-group field-full">
+          <label>Название команды</label>
+          <input type="text" id="in-teamname" value="" placeholder="BAR BARS TEAM" oninput="update()">
+        </div>
+        <div class="field-group field-full">
+          <label>URL лого (ссылка на изображение)</label>
+          <div style="display:flex;gap:6px;">
+            <input type="text" id="in-logourl" placeholder="https://..." style="flex:1;background:#0e0e0e;border:1px solid #2a2a2a;color:#fff;font-family:'Share Tech Mono',monospace;font-size:11px;padding:7px 10px;outline:none;border-radius:2px;transition:border-color 0.2s;">
+            <button class="btn" onclick="applyLogoUrl()">OK</button>
+          </div>
+        </div>
+        <div class="field-group field-full" style="margin-top:-4px;">
+          <label>Или загрузи файл</label>
+          <button class="btn" onclick="document.getElementById('teamLogoFileInput').click()" style="width:100%;text-align:center;">📁 ВЫБРАТЬ ФАЙЛ</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="editor-section">
+      <div class="editor-section-title">&gt; SKILL TAGS</div>
+      <div class="tags-list" id="tags-list"></div>
+      <div class="add-tag-row">
+        <input type="text" id="new-tag" placeholder="ADD TAG..." onkeydown="if(event.key==='Enter')addTag()">
+        <button class="btn" onclick="addTag()">+ ADD</button>
+      </div>
     </div>
 
     <input type="file" id="photoInput" accept="image/*" onchange="loadPhoto(event)">
+    <input type="file" id="teamLogoFileInput" accept="image/*" onchange="loadTeamLogo(event)">
 
     <div class="btn-row">
-      <button class="btn" onclick="document.getElementById('photoInput').click()">📷 UPLOAD PHOTO</button>
-      <button class="btn" onclick="window.print()">🖨 PRINT</button>
+      <button class="btn" onclick="document.getElementById('photoInput').click()">📷 ФОТО</button>
+      <button class="btn" onclick="window.print()">🖨 ПЕЧАТЬ</button>
     </div>
+
   </div>
 </div>
 
 <script>
-// Tags state
 let tags = [
-  {icon:'⚙', label:'MECHATRONICS'},
-  {icon:'🤖', label:'AUTONOMOUS'},
-  {icon:'💻', label:'JAVA / C++'},
-  {icon:'🐍', label:'PYTHON'},
-  {icon:'🌍', label:"FIRST GLOBAL '23"},
-  {icon:'🏆', label:'WORLDSKILLS'},
-  {icon:'🔬', label:'STEM MENTOR'},
+  {icon:'⚙', label:'STREET WORKOUT'},
+  {icon:'🏋', label:'BAR BARS'},
+  {icon:'📚', label:'МЕНТОРСТВО'},
+  {icon:'🌿', label:'JANA MEN'},
 ];
 
-const tagIcons = ['⚙','🤖','💻','🐍','🌍','🏆','🔬','⚡','🎯','🔧','📡','🛸'];
+const icons = ['⚙','🤖','💻','🐍','🌍','🏆','🔬','⚡','🎯','🔧','📡','🛸','🏋','📚','🌿','🔥'];
 
-function updateBadge() {
-  const name = document.getElementById('in-name').value;
-  document.getElementById('disp-name').innerHTML = name.replace(/\|/g,'<br>');
-  document.getElementById('disp-role').textContent = document.getElementById('in-role').value;
-  document.getElementById('disp-badgenum').textContent = document.getElementById('in-badgenum').value;
-  document.getElementById('disp-event').textContent = document.getElementById('in-event').value;
-  document.getElementById('disp-country').textContent = document.getElementById('in-country').value;
-  document.getElementById('disp-github').textContent = document.getElementById('in-github').value;
+function update() {
+  document.getElementById('disp-name').textContent = document.getElementById('in-name').value;
+  document.getElementById('disp-role').innerHTML = document.getElementById('in-role').value.replace(/\|/g,'<br>');
+  document.getElementById('disp-num').textContent = document.getElementById('in-num').value;
+  document.getElementById('disp-handle').textContent = document.getElementById('in-handle').value;
   document.getElementById('disp-site').textContent = document.getElementById('in-site').value;
+  document.getElementById('disp-country').textContent = document.getElementById('in-country').value;
+  document.getElementById('disp-teamname').textContent = document.getElementById('in-teamname').value;
   renderTags();
 }
 
 function renderTags() {
-  // Display tags
-  const dispTags = document.getElementById('disp-tags');
-  dispTags.innerHTML = tags.map(t =>
-    `<div class="tag"><span class="icon">${t.icon}</span>${t.label}</div>`
+  // Badge tags
+  document.getElementById('disp-tags').innerHTML = tags.map(t =>
+    `<div class="tag"><span class="tag-icon">${t.icon}</span>${t.label}</div>`
   ).join('');
 
-  // Editor tags
-  const editorTags = document.getElementById('tags-editor');
-  editorTags.innerHTML = tags.map((t,i) =>
-    `<div class="tag-edit">${t.icon} ${t.label}<button onclick="removeTag(${i})">×</button></div>`
+  // Editor tag pills
+  document.getElementById('tags-list').innerHTML = tags.map((t,i) =>
+    `<div class="tag-pill">${t.icon} ${t.label}<button onclick="removeTag(${i})">×</button></div>`
   ).join('');
 }
 
 function addTag() {
-  const input = document.getElementById('new-tag-input');
+  const input = document.getElementById('new-tag');
   const val = input.value.trim().toUpperCase();
   if (!val) return;
-  const icon = tagIcons[tags.length % tagIcons.length];
-  tags.push({icon, label: val});
+  tags.push({ icon: icons[tags.length % icons.length], label: val });
   input.value = '';
   renderTags();
 }
 
 function removeTag(i) {
-  tags.splice(i,1);
+  tags.splice(i, 1);
   renderTags();
 }
 
@@ -598,7 +837,7 @@ function loadPhoto(e) {
   const file = e.target.files[0];
   if (!file) return;
   const reader = new FileReader();
-  reader.onload = function(ev) {
+  reader.onload = ev => {
     const img = document.getElementById('photoImg');
     img.src = ev.target.result;
     img.classList.add('loaded');
@@ -607,61 +846,71 @@ function loadPhoto(e) {
   reader.readAsDataURL(file);
 }
 
-// Simple QR-like pixel art pattern (decorative)
-function drawDecorQR() {
+function loadTeamLogo(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => setTeamLogoSrc(ev.target.result);
+  reader.readAsDataURL(file);
+}
+
+function applyLogoUrl() {
+  const url = document.getElementById('in-logourl').value.trim();
+  if (!url) return;
+  setTeamLogoSrc(url);
+}
+
+function setTeamLogoSrc(src) {
+  const img = document.getElementById('teamLogoImg');
+  img.src = src;
+  img.classList.add('loaded');
+  document.getElementById('teamLogoIcon').style.display = 'none';
+  document.getElementById('teamLogoHint').textContent = 'ЛОГО ЗАГРУЖЕНО';
+}
+
+// Draw decorative QR
+function drawQR() {
   const canvas = document.getElementById('qrCanvas');
   const ctx = canvas.getContext('2d');
-  const size = 64;
-  const cell = 4;
-  const cols = size / cell;
-  
-  // Seed-based pseudo-random for consistent pattern
-  function seededRand(x, y) {
-    const val = Math.sin(x * 127.1 + y * 311.7) * 43758.5453;
-    return val - Math.floor(val);
+  const S = 70, cell = 3.5, cols = Math.floor(S / cell);
+
+  ctx.fillStyle = '#fff';
+  ctx.fillRect(0, 0, S, S);
+
+  function rand(x, y) {
+    const v = Math.sin(x * 157.3 + y * 421.9) * 99999;
+    return v - Math.floor(v);
   }
-  
-  ctx.fillStyle = 'white';
-  ctx.fillRect(0, 0, size, size);
-  
-  // Draw cells
+
   for (let r = 0; r < cols; r++) {
     for (let c = 0; c < cols; c++) {
-      // Corner finder patterns
-      const inCorner = (
-        (r < 3 && c < 3) || (r < 3 && c >= cols-3) || (r >= cols-3 && c < 3)
-      );
-      if (inCorner) {
-        // Finder pattern squares
-        const isOuter = (r === 0 || r === 2 || c === 0 || c === 2);
-        const isInner = (r === 1 && c === 1);
-        if (isOuter || isInner) {
+      // Finder patterns corners
+      const tl = r < 4 && c < 4;
+      const tr = r < 4 && c >= cols - 4;
+      const bl = r >= cols - 4 && c < 4;
+      if (tl || tr || bl) {
+        const isOuter = r === 0 || r === 3 || c === 0 || c === 3 ||
+                        (tr && (c === cols-4 || c === cols-1)) ||
+                        (bl && (r === cols-4 || r === cols-1));
+        const isCenter = (tl && r >= 1 && r <= 2 && c >= 1 && c <= 2) ||
+                         (tr && r >= 1 && r <= 2 && c >= cols-3 && c <= cols-2) ||
+                         (bl && r >= cols-3 && r <= cols-2 && c >= 1 && c <= 2);
+        if (isOuter || isCenter) {
           ctx.fillStyle = '#000';
-          ctx.fillRect(c*cell, r*cell, cell, cell);
+          ctx.fillRect(c * cell, r * cell, cell, cell);
         }
         continue;
       }
-      // Data pattern
-      if (seededRand(r, c) > 0.45) {
+      if (rand(r, c) > 0.5) {
         ctx.fillStyle = '#000';
-        ctx.fillRect(c*cell, r*cell, cell, cell);
+        ctx.fillRect(c * cell, r * cell, cell, cell);
       }
     }
   }
 }
 
-// Init
 renderTags();
-drawDecorQR();
+drawQR();
 </script>
-
-<style>
-@media print {
-  body { background: #0d0d0d; padding: 0; }
-  h1, .editor { display: none !important; }
-  .badge { page-break-inside: avoid; }
-}
-</style>
-
 </body>
 </html>
