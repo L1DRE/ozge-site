@@ -667,12 +667,6 @@ input[type="file"] { display: none; }
 
         <div class="links-section">
           <div class="link-row">
-            <!-- FIRST logo -->
-            <svg class="first-logo" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect width="32" height="32" rx="4" fill="#1a1a1a" stroke="#e8620a" stroke-width="1"/>
-              <text x="16" y="21" font-family="'Orbitron',monospace" font-size="9" fill="#e8620a" text-anchor="middle" font-weight="700">FRC</text>
-              <line x1="4" y1="24" x2="28" y2="24" stroke="#e8620a" stroke-width="1" opacity="0.4"/>
-            </svg>
             <div class="link-info">
               <div class="link-handle"><span class="at">@</span><span id="disp-handle">AITYMZHAKUPOV</span></div>
               <div class="link-site"><span style="color:var(--orange)">⬡</span><span id="disp-site">lldre.github.io/ozge-site</span></div>
@@ -694,7 +688,7 @@ input[type="file"] { display: none; }
           </div>
         </div>
         <div class="qr-box">
-          <canvas id="qrCanvas" width="70" height="70"></canvas>
+          <div id="qrContainer" style="width:70px;height:70px;display:flex;align-items:center;justify-content:center;"></div>
         </div>
       </div>
     </div>
@@ -767,6 +761,19 @@ input[type="file"] { display: none; }
     </div>
 
     <div class="editor-section">
+      <div class="editor-section-title">&gt; QR-КОД</div>
+      <div class="fields-grid">
+        <div class="field-group field-full">
+          <label>Ссылка для QR-кода</label>
+          <div style="display:flex;gap:6px;">
+            <input type="text" id="in-qrurl" placeholder="https://example.com" value="https://lldre.github.io/ozge-site" style="flex:1;background:#0e0e0e;border:1px solid #2a2a2a;color:#fff;font-family:'Share Tech Mono',monospace;font-size:11px;padding:7px 10px;outline:none;border-radius:2px;transition:border-color 0.2s;">
+            <button class="btn" onclick="generateQR()">QR</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="editor-section">
       <div class="editor-section-title">&gt; SKILL TAGS</div>
       <div class="tags-list" id="tags-list"></div>
       <div class="add-tag-row">
@@ -780,11 +787,15 @@ input[type="file"] { display: none; }
 
     <div class="btn-row">
       <button class="btn" onclick="document.getElementById('photoInput').click()">📷 ФОТО</button>
+      <button class="btn" onclick="exportBadgeImage()">💾 ЭКСПОРТ PNG</button>
       <button class="btn" onclick="window.print()">🖨 ПЕЧАТЬ</button>
     </div>
 
   </div>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <script>
 let tags = [
@@ -795,6 +806,7 @@ let tags = [
 ];
 
 const icons = ['⚙','🤖','💻','🐍','🌍','🏆','🔬','⚡','🎯','🔧','📡','🛸','🏋','📚','🌿','🔥'];
+let qrInstance = null;
 
 function update() {
   document.getElementById('disp-name').textContent = document.getElementById('in-name').value;
@@ -808,12 +820,9 @@ function update() {
 }
 
 function renderTags() {
-  // Badge tags
   document.getElementById('disp-tags').innerHTML = tags.map(t =>
     `<div class="tag"><span class="tag-icon">${t.icon}</span>${t.label}</div>`
   ).join('');
-
-  // Editor tag pills
   document.getElementById('tags-list').innerHTML = tags.map((t,i) =>
     `<div class="tag-pill">${t.icon} ${t.label}<button onclick="removeTag(${i})">×</button></div>`
   ).join('');
@@ -868,49 +877,62 @@ function setTeamLogoSrc(src) {
   document.getElementById('teamLogoHint').textContent = 'ЛОГО ЗАГРУЖЕНО';
 }
 
-// Draw decorative QR
-function drawQR() {
-  const canvas = document.getElementById('qrCanvas');
-  const ctx = canvas.getContext('2d');
-  const S = 70, cell = 3.5, cols = Math.floor(S / cell);
+// Real QR generation using qrcode.js
+function generateQR() {
+  const url = document.getElementById('in-qrurl').value.trim();
+  if (!url) return;
 
-  ctx.fillStyle = '#fff';
-  ctx.fillRect(0, 0, S, S);
+  const container = document.getElementById('qrContainer');
+  container.innerHTML = '';
 
-  function rand(x, y) {
-    const v = Math.sin(x * 157.3 + y * 421.9) * 99999;
-    return v - Math.floor(v);
-  }
-
-  for (let r = 0; r < cols; r++) {
-    for (let c = 0; c < cols; c++) {
-      // Finder patterns corners
-      const tl = r < 4 && c < 4;
-      const tr = r < 4 && c >= cols - 4;
-      const bl = r >= cols - 4 && c < 4;
-      if (tl || tr || bl) {
-        const isOuter = r === 0 || r === 3 || c === 0 || c === 3 ||
-                        (tr && (c === cols-4 || c === cols-1)) ||
-                        (bl && (r === cols-4 || r === cols-1));
-        const isCenter = (tl && r >= 1 && r <= 2 && c >= 1 && c <= 2) ||
-                         (tr && r >= 1 && r <= 2 && c >= cols-3 && c <= cols-2) ||
-                         (bl && r >= cols-3 && r <= cols-2 && c >= 1 && c <= 2);
-        if (isOuter || isCenter) {
-          ctx.fillStyle = '#000';
-          ctx.fillRect(c * cell, r * cell, cell, cell);
-        }
-        continue;
-      }
-      if (rand(r, c) > 0.5) {
-        ctx.fillStyle = '#000';
-        ctx.fillRect(c * cell, r * cell, cell, cell);
-      }
-    }
-  }
+  new QRCode(container, {
+    text: url,
+    width: 70,
+    height: 70,
+    colorDark: '#000000',
+    colorLight: '#ffffff',
+    correctLevel: QRCode.CorrectLevel.M
+  });
 }
 
+// Export only the badge element as PNG
+function exportBadgeImage() {
+  const badge = document.getElementById('badge');
+  const editor = document.querySelector('.editor-panel');
+  const holeContainer = document.querySelector('.hole-container');
+
+  // Temporarily hide editor and hole for clean export
+  editor.style.display = 'none';
+  holeContainer.style.display = 'none';
+
+  html2canvas(badge, {
+    backgroundColor: null,
+    scale: 2,
+    useCORS: true,
+    allowTaint: true,
+    logging: false
+  }).then(canvas => {
+    editor.style.display = '';
+    holeContainer.style.display = '';
+
+    const link = document.createElement('a');
+    link.download = 'ozge-badge.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  }).catch(() => {
+    editor.style.display = '';
+    holeContainer.style.display = '';
+    alert('Ошибка экспорта. Попробуй печать через браузер.');
+  });
+}
+
+// Init
 renderTags();
-drawQR();
+
+// Generate default QR on load after libs are loaded
+window.addEventListener('load', () => {
+  generateQR();
+});
 </script>
 </body>
 </html>
