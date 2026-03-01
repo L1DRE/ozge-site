@@ -162,13 +162,13 @@ body {
   font-size: 32px;
   font-weight: 700;
   color: #fff;
-  line-height: 1;
+  line-height: 1.25;
   text-transform: uppercase;
   letter-spacing: 1px;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  overflow: visible;
+  padding-top: 5px;
 }
 
 .participant-role {
@@ -258,25 +258,30 @@ body {
   gap: 10px;
   margin-top: 8px;
   padding: 7px 10px;
-  border: 1px solid rgba(232,98,10,0.25);
+  border: 1px dashed rgba(232,98,10,0.25);
   border-radius: 3px;
-  background: rgba(232,98,10,0.04);
+  background: rgba(232,98,10,0.03);
   cursor: pointer;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, background 0.2s, padding 0.2s;
   min-height: 46px;
 }
 .team-logo-block:hover { border-color: rgba(232,98,10,0.5); }
+.team-logo-block.filled {
+  border-color: transparent;
+  background: transparent;
+  padding: 4px 0;
+}
 
 .team-logo-img-wrap {
-  width: 36px; height: 36px;
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
+  transition: width 0.2s, height 0.2s;
 }
 .team-logo-img-wrap img {
-  width: 36px; height: 36px;
+  width: 100%; height: 100%;
   object-fit: contain;
   display: none;
   border-radius: 2px;
@@ -309,6 +314,69 @@ body {
   font-size: 8px;
   color: #444;
   letter-spacing: 1px;
+}
+.team-logo-block.filled .team-logo-hint { display: none; }
+
+/* SPONSORS ROW */
+.sponsors-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+  padding: 5px 0;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  flex-wrap: wrap;
+  min-height: 32px;
+}
+.sponsor-slot {
+  width: 36px; height: 24px;
+  border: 1px dashed #333;
+  border-radius: 2px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.2s;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: rgba(255,255,255,0.02);
+}
+.sponsor-slot:hover { border-color: var(--orange); }
+.sponsor-slot img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  display: none;
+}
+.sponsor-slot img.loaded { display: block; }
+.sponsor-slot .plus {
+  font-size: 14px;
+  color: #333;
+  line-height: 1;
+}
+.sponsor-slot.has-img .plus { display: none; }
+.sponsors-label {
+  font-size: 8px;
+  color: #333;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Size slider in editor */
+.slider-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.slider-row input[type=range] {
+  flex: 1;
+  accent-color: var(--orange);
+  background: transparent;
+  cursor: pointer;
+}
+.slider-val {
+  font-size: 10px;
+  color: var(--orange);
+  min-width: 30px;
+  text-align: right;
 }
 
 .badge-right {
@@ -655,7 +723,7 @@ input[type="file"] { display: none; }
 
         <!-- TEAM LOGO BLOCK -->
         <div class="team-logo-block" id="teamLogoBlock" onclick="document.getElementById('teamLogoFileInput').click()" title="Нажми чтобы загрузить лого">
-          <div class="team-logo-img-wrap">
+          <div class="team-logo-img-wrap" id="teamLogoWrap" style="width:36px;height:36px;">
             <img id="teamLogoImg" src="" alt="team logo">
             <div class="team-logo-placeholder-icon" id="teamLogoIcon">🛡</div>
           </div>
@@ -663,6 +731,16 @@ input[type="file"] { display: none; }
             <div class="team-name-label" id="disp-teamname"></div>
             <div class="team-logo-hint" id="teamLogoHint">НАЖМИ ДЛЯ ЗАГРУЗКИ ЛОГО</div>
           </div>
+        </div>
+
+        <!-- SPONSORS ROW -->
+        <div class="sponsors-row" id="sponsorsRow">
+          <div class="sponsors-label">SPONSORS</div>
+          <div class="sponsor-slot" onclick="triggerSponsor(0)" id="sponsor-0"><span class="plus">+</span><img id="sponsor-img-0" src="" alt=""><input type="file" accept="image/*" style="display:none" onchange="loadSponsor(event,0)"></div>
+          <div class="sponsor-slot" onclick="triggerSponsor(1)" id="sponsor-1"><span class="plus">+</span><img id="sponsor-img-1" src="" alt=""><input type="file" accept="image/*" style="display:none" onchange="loadSponsor(event,1)"></div>
+          <div class="sponsor-slot" onclick="triggerSponsor(2)" id="sponsor-2"><span class="plus">+</span><img id="sponsor-img-2" src="" alt=""><input type="file" accept="image/*" style="display:none" onchange="loadSponsor(event,2)"></div>
+          <div class="sponsor-slot" onclick="triggerSponsor(3)" id="sponsor-3"><span class="plus">+</span><img id="sponsor-img-3" src="" alt=""><input type="file" accept="image/*" style="display:none" onchange="loadSponsor(event,3)"></div>
+          <div class="sponsor-slot" onclick="triggerSponsor(4)" id="sponsor-4"><span class="plus">+</span><img id="sponsor-img-4" src="" alt=""><input type="file" accept="image/*" style="display:none" onchange="loadSponsor(event,4)"></div>
         </div>
 
         <div class="links-section">
@@ -747,6 +825,13 @@ input[type="file"] { display: none; }
           <input type="text" id="in-teamname" value="" placeholder="BAR BARS TEAM" oninput="update()">
         </div>
         <div class="field-group field-full">
+          <label>Размер лого</label>
+          <div class="slider-row">
+            <input type="range" id="in-logosize" min="24" max="80" value="36" oninput="updateLogoSize()">
+            <span class="slider-val" id="logosize-val">36px</span>
+          </div>
+        </div>
+        <div class="field-group field-full">
           <label>URL лого (ссылка на изображение)</label>
           <div style="display:flex;gap:6px;">
             <input type="text" id="in-logourl" placeholder="https://..." style="flex:1;background:#0e0e0e;border:1px solid #2a2a2a;color:#fff;font-family:'Share Tech Mono',monospace;font-size:11px;padding:7px 10px;outline:none;border-radius:2px;transition:border-color 0.2s;">
@@ -816,7 +901,44 @@ function update() {
   document.getElementById('disp-site').textContent = document.getElementById('in-site').value;
   document.getElementById('disp-country').textContent = document.getElementById('in-country').value;
   document.getElementById('disp-teamname').textContent = document.getElementById('in-teamname').value;
+  checkTeamFilled();
   renderTags();
+}
+
+function checkTeamFilled() {
+  const block = document.getElementById('teamLogoBlock');
+  const hasName = document.getElementById('in-teamname').value.trim() !== '';
+  const hasLogo = document.getElementById('teamLogoImg').classList.contains('loaded');
+  if (hasName || hasLogo) {
+    block.classList.add('filled');
+  } else {
+    block.classList.remove('filled');
+  }
+}
+
+function updateLogoSize() {
+  const size = document.getElementById('in-logosize').value;
+  document.getElementById('logosize-val').textContent = size + 'px';
+  const wrap = document.getElementById('teamLogoWrap');
+  wrap.style.width = size + 'px';
+  wrap.style.height = size + 'px';
+}
+
+function triggerSponsor(i) {
+  document.querySelector(`#sponsor-${i} input[type=file]`).click();
+}
+
+function loadSponsor(e, i) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    const img = document.getElementById(`sponsor-img-${i}`);
+    img.src = ev.target.result;
+    img.classList.add('loaded');
+    document.getElementById(`sponsor-${i}`).classList.add('has-img');
+  };
+  reader.readAsDataURL(file);
 }
 
 function renderTags() {
@@ -875,6 +997,7 @@ function setTeamLogoSrc(src) {
   img.classList.add('loaded');
   document.getElementById('teamLogoIcon').style.display = 'none';
   document.getElementById('teamLogoHint').textContent = 'ЛОГО ЗАГРУЖЕНО';
+  checkTeamFilled();
 }
 
 // Real QR generation using qrcode.js
