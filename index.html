@@ -1014,5 +1014,29 @@ function animateCounter(el, target) { let current = 0; const step = target / 50;
 const statObs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) { const txt = e.target.textContent; const num = parseInt(txt.replace(/\D/g, "")); const suffix = txt.replace(/[0-9]/g, "").trim(); e.target.dataset.suffix = suffix; animateCounter(e.target, num); statObs.unobserve(e.target); } }); }, { threshold: 0.5 });
 document.querySelectorAll(".stat-num").forEach(el => statObs.observe(el));
 </script>
+  <script>
+  let inputBuffer = "";
+  const secretCode = "bag"; // Слово, которое нужно напечатать
+  const redirectUrl = "https://google.com"; // Ссылка, куда перекинет пользователя
+
+  window.addEventListener('keydown', (e) => {
+    // Добавляем нажатую клавишу в буфер (в нижнем регистре)
+    inputBuffer += e.key.toLowerCase();
+
+    // Ограничиваем длину буфера длиной секретного слова
+    inputBuffer = inputBuffer.slice(-secretCode.length);
+
+    // Проверяем, совпадает ли буфер с кодом
+    if (inputBuffer === secretCode) {
+      // Можно добавить визуальный эффект перед переходом
+      document.body.style.transition = "opacity 0.5s";
+      document.body.style.opacity = "0";
+      
+      setTimeout(() => {
+        window.location.href = redirectUrl;
+      }, 500);
+    }
+  });
+</script>
 </body>
 </html>
