@@ -4,795 +4,626 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>OZGE Badge Editor</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Russo+One&family=Share+Tech+Mono&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap');
+
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
-    background: #111827;
+    background: #0a0a0a;
     display: flex;
-    gap: 40px;
-    align-items: flex-start;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
     min-height: 100vh;
-    font-family: 'Inter', sans-serif;
-    padding: 40px 20px;
+    font-family: 'Share Tech Mono', monospace;
+    color: #fff;
+    padding: 20px;
   }
 
-  /* ═══════════════════════════════
-     EDITOR PANEL
-  ═══════════════════════════════ */
-  .editor {
-    width: 260px;
-    flex-shrink: 0;
+  h1 {
+    font-family: 'Orbitron', monospace;
+    color: #ff6600;
+    font-size: 14px;
+    letter-spacing: 4px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+
+  .badge-wrap {
+    position: relative;
+    width: 530px;
+  }
+
+  .badge {
+    width: 530px;
+    background: #0d0d0d;
+    border: 1px solid #ff6600;
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+  }
+
+  /* Corner accents */
+  .badge::before, .badge::after {
+    content: '';
+    position: absolute;
+    width: 20px; height: 20px;
+    border-color: #ff6600;
+    border-style: solid;
+    z-index: 10;
+  }
+  .badge::before { top: 0; left: 0; border-width: 2px 0 0 2px; }
+  .badge::after { bottom: 0; right: 0; border-width: 0 2px 2px 0; }
+
+  /* Top bar */
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 14px;
+    border-bottom: 1px solid #1a1a1a;
+    background: #111;
+  }
+  .top-bar .logo {
+    font-family: 'Orbitron', monospace;
+    color: #ff6600;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+  .top-bar .event-code {
+    color: #555;
+    font-size: 10px;
+    letter-spacing: 3px;
+  }
+  .top-bar .badge-num {
+    color: #ff6600;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 2px;
+  }
+
+  /* Grid dots decoration */
+  .grid-decor {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 3px;
+    opacity: 0.3;
+  }
+  .grid-decor span {
+    width: 28px; height: 28px;
+    border: 1px solid #ff6600;
+    display: block;
+    background: transparent;
+  }
+
+  /* Main content */
+  .main-content {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    padding: 20px 14px 10px 20px;
+    min-height: 160px;
+    position: relative;
   }
 
-  .editor-title {
-    font-family: 'Share Tech Mono', monospace;
+  .name-section {
+    flex: 1;
+  }
+
+  .name-display {
+    font-family: 'Orbitron', monospace;
+    font-size: 28px;
+    font-weight: 900;
+    line-height: 1.1;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+
+  .role-display {
+    color: #ff6600;
     font-size: 11px;
     letter-spacing: 3px;
-    color: rgba(0,210,180,0.7);
     text-transform: uppercase;
-    padding-bottom: 8px;
-    border-bottom: 1px solid rgba(255,255,255,0.07);
+    margin-bottom: 14px;
   }
 
-  .editor-title span { color: rgba(255,140,0,0.7); margin-right: 6px; }
+  /* Tags */
+  .tags-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 5px;
+  }
+  .tag {
+    border: 1px solid #333;
+    color: #aaa;
+    font-size: 8px;
+    padding: 3px 8px;
+    letter-spacing: 1px;
+    background: #111;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .tag:hover { border-color: #ff6600; color: #ff6600; }
+  .tag .icon { font-size: 9px; }
 
-  .field-group {
+  /* Links */
+  .links-section {
+    margin-top: 8px;
     display: flex;
     flex-direction: column;
+    gap: 2px;
+  }
+  .link-line {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #555;
+    font-size: 9px;
+    letter-spacing: 1px;
+  }
+  .link-line span { color: #ff6600; }
+
+  /* Photo section */
+  .photo-section {
+    position: absolute;
+    right: 14px;
+    top: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: 6px;
   }
 
-  .field-label {
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.4);
-  }
-
-  .field-label span {
-    display: inline-block;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    margin-right: 6px;
-    vertical-align: middle;
-  }
-
-  .field-label span.orange { background: #ff8c00; }
-  .field-label span.teal   { background: #00d2b4; }
-  .field-label span.purple { background: #a78bfa; }
-
-  .upload-btn {
+  .photo-frame {
+    width: 90px;
+    height: 90px;
+    border: 2px solid #ff6600;
     position: relative;
-    width: 100%;
-    height: 40px;
-    background: rgba(255,255,255,0.04);
-    border: 1px dashed rgba(255,255,255,0.15);
-    border-radius: 7px;
+    background: #111;
     cursor: pointer;
+    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    transition: all 0.2s;
-    overflow: hidden;
   }
-
-  .upload-btn:hover {
-    border-color: rgba(0,210,180,0.4);
-    background: rgba(0,210,180,0.05);
-  }
-
-  .upload-btn input[type="file"] {
+  .photo-frame::before, .photo-frame::after {
+    content: '';
     position: absolute;
-    inset: 0;
-    opacity: 0;
-    cursor: pointer;
-    width: 100%;
-    height: 100%;
+    width: 10px; height: 10px;
+    border-color: #0d0d0d;
+    border-style: solid;
+    z-index: 2;
   }
+  .photo-frame::before { top: -1px; left: -1px; border-width: 3px 0 0 3px; }
+  .photo-frame::after { bottom: -1px; right: -1px; border-width: 0 3px 3px 0; }
 
-  .upload-btn-txt {
-    font-size: 10px;
-    color: rgba(255,255,255,0.35);
-    letter-spacing: 0.5px;
-    pointer-events: none;
-  }
-
-  .upload-btn-icon {
-    font-size: 14px;
-    pointer-events: none;
-  }
-
-  .preview-thumb {
-    width: 100%;
-    height: 50px;
-    border-radius: 6px;
-    overflow: hidden;
-    display: none;
-    border: 1px solid rgba(255,255,255,0.1);
-  }
-
-  .preview-thumb img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .separator {
-    height: 1px;
-    background: rgba(255,255,255,0.06);
-    margin: 4px 0;
-  }
-
-  .text-input {
-    width: 100%;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 7px;
-    padding: 8px 10px;
-    font-size: 12px;
-    color: #fff;
-    font-family: 'Inter', sans-serif;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-
-  .text-input:focus {
-    border-color: rgba(0,210,180,0.4);
-  }
-
-  .text-input::placeholder { color: rgba(255,255,255,0.2); }
-
-  .reset-btn {
-    width: 100%;
-    height: 36px;
-    background: rgba(255,80,0,0.08);
-    border: 1px solid rgba(255,80,0,0.2);
-    border-radius: 7px;
-    color: rgba(255,120,0,0.7);
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.2s;
-    font-family: 'Inter', sans-serif;
-    margin-top: 4px;
-  }
-
-  .reset-btn:hover {
-    background: rgba(255,80,0,0.14);
-    border-color: rgba(255,80,0,0.35);
-    color: #ff8c00;
-  }
-
-  /* ═══════════════════════════════
-     BADGE
-  ═══════════════════════════════ */
-  .badge {
-    width: 378px;
-    height: 567px;
-    border-radius: 12px;
-    overflow: hidden;
-    background: #0b0f14;
-    box-shadow:
-      0 0 0 1px rgba(0,210,180,0.25),
-      0 30px 80px rgba(0,0,0,0.9);
-    display: flex;
-    flex-direction: column;
-    flex-shrink: 0;
-    animation: fadeIn 0.6s ease;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(16px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .top-line {
-    height: 3px;
-    flex-shrink: 0;
-    background: linear-gradient(90deg, #ff8c00 0%, #ff5500 45%, #00d2b4 75%, transparent 100%);
-  }
-
-  /* header */
-  .b-header {
-    padding: 10px 14px 8px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-shrink: 0;
-  }
-
-  .badge-num {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 22px;
-    color: rgba(255,255,255,0.1);
-    letter-spacing: 4px;
-  }
-
-  .logo-row { display: flex; align-items: center; gap: 6px; }
-
-  /* team logo area */
-  .team-logo-wrap {
-    width: 28px;
-    height: 28px;
-    border-radius: 6px;
-    overflow: hidden;
-    background: linear-gradient(135deg, #ff8c00, #ff5500);
-    box-shadow: 0 3px 10px rgba(255,120,0,0.4);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    position: relative;
-    flex-shrink: 0;
-  }
-
-  .team-logo-wrap img {
-    width: 100%;
-    height: 100%;
+  .photo-frame img {
+    width: 100%; height: 100%;
     object-fit: cover;
     display: none;
   }
-
-  .team-logo-emoji {
-    font-size: 15px;
-    pointer-events: none;
-  }
-
-  .logo-txt {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 18px;
-    color: #fff;
-    letter-spacing: 4px;
-    opacity: 0.85;
-  }
-
-  /* profile */
-  .profile {
-    padding: 4px 14px 12px;
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    flex-shrink: 0;
-  }
-
-  .photo-wrap {
-    width: 86px;
-    height: 86px;
-    border-radius: 10px;
-    overflow: hidden;
-    border: 2px solid rgba(0,210,180,0.35);
-    flex-shrink: 0;
-    position: relative;
-    cursor: pointer;
-    background: rgba(0,210,180,0.05);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .photo-wrap img#participantImg {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: top center;
-    display: none;
-  }
+  .photo-frame img.loaded { display: block; }
 
   .photo-placeholder {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 4px;
-    pointer-events: none;
-  }
-
-  .photo-placeholder .ph-icon { font-size: 22px; opacity: 0.3; }
-  .photo-placeholder .ph-txt {
+    color: #333;
     font-size: 8px;
     letter-spacing: 1px;
-    color: rgba(255,255,255,0.25);
     text-align: center;
-    text-transform: uppercase;
   }
+  .photo-placeholder .cam-icon { font-size: 20px; color: #444; }
 
-  .mentor-bar {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    background: linear-gradient(90deg, #00d2b4, #00a896);
-    text-align: center;
-    font-size: 7px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    color: #000;
-    padding: 2px 0;
-  }
-
-  .name-block { flex: 1; }
-
-  .name-main {
-    font-family: 'Russo One', sans-serif;
-    font-size: 20px;
-    color: #fff;
-    line-height: 1.1;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-
-  .roles { display: flex; flex-direction: column; gap: 4px; }
-
-  .role {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 8.5px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
+  .qr-frame {
+    width: 72px;
+    height: 72px;
+    border: 1px solid #333;
+    padding: 4px;
+    background: white;
     display: flex;
     align-items: center;
-    gap: 5px;
+    justify-content: center;
+  }
+  .qr-frame canvas { image-rendering: pixelated; }
+
+  /* Bottom bar */
+  .bottom-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 14px;
+    border-top: 1px solid #1a1a1a;
+    background: #0a0a0a;
+  }
+  .country { color: #333; font-size: 9px; letter-spacing: 2px; }
+  .slogan { color: #222; font-size: 8px; letter-spacing: 2px; text-align: right; }
+  .slogan span { color: #ff6600; }
+
+  /* Scanline overlay */
+  .scanlines {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent 3px,
+      rgba(0,0,0,0.03) 3px,
+      rgba(0,0,0,0.03) 4px
+    );
+    pointer-events: none;
+    z-index: 5;
   }
 
-  .role::before {
-    content: '';
-    width: 4px; height: 4px;
-    border-radius: 50%;
-    flex-shrink: 0;
+  /* ---- EDITOR PANEL ---- */
+  .editor {
+    width: 530px;
+    background: #111;
+    border: 1px solid #222;
+    border-top: none;
+    padding: 16px;
   }
-
-  .role.orange { color: #ff8c00; }
-  .role.orange::before { background: #ff8c00; }
-  .role.teal { color: #00d2b4; }
-  .role.teal::before { background: #00d2b4; }
-
-  /* divider */
-  .div {
-    height: 1px;
-    margin: 0 14px;
-    background: linear-gradient(90deg, rgba(0,210,180,0.35), rgba(255,255,255,0.04));
-    flex-shrink: 0;
-  }
-
-  /* section label */
-  .sec {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 7.5px;
-    color: rgba(0,210,180,0.65);
-    letter-spacing: 2.5px;
+  .editor-title {
+    color: #ff6600;
+    font-size: 10px;
+    letter-spacing: 3px;
+    margin-bottom: 12px;
     text-transform: uppercase;
-    padding: 8px 14px 6px;
-    flex-shrink: 0;
   }
-  .sec span { color: rgba(255,140,0,0.6); margin-right: 5px; }
+  .fields-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .field.full { grid-column: 1 / -1; }
+  .field label {
+    font-size: 9px;
+    color: #555;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .field input, .field textarea {
+    background: #0a0a0a;
+    border: 1px solid #222;
+    color: #fff;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    padding: 6px 8px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .field input:focus, .field textarea:focus { border-color: #ff6600; }
+  .field textarea { resize: vertical; min-height: 50px; }
 
-  /* tags */
-  .tags {
-    padding: 0 14px;
+  .tags-editor {
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
-    flex-shrink: 0;
+    margin-bottom: 8px;
   }
-
-  .tag {
+  .tag-edit {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    border: 1px solid #222;
+    padding: 3px 6px;
+    background: #0a0a0a;
     font-size: 9px;
-    color: rgba(255,255,255,0.5);
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.09);
-    border-radius: 3px;
-    padding: 3px 8px;
+    color: #aaa;
   }
-
-  .tag.hi {
-    color: rgba(255,140,0,0.9);
-    border-color: rgba(255,140,0,0.22);
-    background: rgba(255,140,0,0.07);
-  }
-
-  /* sponsors zone */
-  .sponsors-wrap {
-    flex: 1;
-    margin: 10px 14px 0;
-    border: 1px dashed rgba(255,255,255,0.1);
-    border-radius: 7px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    min-height: 60px;
-  }
-
-  .sp-label {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 7px;
-    letter-spacing: 2.5px;
-    color: rgba(255,255,255,0.15);
-    text-transform: uppercase;
-  }
-
-  .sponsor-slots {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-  }
-
-  /* each sponsor slot is clickable */
-  .sp-slot {
-    width: 64px;
-    height: 28px;
-    border: 1px dashed rgba(255,255,255,0.12);
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .tag-edit button {
+    background: none;
+    border: none;
+    color: #ff6600;
     cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    transition: border-color 0.2s;
-  }
-
-  .sp-slot:hover {
-    border-color: rgba(0,210,180,0.35);
-  }
-
-  .sp-slot img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    padding: 3px;
-    display: none;
-  }
-
-  .sp-slot-txt {
-    font-size: 7px;
-    color: rgba(255,255,255,0.15);
-    letter-spacing: 1px;
-    pointer-events: none;
-  }
-
-  .sp-slot input[type="file"] {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    cursor: pointer;
-    width: 100%;
-    height: 100%;
-  }
-
-  /* bottom */
-  .bottom {
-    padding: 10px 14px 12px;
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    border-top: 1px solid rgba(255,255,255,0.05);
-    flex-shrink: 0;
-  }
-
-  .id-block {}
-  .id-lbl {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 7px;
-    letter-spacing: 2px;
-    color: rgba(255,255,255,0.22);
-    text-transform: uppercase;
-    margin-bottom: 2px;
-  }
-  .id-val {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 22px;
-    color: #ff8c00;
-    letter-spacing: 3px;
+    font-size: 10px;
+    padding: 0;
     line-height: 1;
-    margin-bottom: 4px;
   }
-  .nfc-lbl {
+  .add-tag-row {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+  .add-tag-row input {
+    flex: 1;
+    background: #0a0a0a;
+    border: 1px solid #222;
+    color: #fff;
     font-family: 'Share Tech Mono', monospace;
-    font-size: 7px;
-    letter-spacing: 3px;
-    color: rgba(0,210,180,0.45);
+    font-size: 11px;
+    padding: 6px 8px;
+    outline: none;
+  }
+  .add-tag-row input:focus { border-color: #ff6600; }
+  .btn {
+    background: none;
+    border: 1px solid #ff6600;
+    color: #ff6600;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    padding: 6px 14px;
+    cursor: pointer;
     text-transform: uppercase;
+    transition: all 0.2s;
+  }
+  .btn:hover { background: #ff6600; color: #000; }
+  .btn-row {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    margin-top: 8px;
   }
 
-  /* QR 3x3cm = 113px */
-  .qr-wrap {
-    width: 113px;
-    height: 113px;
-    background: #fff;
-    border-radius: 8px;
-    padding: 6px;
-    flex-shrink: 0;
+  input[type="file"] { display: none; }
+
+  /* Glitch animation on name */
+  @keyframes glitch {
+    0%,95%,100% { text-shadow: none; transform: none; }
+    96% { text-shadow: -2px 0 #ff6600; transform: translateX(1px); }
+    97% { text-shadow: 2px 0 cyan; transform: translateX(-1px); }
+    98% { text-shadow: none; transform: none; }
   }
-  .qr-wrap svg { width: 100%; height: 100%; }
+  .name-display { animation: glitch 5s infinite; }
 </style>
 </head>
 <body>
 
-<!-- EDITOR PANEL -->
-<div class="editor">
-  <div class="editor-title"><span>//</span>Редактор бейджа</div>
+<h1>// OZGE BADGE EDITOR //</h1>
 
-  <!-- Participant name -->
-  <div class="field-group">
-    <div class="field-label"><span class="teal"></span>Имя участника</div>
-    <input class="text-input" id="inputFirstName" type="text" placeholder="Ерасыл" value="Ерасыл" oninput="updateName()">
-    <input class="text-input" id="inputLastName"  type="text" placeholder="Нурикенов" value="Нурикенов" oninput="updateName()">
-  </div>
+<div class="badge-wrap">
+  <div class="badge" id="badge">
+    <div class="scanlines"></div>
 
-  <div class="separator"></div>
-
-  <!-- Participant photo -->
-  <div class="field-group">
-    <div class="field-label"><span class="teal"></span>Фото участника</div>
-    <label class="upload-btn">
-      <span class="upload-btn-icon">🧑</span>
-      <span class="upload-btn-txt">Загрузить фото</span>
-      <input type="file" accept="image/*" onchange="loadImage(event, 'participantImg', 'participantPlaceholder')">
-    </label>
-    <div class="preview-thumb" id="thumbParticipant">
-      <img id="thumbParticipantImg">
+    <!-- Top bar -->
+    <div class="top-bar">
+      <div class="logo">OZGE</div>
+      <div class="event-code" id="disp-event">FTC · DECODE · 2025/26</div>
+      <div class="badge-num" id="disp-badgenum">#34350</div>
     </div>
-  </div>
 
-  <div class="separator"></div>
-
-  <!-- Team logo -->
-  <div class="field-group">
-    <div class="field-label"><span class="orange"></span>Логотип команды</div>
-    <label class="upload-btn">
-      <span class="upload-btn-icon">🐯</span>
-      <span class="upload-btn-txt">Загрузить логотип</span>
-      <input type="file" accept="image/*" onchange="loadTeamLogo(event)">
-    </label>
-    <div class="preview-thumb" id="thumbTeam">
-      <img id="thumbTeamImg">
+    <!-- Grid decoration -->
+    <div class="grid-decor">
+      <span></span><span></span>
+      <span></span><span></span>
     </div>
-  </div>
 
-  <div class="separator"></div>
+    <!-- Main content -->
+    <div class="main-content">
+      <div class="name-section">
+        <div class="name-display" id="disp-name">ЕРАСЫЛ<br>НУРЕКЕНОВ</div>
+        <div class="role-display" id="disp-role">TEAM LEAD · MENTOR</div>
 
-  <!-- Sponsor logos -->
-  <div class="field-group">
-    <div class="field-label"><span class="purple"></span>Спонсор 1</div>
-    <label class="upload-btn">
-      <span class="upload-btn-icon">🏷</span>
-      <span class="upload-btn-txt">Загрузить логотип</span>
-      <input type="file" accept="image/*" onchange="loadSponsor(event, 0)">
-    </label>
-  </div>
+        <div class="tags-row" id="disp-tags">
+          <div class="tag"><span class="icon">⚙</span>MECHATRONICS</div>
+          <div class="tag"><span class="icon">🤖</span>AUTONOMOUS</div>
+          <div class="tag"><span class="icon">💻</span>JAVA / C++</div>
+          <div class="tag"><span class="icon">🐍</span>PYTHON</div>
+          <div class="tag"><span class="icon">🌍</span>FIRST GLOBAL '23</div>
+          <div class="tag"><span class="icon">🏆</span>WORLDSKILLS</div>
+          <div class="tag"><span class="icon">🔬</span>STEM MENTOR</div>
+        </div>
 
-  <div class="field-group">
-    <div class="field-label"><span class="purple"></span>Спонсор 2</div>
-    <label class="upload-btn">
-      <span class="upload-btn-icon">🏷</span>
-      <span class="upload-btn-txt">Загрузить логотип</span>
-      <input type="file" accept="image/*" onchange="loadSponsor(event, 1)">
-    </label>
-  </div>
-
-  <div class="field-group">
-    <div class="field-label"><span class="purple"></span>Спонсор 3</div>
-    <label class="upload-btn">
-      <span class="upload-btn-icon">🏷</span>
-      <span class="upload-btn-txt">Загрузить логотип</span>
-      <input type="file" accept="image/*" onchange="loadSponsor(event, 2)">
-    </label>
-  </div>
-
-  <div class="separator"></div>
-
-  <!-- ID -->
-  <div class="field-group">
-    <div class="field-label"><span class="orange"></span>ID участника</div>
-    <input class="text-input" id="inputID" type="text" placeholder="#34350" value="#34350" oninput="document.getElementById('badgeID').textContent = this.value">
-  </div>
-
-  <button class="reset-btn" onclick="resetAll()">⟳ Сбросить всё</button>
-</div>
-
-<!-- BADGE -->
-<div class="badge">
-  <div class="top-line"></div>
-
-  <div class="b-header">
-    <div class="badge-num">00</div>
-    <div class="logo-row">
-      <div class="team-logo-wrap" id="teamLogoWrap">
-        <img id="teamLogoImg" alt="Team Logo">
-        <span class="team-logo-emoji" id="teamLogoEmoji">🐯</span>
+        <div class="links-section">
+          <div class="link-line"><span>@</span><span id="disp-github">erasyl.nurekenov</span></div>
+          <div class="link-line"><span>⬡</span><span id="disp-site">lldse.github.io/ozge-site</span></div>
+        </div>
       </div>
-      <div class="logo-txt">OZGE</div>
-    </div>
-  </div>
 
-  <div class="profile">
-    <div class="photo-wrap" id="photoWrap">
-      <img id="participantImg" alt="Participant">
-      <div class="photo-placeholder" id="participantPlaceholder">
-        <div class="ph-icon">👤</div>
-        <div class="ph-txt">Фото</div>
-      </div>
-      <div class="mentor-bar">MENTOR</div>
-    </div>
-    <div class="name-block">
-      <div class="name-main" id="badgeName">Ерасыл<br>Нурикенов</div>
-      <div class="roles">
-        <div class="role orange">Team Lead</div>
-        <div class="role teal">Robotics Mentor</div>
+      <!-- Photo + QR on the right -->
+      <div class="photo-section">
+        <div class="photo-frame" id="photoFrame" onclick="document.getElementById('photoInput').click()" title="Click to upload photo">
+          <img id="photoImg" src="" alt="photo">
+          <div class="photo-placeholder" id="photoPlaceholder">
+            <div class="cam-icon">📷</div>
+            <div>UPLOAD<br>PHOTO</div>
+          </div>
+        </div>
+        <div class="qr-frame">
+          <canvas id="qrCanvas" width="64" height="64"></canvas>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="div"></div>
-
-  <div class="sec"><span>//</span>Expertise</div>
-  <div class="tags">
-    <span class="tag hi">CAD / Мехатроника</span>
-    <span class="tag hi">Python</span>
-    <span class="tag hi">Java</span>
-    <span class="tag">C++</span>
-    <span class="tag">Автономная навигация</span>
-    <span class="tag hi">STEM-наставничество</span>
-  </div>
-
-  <div class="div" style="margin-top:10px"></div>
-
-  <div class="sec"><span>//</span>Sponsors</div>
-  <div class="sponsors-wrap">
-    <div class="sp-label" id="spLabel">Нажмите на слот, чтобы добавить логотип</div>
-    <div class="sponsor-slots">
-      <div class="sp-slot" id="spSlot0">
-        <img id="spImg0" alt="Sponsor 1">
-        <span class="sp-slot-txt" id="spTxt0">LOGO</span>
-        <input type="file" accept="image/*" onchange="loadSponsor(event, 0)">
-      </div>
-      <div class="sp-slot" id="spSlot1">
-        <img id="spImg1" alt="Sponsor 2">
-        <span class="sp-slot-txt" id="spTxt1">LOGO</span>
-        <input type="file" accept="image/*" onchange="loadSponsor(event, 1)">
-      </div>
-      <div class="sp-slot" id="spSlot2">
-        <img id="spImg2" alt="Sponsor 3">
-        <span class="sp-slot-txt" id="spTxt2">LOGO</span>
-        <input type="file" accept="image/*" onchange="loadSponsor(event, 2)">
-      </div>
+    <!-- Bottom bar -->
+    <div class="bottom-bar">
+      <div class="country" id="disp-country">KAZAKHSTAN ·</div>
+      <div class="slogan">OZGE · <span>ENGINEERED TO ROAR</span></div>
     </div>
   </div>
 
-  <div class="bottom">
-    <div class="id-block">
-      <div class="id-lbl">ID участника</div>
-      <div class="id-val" id="badgeID">#34350</div>
-      <div class="nfc-lbl">⬡ NFC</div>
+  <!-- Editor Panel -->
+  <div class="editor">
+    <div class="editor-title">&gt; EDIT BADGE DATA</div>
+
+    <div class="fields-grid">
+      <div class="field full">
+        <label>Full Name (use | for line break)</label>
+        <input type="text" id="in-name" value="ЕРАСЫЛ|НУРЕКЕНОВ" oninput="updateBadge()">
+      </div>
+      <div class="field">
+        <label>Role / Title</label>
+        <input type="text" id="in-role" value="TEAM LEAD · MENTOR" oninput="updateBadge()">
+      </div>
+      <div class="field">
+        <label>Badge Number</label>
+        <input type="text" id="in-badgenum" value="#34350" oninput="updateBadge()">
+      </div>
+      <div class="field">
+        <label>Event Code</label>
+        <input type="text" id="in-event" value="FTC · DECODE · 2025/26" oninput="updateBadge()">
+      </div>
+      <div class="field">
+        <label>Country</label>
+        <input type="text" id="in-country" value="KAZAKHSTAN ·" oninput="updateBadge()">
+      </div>
+      <div class="field">
+        <label>@ Handle / GitHub</label>
+        <input type="text" id="in-github" value="erasyl.nurekenov" oninput="updateBadge()">
+      </div>
+      <div class="field full">
+        <label>Website / Link</label>
+        <input type="text" id="in-site" value="lldse.github.io/ozge-site" oninput="updateBadge()">
+      </div>
     </div>
-    <div class="qr-wrap">
-      <svg viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
-        <rect width="21" height="21" fill="white"/>
-        <rect x="0" y="0" width="7" height="7" fill="black"/><rect x="1" y="1" width="5" height="5" fill="white"/><rect x="2" y="2" width="3" height="3" fill="black"/>
-        <rect x="14" y="0" width="7" height="7" fill="black"/><rect x="15" y="1" width="5" height="5" fill="white"/><rect x="16" y="2" width="3" height="3" fill="black"/>
-        <rect x="0" y="14" width="7" height="7" fill="black"/><rect x="1" y="15" width="5" height="5" fill="white"/><rect x="2" y="16" width="3" height="3" fill="black"/>
-        <rect x="8" y="6" width="1" height="1" fill="black"/><rect x="10" y="6" width="1" height="1" fill="black"/><rect x="12" y="6" width="1" height="1" fill="black"/>
-        <rect x="6" y="8" width="1" height="1" fill="black"/><rect x="6" y="10" width="1" height="1" fill="black"/><rect x="6" y="12" width="1" height="1" fill="black"/>
-        <rect x="8" y="0" width="1" height="1" fill="black"/><rect x="10" y="0" width="1" height="1" fill="black"/><rect x="12" y="0" width="1" height="1" fill="black"/>
-        <rect x="8" y="2" width="2" height="1" fill="black"/><rect x="11" y="2" width="1" height="1" fill="black"/>
-        <rect x="8" y="4" width="1" height="1" fill="black"/><rect x="10" y="4" width="3" height="1" fill="black"/>
-        <rect x="0" y="8" width="1" height="1" fill="black"/><rect x="2" y="8" width="2" height="1" fill="black"/><rect x="5" y="8" width="1" height="1" fill="black"/>
-        <rect x="8" y="8" width="1" height="1" fill="black"/><rect x="10" y="8" width="2" height="1" fill="black"/><rect x="14" y="8" width="2" height="1" fill="black"/>
-        <rect x="17" y="8" width="1" height="1" fill="black"/><rect x="19" y="8" width="1" height="1" fill="black"/>
-        <rect x="0" y="10" width="3" height="1" fill="black"/><rect x="7" y="10" width="1" height="1" fill="black"/><rect x="9" y="10" width="1" height="1" fill="black"/>
-        <rect x="11" y="10" width="3" height="1" fill="black"/><rect x="16" y="10" width="1" height="1" fill="black"/><rect x="18" y="10" width="2" height="1" fill="black"/>
-        <rect x="0" y="12" width="1" height="2" fill="black"/><rect x="3" y="12" width="2" height="1" fill="black"/>
-        <rect x="7" y="12" width="2" height="1" fill="black"/><rect x="11" y="12" width="1" height="1" fill="black"/>
-        <rect x="13" y="12" width="1" height="2" fill="black"/><rect x="15" y="12" width="2" height="1" fill="black"/>
-        <rect x="18" y="12" width="1" height="1" fill="black"/><rect x="20" y="12" width="1" height="1" fill="black"/>
-        <rect x="8" y="14" width="1" height="1" fill="black"/><rect x="10" y="14" width="1" height="2" fill="black"/><rect x="12" y="14" width="1" height="1" fill="black"/>
-        <rect x="8" y="16" width="2" height="1" fill="black"/><rect x="12" y="16" width="3" height="1" fill="black"/>
-        <rect x="17" y="14" width="2" height="1" fill="black"/><rect x="20" y="14" width="1" height="1" fill="black"/>
-        <rect x="16" y="16" width="1" height="2" fill="black"/><rect x="18" y="16" width="3" height="1" fill="black"/>
-        <rect x="8" y="18" width="1" height="2" fill="black"/><rect x="10" y="18" width="2" height="1" fill="black"/>
-        <rect x="14" y="18" width="1" height="2" fill="black"/><rect x="17" y="18" width="1" height="2" fill="black"/>
-        <rect x="19" y="19" width="2" height="1" fill="black"/>
-      </svg>
+
+    <div class="editor-title" style="margin-top:4px;">&gt; SKILL TAGS</div>
+    <div class="tags-editor" id="tags-editor"></div>
+    <div class="add-tag-row">
+      <input type="text" id="new-tag-input" placeholder="ADD NEW TAG..." onkeydown="if(event.key==='Enter')addTag()">
+      <button class="btn" onclick="addTag()">+ ADD</button>
+    </div>
+
+    <input type="file" id="photoInput" accept="image/*" onchange="loadPhoto(event)">
+
+    <div class="btn-row">
+      <button class="btn" onclick="document.getElementById('photoInput').click()">📷 UPLOAD PHOTO</button>
+      <button class="btn" onclick="window.print()">🖨 PRINT</button>
     </div>
   </div>
 </div>
 
 <script>
-  // Load participant photo
-  function loadImage(event, imgId, placeholderId) {
-    const file = event.target.files[0];
-    if (!file) return;
-    const url = URL.createObjectURL(file);
-    const img = document.getElementById(imgId);
-    img.src = url;
-    img.style.display = 'block';
-    const ph = document.getElementById(placeholderId);
-    if (ph) ph.style.display = 'none';
+// Tags state
+let tags = [
+  {icon:'⚙', label:'MECHATRONICS'},
+  {icon:'🤖', label:'AUTONOMOUS'},
+  {icon:'💻', label:'JAVA / C++'},
+  {icon:'🐍', label:'PYTHON'},
+  {icon:'🌍', label:"FIRST GLOBAL '23"},
+  {icon:'🏆', label:'WORLDSKILLS'},
+  {icon:'🔬', label:'STEM MENTOR'},
+];
 
-    // show editor thumb
-    const thumbBox = document.getElementById('thumbParticipant');
-    const thumbImg = document.getElementById('thumbParticipantImg');
-    thumbBox.style.display = 'block';
-    thumbImg.src = url;
+const tagIcons = ['⚙','🤖','💻','🐍','🌍','🏆','🔬','⚡','🎯','🔧','📡','🛸'];
+
+function updateBadge() {
+  const name = document.getElementById('in-name').value;
+  document.getElementById('disp-name').innerHTML = name.replace(/\|/g,'<br>');
+  document.getElementById('disp-role').textContent = document.getElementById('in-role').value;
+  document.getElementById('disp-badgenum').textContent = document.getElementById('in-badgenum').value;
+  document.getElementById('disp-event').textContent = document.getElementById('in-event').value;
+  document.getElementById('disp-country').textContent = document.getElementById('in-country').value;
+  document.getElementById('disp-github').textContent = document.getElementById('in-github').value;
+  document.getElementById('disp-site').textContent = document.getElementById('in-site').value;
+  renderTags();
+}
+
+function renderTags() {
+  // Display tags
+  const dispTags = document.getElementById('disp-tags');
+  dispTags.innerHTML = tags.map(t =>
+    `<div class="tag"><span class="icon">${t.icon}</span>${t.label}</div>`
+  ).join('');
+
+  // Editor tags
+  const editorTags = document.getElementById('tags-editor');
+  editorTags.innerHTML = tags.map((t,i) =>
+    `<div class="tag-edit">${t.icon} ${t.label}<button onclick="removeTag(${i})">×</button></div>`
+  ).join('');
+}
+
+function addTag() {
+  const input = document.getElementById('new-tag-input');
+  const val = input.value.trim().toUpperCase();
+  if (!val) return;
+  const icon = tagIcons[tags.length % tagIcons.length];
+  tags.push({icon, label: val});
+  input.value = '';
+  renderTags();
+}
+
+function removeTag(i) {
+  tags.splice(i,1);
+  renderTags();
+}
+
+function loadPhoto(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(ev) {
+    const img = document.getElementById('photoImg');
+    img.src = ev.target.result;
+    img.classList.add('loaded');
+    document.getElementById('photoPlaceholder').style.display = 'none';
+  };
+  reader.readAsDataURL(file);
+}
+
+// Simple QR-like pixel art pattern (decorative)
+function drawDecorQR() {
+  const canvas = document.getElementById('qrCanvas');
+  const ctx = canvas.getContext('2d');
+  const size = 64;
+  const cell = 4;
+  const cols = size / cell;
+  
+  // Seed-based pseudo-random for consistent pattern
+  function seededRand(x, y) {
+    const val = Math.sin(x * 127.1 + y * 311.7) * 43758.5453;
+    return val - Math.floor(val);
   }
-
-  // Load team logo
-  function loadTeamLogo(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-    const url = URL.createObjectURL(file);
-    const img = document.getElementById('teamLogoImg');
-    img.src = url;
-    img.style.display = 'block';
-    document.getElementById('teamLogoEmoji').style.display = 'none';
-
-    const thumbBox = document.getElementById('thumbTeam');
-    const thumbImg = document.getElementById('thumbTeamImg');
-    thumbBox.style.display = 'block';
-    thumbImg.src = url;
+  
+  ctx.fillStyle = 'white';
+  ctx.fillRect(0, 0, size, size);
+  
+  // Draw cells
+  for (let r = 0; r < cols; r++) {
+    for (let c = 0; c < cols; c++) {
+      // Corner finder patterns
+      const inCorner = (
+        (r < 3 && c < 3) || (r < 3 && c >= cols-3) || (r >= cols-3 && c < 3)
+      );
+      if (inCorner) {
+        // Finder pattern squares
+        const isOuter = (r === 0 || r === 2 || c === 0 || c === 2);
+        const isInner = (r === 1 && c === 1);
+        if (isOuter || isInner) {
+          ctx.fillStyle = '#000';
+          ctx.fillRect(c*cell, r*cell, cell, cell);
+        }
+        continue;
+      }
+      // Data pattern
+      if (seededRand(r, c) > 0.45) {
+        ctx.fillStyle = '#000';
+        ctx.fillRect(c*cell, r*cell, cell, cell);
+      }
+    }
   }
+}
 
-  // Load sponsor logo (index 0-2)
-  function loadSponsor(event, index) {
-    const file = event.target.files[0];
-    if (!file) return;
-    const url = URL.createObjectURL(file);
-    const img = document.getElementById('spImg' + index);
-    img.src = url;
-    img.style.display = 'block';
-    document.getElementById('spTxt' + index).style.display = 'none';
-
-    // Hide helper label once any sponsor is set
-    document.getElementById('spLabel').style.display = 'none';
-  }
-
-  // Update name on badge
-  function updateName() {
-    const first = document.getElementById('inputFirstName').value || 'Ерасыл';
-    const last  = document.getElementById('inputLastName').value  || 'Нурикенов';
-    document.getElementById('badgeName').innerHTML = first + '<br>' + last;
-  }
-
-  // Reset everything
-  function resetAll() {
-    // Name
-    document.getElementById('inputFirstName').value = 'Ерасыл';
-    document.getElementById('inputLastName').value  = 'Нурикенов';
-    document.getElementById('badgeName').innerHTML = 'Ерасыл<br>Нурикенов';
-
-    // ID
-    document.getElementById('inputID').value = '#34350';
-    document.getElementById('badgeID').textContent = '#34350';
-
-    // Participant photo
-    const pi = document.getElementById('participantImg');
-    pi.style.display = 'none'; pi.src = '';
-    document.getElementById('participantPlaceholder').style.display = 'flex';
-    document.getElementById('thumbParticipant').style.display = 'none';
-
-    // Team logo
-    const tl = document.getElementById('teamLogoImg');
-    tl.style.display = 'none'; tl.src = '';
-    document.getElementById('teamLogoEmoji').style.display = 'block';
-    document.getElementById('thumbTeam').style.display = 'none';
-
-    // Sponsors
-    [0,1,2].forEach(i => {
-      const si = document.getElementById('spImg' + i);
-      si.style.display = 'none'; si.src = '';
-      document.getElementById('spTxt' + i).style.display = 'flex';
-    });
-    document.getElementById('spLabel').style.display = 'block';
-  }
+// Init
+renderTags();
+drawDecorQR();
 </script>
+
+<style>
+@media print {
+  body { background: #0d0d0d; padding: 0; }
+  h1, .editor { display: none !important; }
+  .badge { page-break-inside: avoid; }
+}
+</style>
+
 </body>
 </html>
