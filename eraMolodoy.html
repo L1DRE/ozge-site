@@ -430,7 +430,42 @@ body {
   writing-mode: horizontal-tb;
 }
 
-/* Size slider in editor */
+/* Empty sponsor slots — border only on hover, invisible on export */
+.sponsor-slot.sponsor-empty {
+  border-color: transparent;
+  background: transparent;
+}
+.sponsor-slot.sponsor-empty:hover {
+  border-color: rgba(232,98,10,0.4);
+  background: rgba(232,98,10,0.03);
+}
+.sponsor-slot.sponsor-empty.has-img {
+  border-color: transparent;
+}
+
+/* Export clean — hide all dashed outlines and empty slots */
+.export-clean .team-sponsors-row {
+  border-color: transparent !important;
+}
+.export-clean .team-logo-block {
+  background: transparent !important;
+}
+.export-clean .team-sponsors-divider {
+  background: transparent !important;
+}
+.export-clean .sponsor-slot.sponsor-empty:not(.has-img) {
+  display: none !important;
+}
+.export-clean .sponsor-slot {
+  border-color: transparent !important;
+  background: transparent !important;
+}
+.export-clean .team-logo-hint {
+  display: none !important;
+}
+.export-clean .teamLogoIcon {
+  display: none !important;
+}
 .slider-row {
   display: flex;
   align-items: center;
@@ -956,17 +991,23 @@ input[type="file"] { display: none; }
               <input type="file" accept="image/*" style="display:none" onchange="loadSponsor(event,0)">
             </div>
 
-            <!-- IBA — плейсхолдер до загрузки -->
-            <div class="sponsor-slot" id="sponsor-1" onclick="triggerSponsor(1)" title="IBA — загрузи лого">
-              <span class="plus" id="sponsor-plus-1" style="font-family:'Orbitron',monospace;font-size:7px;color:#666;letter-spacing:1px;">IBA</span>
-              <img id="sponsor-img-1" src="" alt="">
+            <!-- IBA — загружается из media/partner/IBA.png -->
+            <div class="sponsor-slot has-img" id="sponsor-1" onclick="triggerSponsor(1)" title="IBA">
+              <div class="sponsor-svg-wrap" id="sponsor-svg-1">
+                <span style="font-family:'Orbitron',monospace;font-size:7px;color:#888;letter-spacing:1px;">IBA</span>
+              </div>
+              <img id="sponsor-img-1" src="media/partner/IBA.png" alt="IBA"
+                   style="position:absolute;inset:2px;width:calc(100% - 4px);height:calc(100% - 4px);object-fit:contain;display:block;"
+                   onload="this.parentElement.classList.add('has-img'); document.getElementById('sponsor-svg-1').style.display='none';"
+                   onerror="document.getElementById('sponsor-svg-1').style.display='flex';">
               <input type="file" accept="image/*" style="display:none" onchange="loadSponsor(event,1)">
             </div>
 
-            <!-- Empty slots -->
-            <div class="sponsor-slot" onclick="triggerSponsor(2)" id="sponsor-2"><span class="plus">+</span><img id="sponsor-img-2" src="" alt=""><input type="file" accept="image/*" style="display:none" onchange="loadSponsor(event,2)"></div>
-            <div class="sponsor-slot" onclick="triggerSponsor(3)" id="sponsor-3"><span class="plus">+</span><img id="sponsor-img-3" src="" alt=""><input type="file" accept="image/*" style="display:none" onchange="loadSponsor(event,3)"></div>
-            <div class="sponsor-slot" onclick="triggerSponsor(4)" id="sponsor-4"><span class="plus">+</span><img id="sponsor-img-4" src="" alt=""><input type="file" accept="image/*" style="display:none" onchange="loadSponsor(event,4)"></div>
+            <!-- Empty slots (hidden by default, revealed by + button) -->
+            <div class="sponsor-slot sponsor-empty" onclick="triggerSponsor(2)" id="sponsor-2"><span class="plus">+</span><img id="sponsor-img-2" src="" alt=""><input type="file" accept="image/*" style="display:none" onchange="loadSponsor(event,2)"></div>
+            <div class="sponsor-slot sponsor-empty" onclick="triggerSponsor(3)" id="sponsor-3"><span class="plus">+</span><img id="sponsor-img-3" src="" alt=""><input type="file" accept="image/*" style="display:none" onchange="loadSponsor(event,3)"></div>
+            <div class="sponsor-slot sponsor-empty" onclick="triggerSponsor(4)" id="sponsor-4"><span class="plus">+</span><img id="sponsor-img-4" src="" alt=""><input type="file" accept="image/*" style="display:none" onchange="loadSponsor(event,4)"></div>
+            <div class="sponsor-slot sponsor-empty" onclick="triggerSponsor(5)" id="sponsor-5"><span class="plus">+</span><img id="sponsor-img-5" src="" alt=""><input type="file" accept="image/*" style="display:none" onchange="loadSponsor(event,5)"></div>
           </div>
         </div>
 
@@ -1231,6 +1272,7 @@ function loadSponsor(e, i) {
     const plus = slot.querySelector('.plus');
     if (plus) plus.style.display = 'none';
     slot.classList.add('has-img');
+    slot.classList.remove('sponsor-empty');
   };
   reader.readAsDataURL(file);
 }
@@ -1317,28 +1359,37 @@ function exportBadgeImage() {
   const badge = document.getElementById('badge');
   const editor = document.querySelector('.editor-panel');
   const holeContainer = document.querySelector('.hole-container');
+  const rulers = document.querySelectorAll('.ruler-right, .ruler-bottom');
 
-  // Temporarily hide editor and hole for clean export
+  // Hide UI chrome
   editor.style.display = 'none';
   holeContainer.style.display = 'none';
+  rulers.forEach(r => r.style.display = 'none');
+
+  // Apply clean export class — hides borders/empty slots
+  badge.classList.add('export-clean');
 
   html2canvas(badge, {
-    backgroundColor: null,
+    backgroundColor: '#1c1c1c',
     scale: 2,
     useCORS: true,
     allowTaint: true,
     logging: false
   }).then(canvas => {
+    badge.classList.remove('export-clean');
     editor.style.display = '';
     holeContainer.style.display = '';
+    rulers.forEach(r => r.style.display = '');
 
     const link = document.createElement('a');
     link.download = 'ozge-badge.png';
     link.href = canvas.toDataURL('image/png');
     link.click();
   }).catch(() => {
+    badge.classList.remove('export-clean');
     editor.style.display = '';
     holeContainer.style.display = '';
+    rulers.forEach(r => r.style.display = '');
     alert('Ошибка экспорта. Попробуй печать через браузер.');
   });
 }
