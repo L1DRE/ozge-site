@@ -281,6 +281,72 @@
     #machine, #outreach, #team, #portfolio { padding: 80px 24px; }
     footer { padding: 60px 24px 30px; }
   }
+
+  /* ── ROBOT GALLERY ── */
+.rg-slides { position: absolute; inset: 0; }
+.rg-slide {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity 0.5s ease;
+  background: #0a1515;
+}
+.rg-slide.active { opacity: 1; }
+.rg-slide img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  filter: brightness(0.95) contrast(1.05);
+  padding: 20px;
+}
+
+.rg-arrow {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  background: rgba(0,0,0,0.5);
+  border: 1px solid rgba(0,240,255,0.25);
+  color: var(--accent);
+  font-size: 32px; line-height: 1;
+  width: 44px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: none; z-index: 10;
+  transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
+  padding: 0; font-family: monospace;
+}
+.rg-arrow:hover {
+  background: rgba(0,240,255,0.12);
+  border-color: var(--accent);
+  box-shadow: 0 0 16px #00F0FF44;
+}
+.rg-prev { left: 12px; }
+.rg-next { right: 12px; }
+
+.rg-hud-top {
+  position: absolute; top: 14px; left: 16px; right: 16px;
+  display: flex; justify-content: space-between; align-items: center;
+  z-index: 10; pointer-events: none;
+}
+.rg-label {
+  font-family: "Share Tech Mono", monospace;
+  font-size: 10px; letter-spacing: 3px; color: var(--accent);
+  text-shadow: 0 0 8px var(--accent);
+}
+.rg-counter {
+  font-family: "Orbitron", monospace;
+  font-size: 11px; font-weight: 700;
+  color: #444; letter-spacing: 2px;
+}
+
+.rg-dots {
+  position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 8px; z-index: 10;
+}
+.rg-dot {
+  width: 20px; height: 2px;
+  background: #333; transition: background 0.3s, box-shadow 0.3s;
+}
+.rg-dot.active {
+  background: var(--accent);
+  box-shadow: 0 0 6px var(--accent);
+}
+
 </style>
   <style id="aitym-css-snippet">
 /* ═══════════════════════════════════
@@ -569,37 +635,40 @@
   <div class="section-tag">// UNIT_00</div>
   <div class="section-title reveal">THE MACHINE<span style="color:var(--accent)">.</span></div>
   <div class="machine-grid">
-    <div class="robot-showcase reveal-left">
-      <div class="corner-tl"></div>
-      <div class="corner-br"></div>
-      <div class="robot-img-placeholder">
-        <div class="robot-frame">
-          <div class="scan-line"></div>
-          <svg viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
-            <rect x="40" y="50" width="80" height="60" rx="4" fill="none" stroke="#00F0FF" stroke-width="1.5" opacity="0.8"/>
-            <rect x="55" y="40" width="50" height="14" rx="2" fill="none" stroke="#00F0FF" stroke-width="1" opacity="0.6"/>
-            <rect x="30" y="80" width="14" height="30" rx="4" fill="none" stroke="#00F0FF" stroke-width="1" opacity="0.6"/>
-            <rect x="116" y="80" width="14" height="30" rx="4" fill="none" stroke="#00F0FF" stroke-width="1" opacity="0.6"/>
-            <circle cx="45" cy="116" r="10" fill="none" stroke="#00F0FF" stroke-width="1.5" opacity="0.7"/>
-            <circle cx="115" cy="116" r="10" fill="none" stroke="#00F0FF" stroke-width="1.5" opacity="0.7"/>
-            <rect x="65" y="55" width="30" height="20" rx="2" fill="none" stroke="#00F0FF" stroke-width="1" opacity="0.5"/>
-            <line x1="65" y1="90" x2="95" y2="90" stroke="#00F0FF" stroke-width="0.5" stroke-dasharray="4,4" opacity="0.4"/>
-            <path d="M72 68 L80 62 L88 68" stroke="#FF6B00" stroke-width="1.5" fill="none" opacity="0.8"/>
-          </svg>
-        </div>
-        <div class="robot-label">TIGRIS MK-IV</div>
-      </div>
-    </div>
-    <div class="hud-stats reveal-right">
-      <div style="font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:4px;color:#555;margin-bottom:24px;">■ ROBOT_SPECS / SEASON_2025</div>
-      <div class="hud-item"><div class="hud-label">CHASSIS SYSTEM</div><div class="hud-value">MECANUM DRIVE</div><div class="hud-bar"><div class="hud-bar-fill" style="width:90%"></div></div></div>
-      <div class="hud-item"><div class="hud-label">MAX SPEED</div><div class="hud-value">2.5 M/S</div><div class="hud-bar"><div class="hud-bar-fill" style="width:75%"></div></div></div>
-      <div class="hud-item"><div class="hud-label">INTAKE SYSTEM</div><div class="hud-value">DUAL ACTIVE ROLLER</div><div class="hud-bar"><div class="hud-bar-fill" style="width:85%"></div></div></div>
-      <div class="hud-item"><div class="hud-label">LIFT MECHANISM</div><div class="hud-value">4-STAGE LINEAR SLIDE</div><div class="hud-bar"><div class="hud-bar-fill" style="width:100%"></div></div></div>
-      <div class="hud-item" style="border-left-color:var(--accent2);"><div class="hud-label">AUTONOMOUS SCORE</div><div class="hud-value" style="color:var(--accent2);">AVG. 148+ PTS</div><div class="hud-bar"><div class="hud-bar-fill" style="width:80%;background:var(--accent2);box-shadow:0 0 8px var(--accent2);"></div></div></div>
-      <a href="#" class="download-btn"><span>⬇</span> СКАЧАТЬ СПИСОК КОМПОНЕНТОВ РОБОТА</a>
-    </div>
+    <!-- Заменить ТОЛЬКО .robot-showcase.reveal-left внутри .machine-grid -->
+<div class="robot-showcase reveal-left" id="robotGallery">
+  <div class="corner-tl"></div>
+  <div class="corner-br"></div>
+
+  <!-- Слайды -->
+  <div class="rg-slides">
+    <div class="rg-slide active"><img src="media/robot/robot1.jpg" alt="Robot view 1"></div>
+    <div class="rg-slide"><img src="media/robot/robot2.jpg" alt="Robot view 2"></div>
+    <div class="rg-slide"><img src="media/robot/robot3.jpg" alt="Robot view 3"></div>
+    <div class="rg-slide"><img src="media/robot/robot4.jpg" alt="Robot view 4"></div>
   </div>
+
+  <!-- Scan line поверх -->
+  <div class="scan-line"></div>
+
+  <!-- Стрелки -->
+  <button class="rg-arrow rg-prev" onclick="rgMove(-1)" aria-label="Prev">&#8249;</button>
+  <button class="rg-arrow rg-next" onclick="rgMove(+1)" aria-label="Next">&#8250;</button>
+
+  <!-- HUD оверлей -->
+  <div class="rg-hud-top">
+    <span class="rg-label">TIGRIS MK-IV</span>
+    <span class="rg-counter" id="rgCounter">01 / 04</span>
+  </div>
+
+  <!-- Точки -->
+  <div class="rg-dots" id="rgDots">
+    <span class="rg-dot active"></span>
+    <span class="rg-dot"></span>
+    <span class="rg-dot"></span>
+    <span class="rg-dot"></span>
+  </div>
+</div>
 </section>
 
  
@@ -1042,6 +1111,32 @@ hudBars.forEach(b => { const w = b.style.width; b.style.width = "0%"; setTimeout
 function animateCounter(el, target) { let current = 0; const step = target / 50; const timer = setInterval(() => { current += step; if (current >= target) { current = target; clearInterval(timer); } el.textContent = Math.floor(current) + (el.dataset.suffix || ""); }, 30); }
 const statObs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) { const txt = e.target.textContent; const num = parseInt(txt.replace(/\D/g, "")); const suffix = txt.replace(/[0-9]/g, "").trim(); e.target.dataset.suffix = suffix; animateCounter(e.target, num); statObs.unobserve(e.target); } }); }, { threshold: 0.5 });
 document.querySelectorAll(".stat-num").forEach(el => statObs.observe(el));
+
+  // Robot Gallery
+let rgIndex = 0;
+function rgMove(dir) {
+  const slides = document.querySelectorAll('.rg-slide');
+  const dots = document.querySelectorAll('.rg-dot');
+  if (!slides.length) return;
+  slides[rgIndex].classList.remove('active');
+  dots[rgIndex].classList.remove('active');
+  rgIndex = (rgIndex + dir + slides.length) % slides.length;
+  slides[rgIndex].classList.add('active');
+  dots[rgIndex].classList.add('active');
+  document.getElementById('rgCounter').textContent =
+    String(rgIndex + 1).padStart(2,'0') + ' / ' + String(slides.length).padStart(2,'0');
+}
+// Свайп на мобильном
+(function(){
+  const el = document.getElementById('robotGallery');
+  if (!el) return;
+  let sx = 0;
+  el.addEventListener('touchstart', e => { sx = e.touches[0].clientX; });
+  el.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - sx;
+    if (Math.abs(dx) > 40) rgMove(dx < 0 ? 1 : -1);
+  });
+})();
 </script>
   <script>
   let inputBuffer = "";
