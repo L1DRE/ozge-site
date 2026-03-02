@@ -174,11 +174,27 @@
   vertical-align: middle;
 }
 
+/* Убираем анимацию с кнопки */
 .sponsor-logo-btn {
-  display: flex;
-  align-items: center;
-  gap: 10px; /* Расстояние между фото и текстом */
-  text-decoration: none;
+  animation: none;  /* убрать sponsorGlow отсюда */
+}
+
+/* Добавляем свечение на svg и img внутри кнопки */
+@keyframes logoGlow {
+  0%,100% { filter: drop-shadow(0 0 4px rgba(245,135,18,.3)) drop-shadow(0 0 10px rgba(245,135,18,.1)); }
+  50%     { filter: drop-shadow(0 0 8px rgba(245,135,18,.7)) drop-shadow(0 0 20px rgba(245,135,18,.3)); }
+}
+
+.sponsor-logo-btn svg,
+.sponsor-logo-btn img {
+  animation: logoGlow 3s ease-in-out infinite;
+}
+
+/* При ховере делаем ярче */
+.sponsor-logo-btn:hover svg,
+.sponsor-logo-btn:hover img {
+  animation: none;
+  filter: drop-shadow(0 0 10px rgba(245,135,18,.9)) drop-shadow(0 0 24px rgba(245,135,18,.5));
 }
 
   .sponsor-person { gap: 12px; padding: 8px 18px 8px 8px; }
