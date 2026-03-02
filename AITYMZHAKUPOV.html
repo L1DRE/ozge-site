@@ -49,7 +49,6 @@ body{background:var(--bg);color:var(--text);font-family:'Rajdhani',sans-serif;mi
 .avatar-ring{position:absolute;inset:-5px;border-radius:50%;border:1px solid transparent;background:conic-gradient(var(--accent) 0deg,var(--hot) 120deg,transparent 200deg,var(--accent) 360deg) border-box;-webkit-mask:linear-gradient(#fff 0 0) padding-box,linear-gradient(#fff 0 0);mask:linear-gradient(#fff 0 0) padding-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:ring-spin 6s linear infinite;filter:drop-shadow(0 0 5px rgba(255,107,0,.45))}
 @keyframes ring-spin{to{transform:rotate(360deg)}}
 
-/* СТАТУС-ТОЧКА — усиленная пульсация */
 @keyframes pdotStrong {
   0%,100% { box-shadow: 0 0 8px #FF6B00aa, 0 0 18px #FF6B0044; }
   50%     { box-shadow: 0 0 22px #FF6B00ff, 0 0 44px #FF6B0077; }
@@ -111,17 +110,37 @@ body{background:var(--bg);color:var(--text);font-family:'Rajdhani',sans-serif;mi
 .team-soc-btn.yt:hover{color:#ff0000;border-color:rgba(255,0,0,.55);box-shadow:0 8px 28px rgba(255,0,0,.15);background:rgba(255,0,0,.05)}
 .team-soc-btn .soc-icon{line-height:1;display:flex;align-items:center;justify-content:center}
 
-/* SPONSORS — пульсирующее свечение */
+/* SPONSORS */
 @keyframes sponsorGlow {
   0%,100% { box-shadow: 0 0 8px rgba(245,135,18,.2),  0 0 20px rgba(245,135,18,.06); }
   50%     { box-shadow: 0 0 18px rgba(245,135,18,.45), 0 0 38px rgba(245,135,18,.18); }
 }
+
+/* Пульсирующее свечение — перенесено на svg/img внутри кнопки */
+@keyframes logoGlow {
+  0%,100% { filter: drop-shadow(0 0 4px rgba(245,135,18,.3)) drop-shadow(0 0 10px rgba(245,135,18,.1)); }
+  50%     { filter: drop-shadow(0 0 8px rgba(245,135,18,.7)) drop-shadow(0 0 20px rgba(245,135,18,.3)); }
+}
+
 .sponsors-wrap{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
 .sponsor-logo-btn{display:flex;align-items:center;gap:12px;border:1px solid var(--border);background:var(--bg3);padding:11px 20px 11px 14px;text-decoration:none;transition:border-color .3s,box-shadow .3s,transform .25s,background .3s;cursor:none;position:relative;overflow:hidden;animation:sponsorGlow 3s ease-in-out infinite}
 .sponsor-logo-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(245,135,18,.1),transparent 60%);opacity:0;transition:opacity .3s}
+
+/* Анимация свечения на логотипах */
+.sponsor-logo-btn svg,
+.sponsor-logo-btn img {
+  animation: logoGlow 3s ease-in-out infinite;
+}
+
+/* При hover — кнопка, убираем анимацию с логотипа, даём статичное яркое свечение */
 .sponsor-logo-btn:hover{border-color:rgba(245,135,18,.65);box-shadow:0 0 30px rgba(245,135,18,.35);transform:translateY(-2px);background:rgba(245,135,18,.04);animation:none}
 .sponsor-logo-btn:hover::before{opacity:1}
-.sponsor-logo-btn:hover svg{filter:drop-shadow(0 0 6px #F5871266)}
+.sponsor-logo-btn:hover svg,
+.sponsor-logo-btn:hover img {
+  animation: none;
+  filter: drop-shadow(0 0 10px rgba(245,135,18,.9)) drop-shadow(0 0 24px rgba(245,135,18,.5));
+}
+
 .sponsor-name{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:3px;color:var(--text2);transition:color .3s;font-weight:600}
 .sponsor-logo-btn:hover .sponsor-name{color:#eee}
 
