@@ -17,8 +17,10 @@
     --text: #E0E0E0;
     --accent: #00F0FF;
     --accent2: #FF6B00;
+    --accent3: #C084FC;
     --glow: 0 0 20px #00F0FF88, 0 0 60px #00F0FF33;
     --glow2: 0 0 20px #FF6B0088;
+    --glow3: 0 0 20px #C084FC88, 0 0 60px #C084FC33;
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
@@ -167,36 +169,28 @@
   .sponsor-logo-btn:hover .sponsor-name{color:#eee}
   .sponsors-row { display: flex; align-items: center; flex-wrap: wrap; gap: 15px; }
   .sponsor-photo {
-  width: 66px;   /* Ширина как у вашего SVG */
-  height: 38px;  /* Высота как у вашего SVG */
-  object-fit: cover; /* Фото заполнит область без искажений */
-  border-radius: 4px; /* Опционально: скругление углов */
+  width: 66px;
+  height: 38px;
+  object-fit: cover;
+  border-radius: 4px;
   vertical-align: middle;
 }
-
-/* Убираем анимацию с кнопки */
 .sponsor-logo-btn {
-  animation: none;  /* убрать sponsorGlow отсюда */
+  animation: none;
 }
-
-/* Добавляем свечение на svg и img внутри кнопки */
 @keyframes logoGlow {
   0%,100% { filter: drop-shadow(0 0 4px rgba(245,135,18,.3)) drop-shadow(0 0 10px rgba(245,135,18,.1)); }
   50%     { filter: drop-shadow(0 0 8px rgba(245,135,18,.7)) drop-shadow(0 0 20px rgba(245,135,18,.3)); }
 }
-
 .sponsor-logo-btn svg,
 .sponsor-logo-btn img {
   animation: logoGlow 3s ease-in-out infinite;
 }
-
-/* При ховере делаем ярче */
 .sponsor-logo-btn:hover svg,
 .sponsor-logo-btn:hover img {
   animation: none;
   filter: drop-shadow(0 0 10px rgba(245,135,18,.9)) drop-shadow(0 0 24px rgba(245,135,18,.5));
 }
-
   .sponsor-person { gap: 12px; padding: 8px 18px 8px 8px; }
 .sponsor-avatar { width: 44px; height: 44px; border-radius: 50%; overflow: hidden; border: 1px solid #333; flex-shrink: 0; }
 .sponsor-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
@@ -224,20 +218,43 @@
   /* MENTOR STYLES */
   #mentor { padding: 120px 48px; background: linear-gradient(180deg, transparent, #0a0f0f 40%, transparent); position: relative; z-index: 1; }
   .mentor-inner { max-width: 1200px; margin: 0 auto; }
-  .mentor-card { display: grid; grid-template-columns: 340px 1fr; gap: 0; border: 1px solid #2a2a2a; background: #111; position: relative; overflow: hidden; }
+
+  /* ── MENTOR GRID: two cards side by side ── */
+  .mentor-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-top: 0;
+  }
+
+  .mentor-card { display: grid; grid-template-columns: 1fr; gap: 0; border: 1px solid #2a2a2a; background: #111; position: relative; overflow: hidden; }
   .mentor-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent); box-shadow: 0 0 20px #00F0FF66; }
-  .mentor-left { background: linear-gradient(160deg, #0d1f20 0%, #0a1515 60%, #0d0d0d 100%); border-right: 1px solid #2a2a2a; padding: 48px 36px; display: flex; flex-direction: column; align-items: center; position: relative; overflow: hidden; text-align: center; }
+
+  /* Olzhas card has green accent */
+  .mentor-card.olzhas-card { border-color: #1e0d2a; }
+  .mentor-card.olzhas-card::before { background: linear-gradient(90deg, transparent, var(--accent3), #e0b4ff, transparent); box-shadow: 0 0 20px #C084FC66; }
+
+  .mentor-left { background: linear-gradient(160deg, #0d1f20 0%, #0a1515 60%, #0d0d0d 100%); border-right: none; border-bottom: 1px solid #2a2a2a; padding: 40px 32px 32px; display: flex; flex-direction: column; align-items: center; position: relative; overflow: hidden; text-align: center; }
   .mentor-left::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, #00F0FF10 0%, transparent 60%); pointer-events: none; }
-  .mentor-avatar-wrap { position: relative; margin-bottom: 28px; }
-  .mentor-avatar { width: 130px; height: 130px; border-radius: 50%; border: 1px solid #333; overflow: hidden; position: relative; z-index: 1; background: #1a1a1a; display: flex; align-items: center; justify-content: center; font-size: 52px; }
+
+  /* Olzhas left panel green tint */
+  .olzhas-card .mentor-left { background: linear-gradient(160deg, #140a20 0%, #0e0715 60%, #0d0d0d 100%); }
+  .olzhas-card .mentor-left::before { background: radial-gradient(ellipse at 50% 0%, rgba(192,132,252,0.1) 0%, transparent 60%); }
+
+  .mentor-avatar-wrap { position: relative; margin-bottom: 24px; }
+  .mentor-avatar { width: 120px; height: 120px; border-radius: 50%; border: 1px solid #333; overflow: hidden; position: relative; z-index: 1; background: #1a1a1a; display: flex; align-items: center; justify-content: center; font-size: 48px; }
   .mentor-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .mentor-avatar-ring { position: absolute; inset: -6px; border-radius: 50%; border: 1px solid transparent; background: conic-gradient(var(--accent) 0deg, transparent 100deg, var(--accent2) 200deg, transparent 300deg, var(--accent) 360deg) border-box; -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0); mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; animation: ring-spin 8s linear infinite; z-index: 0; }
+  .olzhas-card .mentor-avatar-ring { background: conic-gradient(var(--accent3) 0deg, transparent 80deg, #e0b4ff 180deg, transparent 260deg, var(--accent3) 360deg) border-box; }
   @keyframes ring-spin { to { transform: rotate(360deg); } }
   .mentor-badge { position: absolute; bottom: -4px; left: 50%; transform: translateX(-50%); background: var(--accent); color: #0D0D0D; font-family: "Share Tech Mono", monospace; font-size: 9px; letter-spacing: 2px; padding: 3px 12px; white-space: nowrap; z-index: 2; }
-  .mentor-name { font-family: "Orbitron", monospace; font-size: 15px; font-weight: 900; letter-spacing: 2px; color: #fff; margin-bottom: 4px; line-height: 1.3; }
-  .mentor-title { font-family: "Share Tech Mono", monospace; font-size: 10px; letter-spacing: 3px; color: var(--accent); margin-bottom: 28px; }
-  .mentor-meta { width: 100%; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+  .olzhas-card .mentor-badge { background: var(--accent3); color: #0D0D0D; }
+  .mentor-name { font-family: "Orbitron", monospace; font-size: 14px; font-weight: 900; letter-spacing: 2px; color: #fff; margin-bottom: 4px; line-height: 1.3; }
+  .mentor-title { font-family: "Share Tech Mono", monospace; font-size: 10px; letter-spacing: 2px; color: var(--accent); margin-bottom: 24px; }
+  .olzhas-card .mentor-title { color: var(--accent3); }
+  .mentor-meta { width: 100%; display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
   .mentor-meta-item { display: flex; align-items: flex-start; gap: 10px; background: rgba(0,240,255,.04); border: 1px solid #222; padding: 10px 14px; text-align: left; }
+  .olzhas-card .mentor-meta-item { background: rgba(192,132,252,.04); border-color: #1e0d2a; }
   .mentor-meta-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
   .mentor-meta-text { font-family: "Share Tech Mono", monospace; font-size: 10px; color: #888; letter-spacing: 1px; line-height: 1.5; }
   .mentor-meta-text strong { color: #ccc; display: block; letter-spacing: 2px; font-size: 9px; margin-bottom: 2px; }
@@ -247,29 +264,43 @@
   .mentor-skill:hover { border-color: var(--accent); color: var(--accent); }
   .mentor-skill.hot { border-color: rgba(255,107,0,.35); color: #aa6633; }
   .mentor-skill.hot:hover { border-color: var(--accent2); color: var(--accent2); }
-  .mentor-right { padding: 48px 44px; display: flex; flex-direction: column; gap: 32px; }
+  .olzhas-card .mentor-skill:hover { border-color: var(--accent3); color: var(--accent3); }
+  .olzhas-card .mentor-skill.hot { border-color: rgba(192,132,252,.35); color: #8a4db3; }
+  .olzhas-card .mentor-skill.hot:hover { border-color: var(--accent3); color: var(--accent3); }
+  .mentor-right { padding: 36px 36px; display: flex; flex-direction: column; gap: 28px; }
   .mentor-bio-label { font-family: "Share Tech Mono", monospace; font-size: 9px; letter-spacing: 4px; color: var(--accent); opacity: .7; margin-bottom: 12px; display: flex; align-items: center; gap: 12px; }
   .mentor-bio-label::after { content: ""; flex: 1; height: 1px; background: #222; }
-  .mentor-bio-text { font-family: "Rajdhani", sans-serif; font-size: 16px; line-height: 1.8; color: #999; font-weight: 400; }
+  .olzhas-card .mentor-bio-label { color: var(--accent3); }
+  .olzhas-card .mentor-bio-label::after { background: #1e0d2a; }
+  .mentor-bio-text { font-family: "Rajdhani", sans-serif; font-size: 15px; line-height: 1.8; color: #999; font-weight: 400; }
   .mentor-bio-text strong { color: var(--text); }
   .mentor-bio-text em { color: var(--accent); font-style: normal; }
+  .olzhas-card .mentor-bio-text em { color: var(--accent3); }
   .awards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   .award-item { background: #161616; border: 1px solid #222; border-left: 2px solid var(--accent2); padding: 14px 16px; transition: box-shadow .25s, border-color .25s; position: relative; overflow: hidden; }
   .award-item:hover { box-shadow: -4px 0 20px rgba(255,107,0,.15); }
   .award-item::after { content: ""; position: absolute; top: 0; right: 0; width: 40px; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,107,0,.04)); }
+  .olzhas-card .award-item { border-left-color: var(--accent3); }
+  .olzhas-card .award-item:hover { box-shadow: -4px 0 20px rgba(192,132,252,.15); }
+  .olzhas-card .award-item::after { background: linear-gradient(90deg, transparent, rgba(192,132,252,.04)); }
   .award-year { font-family: "Share Tech Mono", monospace; font-size: 9px; letter-spacing: 3px; color: var(--accent2); margin-bottom: 5px; }
+  .olzhas-card .award-year { color: var(--accent3); }
   .award-name { font-family: "Orbitron", monospace; font-size: 11px; font-weight: 700; letter-spacing: 1px; color: var(--text); margin-bottom: 4px; line-height: 1.3; }
   .award-desc { font-family: "Share Tech Mono", monospace; font-size: 9px; color: #555; letter-spacing: 1px; line-height: 1.5; }
   .worldskills-strip { display: flex; align-items: center; gap: 20px; background: linear-gradient(90deg, rgba(255,107,0,.06), transparent); border: 1px solid rgba(255,107,0,.2); border-left: 3px solid var(--accent2); padding: 18px 24px; }
+  .media-strip { display: flex; align-items: center; gap: 20px; background: linear-gradient(90deg, rgba(192,132,252,.07), transparent); border: 1px solid rgba(192,132,252,.2); border-left: 3px solid var(--accent3); padding: 18px 24px; }
   .ws-icon { font-size: 28px; flex-shrink: 0; }
   .ws-text { flex: 1; }
   .ws-label { font-family: "Share Tech Mono", monospace; font-size: 9px; letter-spacing: 3px; color: var(--accent2); margin-bottom: 4px; }
+  .media-strip .ws-label { color: var(--accent3); }
   .ws-title { font-family: "Orbitron", monospace; font-size: 13px; font-weight: 700; letter-spacing: 1px; color: #fff; }
   .ws-sub { font-family: "Share Tech Mono", monospace; font-size: 10px; color: #666; letter-spacing: 1px; margin-top: 3px; }
   .ws-flag { font-size: 24px; flex-shrink: 0; }
+
+  @media (max-width: 1100px) {
+    .mentor-grid { grid-template-columns: 1fr; }
+  }
   @media (max-width: 900px) {
-    .mentor-card { grid-template-columns: 1fr; }
-    .mentor-left { border-right: none; border-bottom: 1px solid #2a2a2a; }
     .awards-grid { grid-template-columns: 1fr; }
     #mentor { padding: 80px 24px; }
     .mentor-right { padding: 32px 28px; }
@@ -635,33 +666,22 @@
   <div class="section-tag">// UNIT_00</div>
   <div class="section-title reveal">THE MACHINE<span style="color:var(--accent)">.</span></div>
   <div class="machine-grid">
-    <!-- Заменить ТОЛЬКО .robot-showcase.reveal-left внутри .machine-grid -->
-<div class="robot-showcase reveal-left" id="robotGallery">
+    <div class="robot-showcase reveal-left" id="robotGallery">
   <div class="corner-tl"></div>
   <div class="corner-br"></div>
-
-  <!-- Слайды -->
   <div class="rg-slides">
     <div class="rg-slide active"><img src="media/robot/robot1.jpg" alt="Robot view 1"></div>
     <div class="rg-slide"><img src="media/robot/robot2.jpg" alt="Robot view 2"></div>
     <div class="rg-slide"><img src="media/robot/robot3.jpg" alt="Robot view 3"></div>
     <div class="rg-slide"><img src="media/robot/robot4.jpg" alt="Robot view 4"></div>
   </div>
-
-  <!-- Scan line поверх -->
   <div class="scan-line"></div>
-
-  <!-- Стрелки -->
   <button class="rg-arrow rg-prev" onclick="rgMove(-1)" aria-label="Prev">&#8249;</button>
   <button class="rg-arrow rg-next" onclick="rgMove(+1)" aria-label="Next">&#8250;</button>
-
-  <!-- HUD оверлей -->
   <div class="rg-hud-top">
     <span class="rg-label">TIGRIS MK-IV</span>
     <span class="rg-counter" id="rgCounter">01 / 04</span>
   </div>
-
-  <!-- Точки -->
   <div class="rg-dots" id="rgDots">
     <span class="rg-dot active"></span>
     <span class="rg-dot"></span>
@@ -688,111 +708,220 @@
 <section id="mentor">
   <div class="mentor-inner">
     <div class="section-tag">// UNIT_01 · MENTOR</div>
-    <div class="section-title reveal">THE MENTOR<span style="color:var(--accent)">.</span></div>
+    <div class="section-title reveal">THE MENTORS<span style="color:var(--accent)">.</span></div>
 
-    <div class="mentor-card reveal">
+    <!-- TWO MENTOR CARDS SIDE BY SIDE -->
+    <div class="mentor-grid">
 
-      <!-- LEFT PANEL -->
-      <div class="mentor-left">
-        <div class="mentor-avatar-wrap">
-          <div class="mentor-avatar-ring"></div>
-          <div class="mentor-avatar">  
-            <img src="media/mentor/erasyl.png" alt="Ерасыл Нурекенов">
+      <!-- ══════════ CARD 1: ЕРАСЫЛ ══════════ -->
+      <div class="mentor-card reveal">
+        <div class="mentor-left">
+          <div class="mentor-avatar-wrap">
+            <div class="mentor-avatar-ring"></div>
+            <div class="mentor-avatar">  
+              <img src="media/mentor/erasyl.png" alt="Ерасыл Нурекенов">
+            </div>
+            <div class="mentor-badge">MENTOR</div>
           </div>
-          <div class="mentor-badge">MENTOR</div>
-        </div>
-        <div class="mentor-name">
+          <div class="mentor-name">
             <a href="ErasylNurеkenov.html" target="_blank">ЕРАСЫЛ<br>НУРЕКЕНОВ</a>
-        </div>
-        <div class="mentor-title">TEAM LEAD · ROBOTICS MENTOR</div>
+          </div>
+          <div class="mentor-title">TEAM LEAD · ROBOTICS MENTOR</div>
 
-        <div class="mentor-meta">
-          <div class="mentor-meta-item">
-            <div class="mentor-meta-icon">🌐</div>
-            <div class="mentor-meta-text">
-              <strong>МЕЖДУНАРОДНЫЙ УРОВЕНЬ</strong>
-              FIRST Global · France, Bordeaux 2023<br>Представлял Казахстан
+          <div class="mentor-meta">
+            <div class="mentor-meta-item">
+              <div class="mentor-meta-icon">🌐</div>
+              <div class="mentor-meta-text">
+                <strong>МЕЖДУНАРОДНЫЙ УРОВЕНЬ</strong>
+                FIRST Global · France, Bordeaux 2023<br>Представлял Казахстан
+              </div>
+            </div>
+            <div class="mentor-meta-item">
+              <div class="mentor-meta-icon">🏆</div>
+              <div class="mentor-meta-text">
+                <strong>ОХВАТ</strong>
+                36 000 участников · 110 стран
+              </div>
             </div>
           </div>
-          <div class="mentor-meta-item">
-            <div class="mentor-meta-icon">🏆</div>
-            <div class="mentor-meta-text">
-              <strong>ОХВАТ</strong>
-              36 000 участников · 110 стран
-            </div>
+
+          <div class="mentor-skills-title">// EXPERTISE</div>
+          <div class="mentor-skills">
+            <span class="mentor-skill hot">⚙️ CAD / Мехатроника</span>
+            <span class="mentor-skill hot">🤖 Автономная навигация</span>
+            <span class="mentor-skill">💻 Java</span>
+            <span class="mentor-skill">💻 C++</span>
+            <span class="mentor-skill">🐍 Python</span>
+            <span class="mentor-skill">📡 Интеграция сенсоров</span>
+            <span class="mentor-skill">🔧 Системная интеграция</span>
+            <span class="mentor-skill hot">🎓 STEM-наставничество</span>
           </div>
         </div>
 
-        <div class="mentor-skills-title">// EXPERTISE</div>
-        <div class="mentor-skills">
-          <span class="mentor-skill hot">⚙️ CAD / Мехатроника</span>
-          <span class="mentor-skill hot">🤖 Автономная навигация</span>
-          <span class="mentor-skill">💻 Java</span>
-          <span class="mentor-skill">💻 C++</span>
-          <span class="mentor-skill">🐍 Python</span>
-          <span class="mentor-skill">📡 Интеграция сенсоров</span>
-          <span class="mentor-skill">🔧 Системная интеграция</span>
-          <span class="mentor-skill hot">🎓 STEM-наставничество</span>
+        <div class="mentor-right">
+          <div>
+            <div class="mentor-bio-label">// BIOGRAPHY</div>
+            <p class="mentor-bio-text">
+              <strong>Ерасыл Нурекенов</strong> — бывший участник <em>WorldSkills</em>, сегодня молодой
+              международно признанный наставник и руководитель собственной команды по робототехнике.
+              Активный участник экосистемы <em>FIRST Global</em>: в 2023 году представлял
+              <strong>Казахстан</strong> на мировых соревнованиях в Хьюстоне, США.
+              <br><br>
+              Команды под его руководством завоевали международные награды среди
+              <strong>36 000 участников из 110 стран</strong>. Развивает STEM-кадры, масштабирует
+              команды и выстраивает устойчивые связи между образованием и индустрией —
+              проекты с высоким <em>образовательным и имиджевым эффектом</em>
+              для страны и партнёров.
+            </p>
+          </div>
+
+          <div class="worldskills-strip">
+            <div class="ws-icon">🏅</div>
+            <div class="ws-text">
+              <div class="ws-label">// WORLDSKILLS ALUMNI</div>
+              <div class="ws-title">БЫВШИЙ УЧАСТНИК WORLDSKILLS</div>
+              <div class="ws-sub">Международный соревновательный опыт в профессиональных навыках</div>
+            </div>
+            <div class="ws-flag">🇰🇿</div>
+          </div>
+
+          <div>
+            <div class="mentor-bio-label">// ACHIEVEMENTS</div>
+            <div class="awards-grid">
+              <div class="award-item">
+                <div class="award-year">FIRST GLOBAL · 2023</div>
+                <div class="award-name">ROBOT DESIGN AWARD</div>
+                <div class="award-desc">Хьюстон, США · Международный финал</div>
+              </div>
+              <div class="award-item">
+                <div class="award-year">FIRST GLOBAL · 2023</div>
+                <div class="award-name">CORE VALUES AWARD</div>
+                <div class="award-desc">Среди 110 стран-участниц</div>
+              </div>
+              <div class="award-item">
+                <div class="award-year">FIRST GLOBAL</div>
+                <div class="award-name">MOTIVATE AWARD FINALIST</div>
+                <div class="award-desc">Топ команд из 36 000 участников</div>
+              </div>
+              <div class="award-item">
+                <div class="award-year">NATIONAL · KZ</div>
+                <div class="award-name">STEM MENTOR AWARD</div>
+                <div class="award-desc">Развитие робототехники Казахстана</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+      <!-- END CARD 1 -->
 
-      <!-- RIGHT PANEL -->
-      <div class="mentor-right">
 
-        <div>
-          <div class="mentor-bio-label">// BIOGRAPHY</div>
-          <p class="mentor-bio-text">
-            <strong>Ерасыл Нурекенов</strong> — бывший участник <em>WorldSkills</em>, сегодня молодой
-            международно признанный наставник и руководитель собственной команды по робототехнике.
-            Активный участник экосистемы <em>FIRST Global</em>: в 2023 году представлял
-            <strong>Казахстан</strong> на мировых соревнованиях в Хьюстоне, США.
-            <br><br>
-            Команды под его руководством завоевали международные награды среди
-            <strong>36 000 участников из 110 стран</strong>. Развивает STEM-кадры, масштабирует
-            команды и выстраивает устойчивые связи между образованием и индустрией —
-            проекты с высоким <em>образовательным и имиджевым эффектом</em>
-            для страны и партнёров.
-          </p>
-        </div>
-
-        <div class="worldskills-strip">
-          <div class="ws-icon">🏅</div>
-          <div class="ws-text">
-            <div class="ws-label">// WORLDSKILLS ALUMNI</div>
-            <div class="ws-title">БЫВШИЙ УЧАСТНИК WORLDSKILLS</div>
-            <div class="ws-sub">Международный соревновательный опыт в профессиональных навыках</div>
+      <!-- ══════════ CARD 2: ОЛЖАС ══════════ -->
+      <div class="mentor-card olzhas-card reveal" style="transition-delay:0.15s">
+        <div class="mentor-left">
+          <div class="mentor-avatar-wrap">
+            <div class="mentor-avatar-ring"></div>
+            <div class="mentor-avatar">
+              <img src="media/mentor/olzhas.jpg" alt="Олжас Самархан" onerror="this.style.display='none';this.parentElement.innerHTML='🎬'">
+            </div>
+            <div class="mentor-badge">MEDIA MENTOR</div>
           </div>
-          <div class="ws-flag">🇰🇿</div>
-        </div>
+          <div class="mentor-name">ОЛЖАС<br>САМАРХАН</div>
+          <div class="mentor-title">MEDIA MENTOR · CONTENT STRATEGY</div>
 
-        <div>
-          <div class="mentor-bio-label">// ACHIEVEMENTS</div>
-          <div class="awards-grid">
-            <div class="award-item">
-              <div class="award-year">FIRST GLOBAL · 2023</div>
-              <div class="award-name">ROBOT DESIGN AWARD</div>
-              <div class="award-desc">Хьюстон, США · Международный финал</div>
+          <div class="mentor-meta">
+            <div class="mentor-meta-item">
+              <div class="mentor-meta-icon">📸</div>
+              <div class="mentor-meta-text">
+                <strong>ВИЗУАЛЬНЫЙ КОНТЕНТ</strong>
+                Фото · Видео · Reels<br>Брендинг команды OZGE
+              </div>
             </div>
-            <div class="award-item">
-              <div class="award-year">FIRST GLOBAL · 2023</div>
-              <div class="award-name">CORE VALUES AWARD</div>
-              <div class="award-desc">Среди 110 стран-участниц</div>
+            <div class="mentor-meta-item">
+              <div class="mentor-meta-icon">📱</div>
+              <div class="mentor-meta-text">
+                <strong>SMM / ПРОДВИЖЕНИЕ</strong>
+                Instagram · YouTube · TikTok<br>Рост аудитории и охватов
+              </div>
             </div>
-            <div class="award-item">
-              <div class="award-year">FIRST GLOBAL</div>
-              <div class="award-name">MOTIVATE AWARD FINALIST</div>
-              <div class="award-desc">Топ команд из 36 000 участников</div>
+            <div class="mentor-meta-item">
+              <div class="mentor-meta-icon">🎙️</div>
+              <div class="mentor-meta-text">
+                <strong>СТОРИТЕЛЛИНГ</strong>
+                Narrative design · PR<br>Позиционирование команды
+              </div>
             </div>
-            <div class="award-item">
-              <div class="award-year">NATIONAL · KZ</div>
-              <div class="award-name">STEM MENTOR AWARD</div>
-              <div class="award-desc">Развитие робототехники Казахстана</div>
-            </div>
+          </div>
+
+          <div class="mentor-skills-title">// EXPERTISE</div>
+          <div class="mentor-skills">
+            <span class="mentor-skill hot">🎬 Видеопроизводство</span>
+            <span class="mentor-skill hot">📸 Фотография</span>
+            <span class="mentor-skill">✂️ Монтаж / Editing</span>
+            <span class="mentor-skill">📊 SMM-стратегия</span>
+            <span class="mentor-skill">🎨 Графический дизайн</span>
+            <span class="mentor-skill hot">📣 PR / Продвижение</span>
+            <span class="mentor-skill">🗣️ Публичные выступления</span>
+            <span class="mentor-skill">🖥️ Brand Identity</span>
           </div>
         </div>
 
+        <div class="mentor-right">
+          <div>
+            <div class="mentor-bio-label">// BIOGRAPHY</div>
+            <p class="mentor-bio-text">
+              <strong>Олжас Самархан</strong> — медиа-ментор команды OZGE, отвечающий за
+              визуальный облик, контент-стратегию и публичное присутствие команды.
+              Специализируется на <em>сторителлинге</em> и создании медиа-контента,
+              который превращает технические достижения в яркие и понятные истории для аудитории.
+              <br><br>
+              Помогает команде выстраивать <strong>цифровое присутствие</strong> —
+              от съёмки и монтажа до публикаций в социальных сетях. Его работа делает
+              OZGE видимыми за пределами соревновательного зала и привлекает
+              <em>спонсоров, партнёров и новых участников</em> в экосистему команды.
+            </p>
+          </div>
+
+          <div class="media-strip">
+            <div class="ws-icon">🎥</div>
+            <div class="ws-text">
+              <div class="ws-label">// НАПРАВЛЕНИЕ</div>
+              <div class="ws-title">MEDIA & BRAND STRATEGY</div>
+              <div class="ws-sub">Контент · Визуал · Продвижение · Сторителлинг</div>
+            </div>
+            <div style="font-size:24px;flex-shrink:0;">🎬</div>
+          </div>
+
+          <div>
+            <div class="mentor-bio-label">// CONTRIBUTIONS</div>
+            <div class="awards-grid">
+              <div class="award-item">
+                <div class="award-year">OZGE · 2024–25</div>
+                <div class="award-name">BRAND IDENTITY</div>
+                <div class="award-desc">Визуальный стиль и медиа-образ команды</div>
+              </div>
+              <div class="award-item">
+                <div class="award-year">КОНТЕНТ</div>
+                <div class="award-name">PHOTO & VIDEO</div>
+                <div class="award-desc">Съёмка соревнований · Behind-the-scenes</div>
+              </div>
+              <div class="award-item">
+                <div class="award-year">DIGITAL</div>
+                <div class="award-name">SMM GROWTH</div>
+                <div class="award-desc">Рост аудитории · Охваты · Вовлечённость</div>
+              </div>
+              <div class="award-item">
+                <div class="award-year">PR</div>
+                <div class="award-name">OUTREACH MEDIA</div>
+                <div class="award-desc">Публикации · Партнёрства · Пресс-материалы</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
-    </div>
+      <!-- END CARD 2 -->
+
+    </div><!-- end mentor-grid -->
   </div>
 </section>
   
@@ -812,7 +941,7 @@
       </div>
       <div class="member-card reveal" style="transition-delay:0.1s">
         <div class="member-num">02</div>
-        <div class="member-photo"><img src="media/WSK/sultan.jpg" alt="Sultan S."></div>\
+        <div class="member-photo"><img src="media/WSK/sultan.jpg" alt="Sultan S."></div>
         <div class="member-name">
             <a href="SultanS.html" target="_blank">SULTAN S.</a>
         </div>
@@ -1067,13 +1196,13 @@
         <a href="https://www.instagram.com/janamen.health" class="sponsor-logo-btn" aria-label="Jana Men" target="_blank">
           <svg xmlns="http://www.w3.org/2000/svg" width="66" height="38" viewBox="0 0 101 59" fill="none">
            <path d="M73.5474 30.9104H68.0604L68.6364 25.6013H62.7609L59.7843 30.9104H54.1231C56.0065 27.9665 65.8232 10.7147 68.1944 7.06201H75.7283L73.5474 30.9104ZM33.7154 30.9104H28.2257L28.8044 25.6013H22.9261L19.9468 30.9104H14.291C16.1718 27.9665 25.9912 10.7147 28.3623 7.06201H35.8963L33.7154 30.9104ZM7.68402 31.2342C6.36048 31.2342 5.09589 31.0643 4.26801 30.8546L5.68532 26.7454C6.30422 26.8781 6.80792 26.91 7.41878 26.91C9.09062 26.91 9.65325 26.2118 10.3713 24.1254L16.2843 7.05935H21.833L15.9762 23.9316C14.2964 28.7735 12.7103 31.2342 7.68402 31.2342ZM54.5383 3.38281L51.902 6.67975H48.703L49.7077 3.38281H9.5059L0 32.3544H34.8299L42.1174 9.01574H49.1879L50.4338 22.9972L55.7306 5.35248H62.225L53.188 28.6328H46.9052L45.4906 14.6726L38.8568 32.3571H78.6942L86.1237 25.1102L88.3582 32.3571H90.8687L100.375 3.38547H54.5383V3.38281Z" fill="#F58712"></path><path d="M21.828 7.0625L15.9712 23.9347C14.294 28.7766 12.7079 31.2374 7.68164 31.2374C6.3581 31.2374 5.09351 31.0702 4.26562 30.8578L5.68562 26.7486C6.30452 26.8813 6.80821 26.9131 7.41908 26.9131C9.08823 26.9131 9.65355 26.215 10.3689 24.1285L16.282 7.0625H21.828Z" fill="#5E6671"></path><path d="M29.4106 21.1873H25.2873C27.4387 17.2851 29.424 13.5343 30.627 11.0709H30.7449C30.3564 13.4068 29.8661 17.2878 29.4106 21.1873ZM28.3604 7.0625C25.9892 10.7178 16.1699 27.9697 14.2891 30.9109H19.9449L22.9242 25.6018H28.8024L28.2237 30.9109H33.7135L35.8917 7.0625H28.3604Z" fill="#5E6671"></path><path d="M54.5392 3.38281L51.9029 6.67975H48.7012L49.7086 3.38281H54.5392Z" fill="#5E6671"></path><path d="M62.2271 5.35156L53.1901 28.6319H46.91L45.4927 14.6717L38.8616 32.3535H34.832L42.1195 9.01482H49.1927L50.4358 22.9963L55.7327 5.35156H62.2271Z" fill="#5E6671"></path><path d="M69.2466 21.1873H65.1232C67.2773 17.2851 69.26 13.5343 70.4656 11.0709H70.5835C70.1977 13.4068 69.702 17.2878 69.2466 21.1873ZM68.1963 7.0625C65.8252 10.7178 56.0085 27.9697 54.125 30.9109H59.7835L62.7602 25.6018H68.6384L68.0623 30.9109H73.5494L75.7276 7.0625H68.1963Z" fill="#5E6671"></path><path d="M88.3671 32.3536H78.7031L86.1326 25.1094L88.3671 32.3536Z" fill="#5E6671"></path><path d="M21.828 7.0625L15.9712 23.9347C14.294 28.7766 12.7079 31.2374 7.68164 31.2374C6.3581 31.2374 5.09351 31.0702 4.26562 30.8578L5.68562 26.7486C6.30452 26.8813 6.80821 26.9131 7.41908 26.9131C9.08823 26.9131 9.65355 26.215 10.3689 24.1285L16.282 7.0625H21.828Z" fill="white"></path><path d="M29.4106 21.1873H25.2873C27.4387 17.2851 29.424 13.5343 30.627 11.0709H30.7449C30.3564 13.4068 29.8661 17.2878 29.4106 21.1873ZM28.3604 7.0625C25.9892 10.7178 16.1699 27.9697 14.2891 30.9109H19.9449L22.9242 25.6018H28.8024L28.2237 30.9109H33.7135L35.8917 7.0625H28.3604Z" fill="white"></path><path d="M30.744 11.0703C30.3582 13.4063 29.8652 17.2872 29.4124 21.1868H25.2891C27.4405 17.2846 29.4258 13.5337 30.6288 11.0703H30.744Z" fill="#F58712"></path><path d="M62.2226 5.35156L53.1856 28.6319H46.9055L45.4882 14.6717L38.8571 32.3535L38.7981 32.5128H34.7793L34.8275 32.3535L42.115 9.01482H49.1882L50.4313 22.9963L55.7282 5.35156H62.2226Z" fill="white"></path><path d="M69.2466 21.1873H65.1232C67.2773 17.2851 69.26 13.5343 70.4656 11.0709H70.5835C70.1977 13.4068 69.702 17.2878 69.2466 21.1873ZM68.1963 7.0625C65.8252 10.7178 56.0085 27.9697 54.125 30.9109H59.7835L62.7602 25.6018H68.6384L68.0623 30.9109H73.5494L75.7276 7.0625H68.1963Z" fill="white"></path><path d="M70.5853 11.0703C70.1995 13.4063 69.7038 17.2872 69.2483 21.1868H65.125C67.2791 17.2846 69.2617 13.5337 70.4674 11.0703H70.5853Z" fill="#F58712"></path><path d="M57.2479 0L54.5392 3.38454L51.9029 6.68148H48.7012L49.7086 3.38454L50.7427 0H57.2479Z" fill="white"></path><path d="M63.9274 36.7548L65.4974 32.3536H52.5835L44.1922 56.2471H57.7142L59.3914 51.8698H51.1528L53.1756 46.0643H60.3158L61.859 41.6631H54.7188L56.4389 36.7522H63.9274V36.7548ZM41.9872 32.3563L34.4264 39.7253L32.1544 32.3563H24.7731L16.4648 56.3666H21.4455L27.8141 36.8504L30.6728 46.0378H34.7934L43.667 36.8796L36.6662 56.3666H41.9818L50.2928 32.3563H41.9872ZM86.1274 25.1094L78.6979 32.3563H81.5433L74.9042 50.4682L73.9664 34.7931H67.681L58.2152 58.9999H64.715L70.4379 40.4314L71.2068 56.125H78.2746L85.6452 32.3563H88.3619L86.1274 25.1094Z" fill="#212020"></path>
+          </svg>
           <span class="sponsor-name">JANA MEN</span>
         </a>
       </div>
      <div class="sponsors-wrap">
       <a href="https://www.instagram.com/iba_official/" class="sponsor-logo-btn" aria-label="IBA" target="_blank">
         <img src="media/partner/IBA.png" alt="IBA Logo" style="width: 66px; height: 38px; object-fit: contain;">
-        
         <span class="sponsor-name">IBA</span>
       </a>
     </div>
@@ -1158,22 +1287,15 @@ function rgMove(dir) {
 </script>
   <script>
   let inputBuffer = "";
-  const secretCode = "bag"; // Слово, которое нужно напечатать
-  const redirectUrl = "/ozge-site/eraMolodoy.html"; // Ссылка, куда перекинет пользователя
+  const secretCode = "bag";
+  const redirectUrl = "/ozge-site/eraMolodoy.html";
 
   window.addEventListener('keydown', (e) => {
-    // Добавляем нажатую клавишу в буфер (в нижнем регистре)
     inputBuffer += e.key.toLowerCase();
-
-    // Ограничиваем длину буфера длиной секретного слова
     inputBuffer = inputBuffer.slice(-secretCode.length);
-
-    // Проверяем, совпадает ли буфер с кодом
     if (inputBuffer === secretCode) {
-      // Можно добавить визуальный эффект перед переходом
       document.body.style.transition = "opacity 0.5s";
       document.body.style.opacity = "0";
-      
       setTimeout(() => {
         window.location.href = redirectUrl;
       }, 500);
