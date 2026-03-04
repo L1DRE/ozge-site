@@ -199,6 +199,35 @@
 .sponsor-person:hover .sponsor-avatar { border-color: var(--accent); box-shadow: 0 0 10px #00F0FF44; }
 .sponsor-person:hover .sponsor-person-role { color: #888; }
 
+/* STEM SHOP sponsor — cyan accent override */
+.sponsor-logo-btn.stem-shop-btn:hover {
+  border-color: rgba(0,240,255,.6);
+  box-shadow: 0 0 30px rgba(0,240,255,.18);
+  background: rgba(0,240,255,.04);
+}
+.sponsor-logo-btn.stem-shop-btn::before {
+  background: linear-gradient(135deg,rgba(0,240,255,.08),transparent 60%);
+}
+.stem-shop-icon {
+  width: 38px; height: 38px;
+  border: 1px solid rgba(0,240,255,.3);
+  background: rgba(0,240,255,.06);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-size: 18px;
+  transition: border-color .3s, box-shadow .3s;
+}
+.sponsor-logo-btn.stem-shop-btn:hover .stem-shop-icon {
+  border-color: var(--accent);
+  box-shadow: 0 0 10px #00F0FF44;
+  animation: none;
+  filter: none;
+}
+.stem-shop-info { display: flex; flex-direction: column; gap: 2px; }
+.stem-shop-role { font-family: "Share Tech Mono", monospace; font-size: 8px; letter-spacing: 2px; color: #3a6666; }
+.sponsor-logo-btn.stem-shop-btn:hover .stem-shop-role { color: var(--accent); }
+.sponsor-logo-btn.stem-shop-btn:hover .sponsor-name { color: var(--accent); }
+
   
   .footer-bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; }
   .footer-logo { font-family: "Orbitron", monospace; font-size: 12px; font-weight: 700; letter-spacing: 4px; color: var(--accent); }
@@ -1194,6 +1223,8 @@
   <div class="footer-inner">
     <div class="sponsors-row">
       <span class="sponsor-tag">PARTNER_//</span>
+
+      <!-- Jana Men -->
       <div class="sponsors-wrap">
         <a href="https://www.instagram.com/janamen.health" class="sponsor-logo-btn" aria-label="Jana Men" target="_blank">
           <svg xmlns="http://www.w3.org/2000/svg" width="66" height="38" viewBox="0 0 101 59" fill="none">
@@ -1202,23 +1233,36 @@
           <span class="sponsor-name">JANA MEN</span>
         </a>
       </div>
-     <div class="sponsors-wrap">
-      <a href="https://www.instagram.com/iba_official/" class="sponsor-logo-btn" aria-label="IBA" target="_blank">
-        <img src="media/partner/IBA.png" alt="IBA Logo" style="width: 66px; height: 38px; object-fit: contain;">
-        <span class="sponsor-name">IBA</span>
-      </a>
-    </div>
+
+      <!-- IBA -->
       <div class="sponsors-wrap">
-  <a href="https://www.instagram.com/aitymzhakupov/" class="sponsor-logo-btn sponsor-person" aria-label="Aitym Zhakupov" target="_blank">
-    <div class="sponsor-avatar">
-      <img src="media/partner/Aitym.png" alt="Aitym Zhakupov">
-    </div>
-    <div class="sponsor-person-info">
-      <span class="sponsor-name">AITYM Z.</span>
-      <span class="sponsor-person-role">PERSONAL SPONSOR</span>
-    </div>
-  </a>
-</div>
+        <a href="https://www.instagram.com/iba_official/" class="sponsor-logo-btn" aria-label="IBA" target="_blank">
+          <img src="media/partner/IBA.png" alt="IBA Logo" style="width: 66px; height: 38px; object-fit: contain;">
+          <span class="sponsor-name">IBA</span>
+        </a>
+      </div>
+
+      <!-- STEM SHOP — NEW PARTNER -->
+      <div class="sponsors-wrap">
+        <a href="#" class="sponsor-logo-btn" aria-label="STEM Shop" target="_blank">
+          <img src="media/partner/stemshop.png" alt="Stem Shop Logo" style="width: 66px; height: 38px; object-fit: contain;">
+            <span class="sponsor-name">STEM SHOP</span>
+        </a>
+      </div>
+
+      <!-- Aitym Zhakupov personal sponsor -->
+      <div class="sponsors-wrap">
+        <a href="https://www.instagram.com/aitymzhakupov/" class="sponsor-logo-btn sponsor-person" aria-label="Aitym Zhakupov" target="_blank">
+          <div class="sponsor-avatar">
+            <img src="media/partner/Aitym.png" alt="Aitym Zhakupov">
+          </div>
+          <div class="sponsor-person-info">
+            <span class="sponsor-name">AITYM Z.</span>
+            <span class="sponsor-person-role">PERSONAL SPONSOR</span>
+          </div>
+        </a>
+      </div>
+
     </div>
   </div>
 </footer>
