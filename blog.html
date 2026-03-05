@@ -194,6 +194,21 @@ mark{background:rgba(0,240,255,.18);color:var(--accent);border-radius:2px;paddin
 .auth-btn{font-family:"Orbitron",monospace;font-size:10px;font-weight:700;letter-spacing:3px;color:#0d0d0d;background:var(--accent);border:none;padding:12px 40px;cursor:none;transition:all .2s;clip-path:polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%);width:100%;}
 .auth-btn:hover{background:#33f5ff;box-shadow:0 0 24px rgba(0,240,255,.4);}
 
+.modal-gh{display:grid;grid-template-columns:1fr 0.6fr 1.4fr 0.5fr auto;gap:10px;padding:12px 28px;border-top:1px solid #1a1a1a;background:#0a0a0a;flex-shrink:0;align-items:end;}
+.gh-field{display:flex;flex-direction:column;gap:4px;}
+.gh-lbl{font-family:"Share Tech Mono",monospace;font-size:8px;letter-spacing:3px;color:#333;}
+.gh-inp{background:#111;border:1px solid #1e1e1e;padding:7px 10px;font-family:"Share Tech Mono",monospace;font-size:10px;letter-spacing:1px;color:#777;outline:none;width:100%;transition:border-color .2s;}
+.gh-inp:focus{border-color:rgba(0,240,255,.25);color:#aaa;}
+.gh-inp::placeholder{color:#252525;}
+.gh-status{font-family:"Share Tech Mono",monospace;font-size:9px;letter-spacing:2px;color:#444;align-self:center;white-space:nowrap;min-width:80px;}
+.gh-status.ok{color:#4ade80;}
+.gh-status.err{color:var(--accent2);}
+.gh-status.loading{color:var(--accent);animation:blink .8s step-start infinite;}
+@keyframes blink{50%{opacity:0}}
+.btn-dl{font-family:"Share Tech Mono",monospace;font-size:10px;letter-spacing:2px;color:#555;background:none;border:1px solid #252525;padding:10px 16px;cursor:none;transition:all .2s;}
+.btn-dl:hover{color:var(--accent3);border-color:rgba(192,132,252,.4);}
+@media(max-width:900px){.modal-gh{grid-template-columns:1fr 1fr;}.gh-field-token{grid-column:1/-1;}}
+
 /* ═══ WRITE MODAL ═══ */
 #write-modal{position:fixed;inset:0;z-index:2000;display:none;align-items:center;justify-content:center;padding:20px;}
 #write-modal.open{display:flex;}
@@ -460,11 +475,31 @@ select.m-inp{appearance:none;}
         <div class="mdp" id="md-preview"></div>
       </div>
     </div>
+    <div class="modal-gh" id="ghConfigRow">
+      <div class="gh-field">
+        <span class="gh-lbl">REPO</span>
+        <input type="text" class="gh-inp" id="ghRepo" placeholder="username/repo-name">
+      </div>
+      <div class="gh-field">
+        <span class="gh-lbl">FOLDER</span>
+        <input type="text" class="gh-inp" id="ghFolder" placeholder="_posts">
+      </div>
+      <div class="gh-field gh-field-token">
+        <span class="gh-lbl">TOKEN</span>
+        <input type="password" class="gh-inp" id="ghToken" placeholder="ghp_···················">
+      </div>
+      <div class="gh-field gh-field-branch">
+        <span class="gh-lbl">BRANCH</span>
+        <input type="text" class="gh-inp" id="ghBranch" placeholder="main">
+      </div>
+      <div class="gh-status" id="ghStatus"></div>
+    </div>
     <div class="modal-foot">
       <span class="mf-info" id="charCount">0 СИМВОЛОВ</span>
       <div class="mf-btns">
         <button class="btn-can" id="cancelWriteBtn">ОТМЕНА</button>
-        <button class="btn-pub" id="publishBtn">ОПУБЛИКОВАТЬ →</button>
+        <button class="btn-dl" id="downloadBtn" title="Скачать .md файл">↓ .MD</button>
+        <button class="btn-pub" id="publishBtn">ОПУБЛИКОВАТЬ → GITHUB</button>
       </div>
     </div>
   </div>
@@ -753,7 +788,10 @@ function openModal(){
 }
 function closeModal(){ document.getElementById('write-modal').classList.remove('open'); }
 
-const PASS_HASH = '9ed44518eb9aae57a52dd7a26a38a61cba4a74f814a9a91e3dc8650d8a2df220'; 
+/* ══════ AUTH GATE ══════ */
+// Hash stored as SHA-256. Default password: ozge2025
+// To change: run sha256('newpassword') in console and update PASS_HASH
+const PASS_HASH = 'b3c8b1f02df6e2b40af2fca00e9d4fb06c8285c6cdb14bce13b3f41d5d5e3a7e'; // ozge2025
 
 async function sha256(str){
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
@@ -799,7 +837,116 @@ document.getElementById('closeWriteBtn').addEventListener('click', closeModal);
 document.getElementById('cancelWriteBtn').addEventListener('click', closeModal);
 document.getElementById('modalBg').addEventListener('click', closeModal);
 
-document.getElementById('publishBtn').addEventListener('click',()=>{
+/* ══════ GITHUB CONFIG persist (non-sensitive only) ══════ */
+function loadGhConfig(){
+  try{
+    const s=sessionStorage.getItem('ozge_gh');
+    if(s){ const c=JSON.parse(s); document.getElementById('ghRepo').value=c.repo||''; document.getElementById('ghFolder').value=c.folder||'_posts'; document.getElementById('ghBranch').value=c.branch||'main'; }
+    else { document.getElementById('ghFolder').value='_posts'; document.getElementById('ghBranch').value='main'; }
+  }catch(e){}
+}
+function saveGhConfig(){
+  sessionStorage.setItem('ozge_gh',JSON.stringify({repo:document.getElementById('ghRepo').value,folder:document.getElementById('ghFolder').value,branch:document.getElementById('ghBranch').value}));
+}
+
+/* ══════ BUILD .MD FILE CONTENT (Jekyll frontmatter) ══════ */
+function buildMdContent(p){
+  const frontmatter = [
+    '---',
+    `layout: post`,
+    `title: "${p.title.replace(/"/g,"'")}"`,
+    `date: ${p.date} 00:00:00 +0600`,
+    `categories: [${p.cat}]`,
+    `tags: [${p.tags.map(t=>`${t}`).join(', ')}]`,
+    `emoji: "${p.emoji||'📝'}"`,
+    `excerpt: "${plain(p.body).slice(0,160).replace(/"/g,"'")}"`,
+    '---',
+    ''
+  ].join('\n');
+  return frontmatter + p.body;
+}
+
+/* ══════ SLUG from title ══════ */
+function slugify(s){
+  return s.toLowerCase()
+    .replace(/[а-яё]/g, c=>({'а':'a','б':'b','в':'v','г':'g','д':'d','е':'e','ё':'yo','ж':'zh','з':'z','и':'i','й':'y','к':'k','л':'l','м':'m','н':'n','о':'o','п':'p','р':'r','с':'s','т':'t','у':'u','ф':'f','х':'kh','ц':'ts','ч':'ch','ш':'sh','щ':'sch','ъ':'','ы':'y','ь':'','э':'e','ю':'yu','я':'ya'}[c]||c))
+    .replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,60);
+}
+
+/* ══════ DOWNLOAD .MD ══════ */
+function downloadMd(p, content){
+  const fname=`${p.date}-${slugify(p.title)}.md`;
+  const blob=new Blob([content],{type:'text/markdown'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=fname; a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+/* ══════ PUSH TO GITHUB ══════ */
+async function pushToGithub(p, content){
+  const repo   = document.getElementById('ghRepo').value.trim();
+  const folder = document.getElementById('ghFolder').value.trim()||'_posts';
+  const branch = document.getElementById('ghBranch').value.trim()||'main';
+  const token  = document.getElementById('ghToken').value.trim();
+  const status = document.getElementById('ghStatus');
+
+  if(!repo || !token){
+    status.textContent='// REPO OR TOKEN MISSING'; status.className='gh-status err';
+    setTimeout(()=>{status.textContent='';status.className='gh-status';},3000);
+    return false;
+  }
+
+  const fname = `${p.date}-${slugify(p.title)}.md`;
+  const path  = `${folder.replace(/\/$/,'')}/${fname}`;
+  const api   = `https://api.github.com/repos/${repo}/contents/${path}`;
+  const encoded = btoa(unescape(encodeURIComponent(content)));
+
+  status.textContent='// PUSHING...'; status.className='gh-status loading';
+
+  try{
+    // check if file exists (get SHA for update)
+    let sha = undefined;
+    const check = await fetch(`${api}?ref=${branch}`, {headers:{Authorization:`token ${token}`,'Accept':'application/vnd.github.v3+json'}});
+    if(check.ok){ const j=await check.json(); sha=j.sha; }
+
+    const body={message:`devlog: add ${fname}`, content:encoded, branch};
+    if(sha) body.sha=sha;
+
+    const res = await fetch(api,{
+      method:'PUT',
+      headers:{Authorization:`token ${token}`,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},
+      body:JSON.stringify(body)
+    });
+
+    if(res.ok){
+      status.textContent='✓ PUSHED'; status.className='gh-status ok';
+      saveGhConfig();
+      setTimeout(()=>{status.textContent='';status.className='gh-status';},4000);
+      return true;
+    } else {
+      const err=await res.json();
+      status.textContent=`// ${res.status}: ${(err.message||'ERROR').slice(0,30)}`; status.className='gh-status err';
+      setTimeout(()=>{status.textContent='';status.className='gh-status';},5000);
+      return false;
+    }
+  } catch(e){
+    status.textContent='// NETWORK ERROR'; status.className='gh-status err';
+    setTimeout(()=>{status.textContent='';status.className='gh-status';},4000);
+    return false;
+  }
+}
+
+/* ══════ DOWNLOAD BUTTON ══════ */
+document.getElementById('downloadBtn').addEventListener('click',()=>{
+  const title=document.getElementById('postTitle').value.trim();
+  const body=document.getElementById('md-editor').value.trim();
+  if(!title||!body) return;
+  const tags=document.getElementById('postTags').value.split(',').map(t=>t.trim()).filter(Boolean);
+  const p={title,cat:document.getElementById('postCat').value,date:document.getElementById('postDate').value||new Date().toISOString().slice(0,10),tags,emoji:document.getElementById('postEmoji').value||'📝',readTime:'—',body};
+  downloadMd(p, buildMdContent(p));
+});
+
+/* ══════ PUBLISH BUTTON ══════ */
+document.getElementById('publishBtn').addEventListener('click', async ()=>{
   if(document.getElementById('publishBtn').dataset.rm){ closeModal(); return; }
   const title=document.getElementById('postTitle').value.trim();
   const body=document.getElementById('md-editor').value.trim();
@@ -814,11 +961,23 @@ document.getElementById('publishBtn').addEventListener('click',()=>{
     tags, emoji:document.getElementById('postEmoji').value||'📝',
     readTime:Math.max(1,Math.ceil(body.split(/\s+/).length/200))+' МИН', body
   };
+
+  const content = buildMdContent(p);
+
+  // disable button during push
+  const btn=document.getElementById('publishBtn');
+  btn.disabled=true; btn.textContent='PUSHING...';
+
+  const pushed = await pushToGithub(p, content);
+
+  btn.disabled=false; btn.textContent='ОПУБЛИКОВАТЬ → GITHUB';
+
+  // add to local feed regardless
   POSTS.unshift(p); savePosts(POSTS);
   closeModal(); page=1; renderSidebar(); renderPills(); renderAll();
   setTimeout(()=>{
     const el=document.querySelector(`[data-id="${p.id}"]`);
-    if(el){ el.style.outline='2px solid var(--accent2)'; setTimeout(()=>el.style.outline='',2000); el.scrollIntoView({behavior:'smooth',block:'center'}); }
+    if(el){ el.style.outline=`2px solid ${pushed?'var(--accent)':'var(--accent2)'}`;setTimeout(()=>el.style.outline='',2500);el.scrollIntoView({behavior:'smooth',block:'center'}); }
   },120);
 });
 
@@ -886,6 +1045,7 @@ const barObs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.
 document.querySelectorAll('.sw-pf').forEach(b=>barObs.observe(b));
 
 /* ══════ INIT ══════ */
+loadGhConfig();
 renderSidebar(); renderPills(); renderAll();
 </script>
 </body>
