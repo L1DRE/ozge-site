@@ -80,7 +80,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:cen
 #res-count{margin-left:auto;font-family:"Share Tech Mono",monospace;font-size:9px;letter-spacing:3px;color:#333;}
 
 /* MAIN LAYOUT */
-#blog-main{position:relative;z-index:1;max-width:1400px;margin:0 auto;padding:48px 48px 120px;display:grid;grid-template-columns:1fr 300px;gap:48px;align-items:start;}
+#blog-main{position:relative;z-index:1;max-width:1400px;margin:0 auto;padding:48px 48px 120px;display:grid;grid-template-columns:1fr 280px;gap:48px;align-items:start;}
 
 /* NO RESULTS */
 #no-results{display:none;padding:60px 0;text-align:center;}
@@ -132,8 +132,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:cen
 .pctitle{font-family:"Orbitron",monospace;font-size:12px;font-weight:700;letter-spacing:2px;color:#ddd;line-height:1.4;transition:color .2s;}
 .post-card:hover .pctitle{color:var(--accent);}
 .pcexcerpt{font-family:"Rajdhani",sans-serif;font-size:13px;color:#666;line-height:1.6;}
-.pcfooter{display:flex;align-items:center;justify-content:space-between;margin-top:4px;}
+.pcfooter{display:flex;align-items:center;gap:12px;margin-top:6px;}
 .pctime{font-family:"Share Tech Mono",monospace;font-size:9px;letter-spacing:2px;color:#444;}
+.pctag-single{font-family:"Share Tech Mono",monospace;font-size:9px;letter-spacing:1px;padding:2px 8px;border:1px solid #242424;color:#484848;}
 .pnum{font-family:"Orbitron",monospace;font-size:26px;font-weight:900;color:#1c1c1c;position:absolute;bottom:6px;right:12px;line-height:1;pointer-events:none;}
 mark{background:rgba(0,240,255,.18);color:var(--accent);border-radius:2px;padding:0 2px;}
 
@@ -143,7 +144,8 @@ mark{background:rgba(0,240,255,.18);color:var(--accent);border-radius:2px;paddin
 .pg-btn:hover,.pg-btn.active{color:var(--accent);border-color:rgba(0,240,255,.4);box-shadow:0 0 12px rgba(0,240,255,.15);}
 
 /* SIDEBAR */
-.sidebar{display:flex;flex-direction:column;gap:24px;}
+.sidebar{display:flex;flex-direction:column;gap:24px;position:sticky;top:130px;max-height:calc(100vh - 150px);overflow-y:auto;scrollbar-width:none;}
+.sidebar::-webkit-scrollbar{display:none;}
 .sb-widget{background:var(--bg2);border:1px solid #1e1e1e;padding:24px 20px;position:relative;overflow:hidden;}
 .sb-widget::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),transparent);}
 .sw-title{font-family:"Share Tech Mono",monospace;font-size:9px;letter-spacing:4px;color:var(--accent);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
@@ -170,6 +172,27 @@ mark{background:rgba(0,240,255,.18);color:var(--accent);border-radius:2px;paddin
 .sw-pf{height:100%;background:var(--accent);box-shadow:0 0 6px var(--accent);transition:width 1.2s ease;}
 .sw-pf.or{background:var(--accent2);box-shadow:0 0 6px var(--accent2);}
 .sw-pf.pu{background:var(--accent3);box-shadow:0 0 6px var(--accent3);}
+
+/* ═══ AUTH GATE ═══ */
+#auth-modal{position:fixed;inset:0;z-index:3000;display:none;align-items:center;justify-content:center;padding:20px;}
+#auth-modal.open{display:flex;}
+.auth-box{position:relative;z-index:1;width:100%;max-width:360px;background:#0e0e0e;border:1px solid #2a2a2a;padding:48px 40px 40px;display:flex;flex-direction:column;align-items:center;gap:0;}
+.auth-box-top{position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);}
+.auth-icon{font-size:32px;color:var(--accent);text-shadow:var(--glow);margin-bottom:20px;animation:pulse-icon 2s ease-in-out infinite;}
+@keyframes pulse-icon{0%,100%{opacity:1;text-shadow:var(--glow)}50%{opacity:.5;text-shadow:none}}
+.auth-title{font-family:"Orbitron",monospace;font-size:14px;font-weight:900;letter-spacing:4px;color:#fff;margin-bottom:8px;}
+.auth-sub{font-family:"Share Tech Mono",monospace;font-size:9px;letter-spacing:4px;color:#444;margin-bottom:32px;}
+.auth-field-wrap{width:100%;position:relative;margin-bottom:8px;}
+.auth-input{width:100%;background:#111;border:1px solid #252525;padding:14px 18px;font-family:"Share Tech Mono",monospace;font-size:18px;letter-spacing:8px;color:var(--accent);outline:none;text-align:center;transition:border-color .2s;caret-color:transparent;}
+.auth-input:focus{border-color:rgba(0,240,255,.4);box-shadow:0 0 20px rgba(0,240,255,.08);}
+.auth-input.shake{animation:shake .4s ease;}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+.auth-cursor-line{position:absolute;bottom:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);box-shadow:0 0 8px var(--accent);opacity:0;transition:opacity .2s;}
+.auth-input:focus ~ .auth-cursor-line{opacity:1;}
+.auth-err{font-family:"Share Tech Mono",monospace;font-size:9px;letter-spacing:3px;color:var(--accent2);margin-bottom:24px;height:14px;opacity:0;transition:opacity .3s;}
+.auth-err.show{opacity:1;}
+.auth-btn{font-family:"Orbitron",monospace;font-size:10px;font-weight:700;letter-spacing:3px;color:#0d0d0d;background:var(--accent);border:none;padding:12px 40px;cursor:none;transition:all .2s;clip-path:polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%);width:100%;}
+.auth-btn:hover{background:#33f5ff;box-shadow:0 0 24px rgba(0,240,255,.4);}
 
 /* ═══ WRITE MODAL ═══ */
 #write-modal{position:fixed;inset:0;z-index:2000;display:none;align-items:center;justify-content:center;padding:20px;}
@@ -244,7 +267,7 @@ select.m-inp{appearance:none;}
 
 @media(max-width:1100px){
   #blog-main{grid-template-columns:1fr;}
-  .sidebar{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .sidebar{position:static;max-height:none;overflow-y:visible;display:grid;grid-template-columns:1fr 1fr;gap:16px;}
   .featured-post{grid-template-columns:1fr;}
   .featured-img{min-height:220px;}
   .featured-body{border-left:none;border-top:1px solid #222;}
@@ -358,6 +381,23 @@ select.m-inp{appearance:none;}
       <div class="sw-rec" id="sidebar-recent"></div>
     </div>
   </aside>
+</div>
+
+<!-- AUTH GATE -->
+<div id="auth-modal">
+  <div class="modal-bg"></div>
+  <div class="auth-box">
+    <div class="auth-box-top"></div>
+    <div class="auth-icon">⬡</div>
+    <div class="auth-title">ACCESS REQUIRED</div>
+    <div class="auth-sub">// TEAM CREDENTIALS ONLY</div>
+    <div class="auth-field-wrap">
+      <input type="password" id="auth-input" class="auth-input" placeholder="············" autocomplete="off" spellcheck="false">
+      <div class="auth-cursor-line"></div>
+    </div>
+    <div class="auth-err" id="auth-err">// INVALID ACCESS CODE</div>
+    <button class="auth-btn" id="auth-submit">ВОЙТИ →</button>
+  </div>
 </div>
 
 <!-- WRITE MODAL -->
@@ -589,14 +629,14 @@ function featHTML(p,q){
 
 function cardHTML(p,n,q){
   const tH=hl(p.title,q), eH=hl(p.excerpt||'',q);
-  const tags=p.tags.map(t=>`<span class="ptag${state.tag&&state.tag.toLowerCase()===t.toLowerCase()?' pta':''}" data-tag="${t}">${t}</span>`).join('');
+  const firstTag = p.tags[0] ? `<span class="pctag-single">${p.tags[0]}</span>` : '';
   return `<article class="post-card reveal" data-id="${p.id}" data-cat="${p.cat}">
     <div class="pcimg"><div class="pcimg-bg">${p.emoji||'📄'}</div></div>
     <div class="pcbody">
       <div class="pcmeta"><span class="pcat ${catCls(p.cat)}">${p.cat.toUpperCase()}</span><span class="pdate">// ${fmtDate(p.date)}</span></div>
       <h3 class="pctitle">${tH}</h3>
       <p class="pcexcerpt">${eH}</p>
-      <div class="pcfooter"><div class="ptags">${tags}</div><span class="pctime">${p.readTime||'5 МИН'}</span></div>
+      <div class="pcfooter">${firstTag}<span class="pctime">${p.readTime||'5 МИН'}</span></div>
     </div>
     <span class="pnum">${String(n).padStart(2,'0')}</span></article>`;
 }
@@ -713,7 +753,51 @@ function openModal(){
 }
 function closeModal(){ document.getElementById('write-modal').classList.remove('open'); }
 
-document.getElementById('openWriteBtn').addEventListener('click', openModal);
+/* ══════ AUTH GATE ══════ */
+// Hash stored as SHA-256. Default password: ozge2025
+// To change: run sha256('newpassword') in console and update PASS_HASH
+const PASS_HASH = 'b3c8b1f02df6e2b40af2fca00e9d4fb06c8285c6cdb14bce13b3f41d5d5e3a7e'; // ozge2025
+
+async function sha256(str){
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
+let authed = sessionStorage.getItem('ozge_auth') === '1';
+
+function showAuthGate(){
+  document.getElementById('auth-modal').classList.add('open');
+  document.getElementById('auth-input').value='';
+  document.getElementById('auth-err').classList.remove('show');
+  setTimeout(()=>document.getElementById('auth-input').focus(),100);
+}
+function hideAuthGate(){ document.getElementById('auth-modal').classList.remove('open'); }
+
+async function tryAuth(){
+  const val = document.getElementById('auth-input').value;
+  const hash = await sha256(val);
+  if(hash === PASS_HASH){
+    authed = true;
+    sessionStorage.setItem('ozge_auth','1');
+    hideAuthGate();
+    openModal();
+  } else {
+    const inp = document.getElementById('auth-input');
+    const err = document.getElementById('auth-err');
+    inp.classList.remove('shake'); void inp.offsetWidth; inp.classList.add('shake');
+    err.classList.add('show');
+    inp.value='';
+    setTimeout(()=>err.classList.remove('show'), 2000);
+  }
+}
+
+document.getElementById('auth-submit').addEventListener('click', tryAuth);
+document.getElementById('auth-input').addEventListener('keydown', e=>{ if(e.key==='Enter') tryAuth(); });
+document.getElementById('auth-modal').querySelector('.modal-bg').addEventListener('click', hideAuthGate);
+
+document.getElementById('openWriteBtn').addEventListener('click',()=>{
+  if(authed) openModal(); else showAuthGate();
+});
 document.getElementById('closeWriteBtn').addEventListener('click', closeModal);
 document.getElementById('cancelWriteBtn').addEventListener('click', closeModal);
 document.getElementById('modalBg').addEventListener('click', closeModal);
