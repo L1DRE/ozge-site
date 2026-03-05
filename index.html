@@ -42,6 +42,19 @@
   .nav-links { display: flex; gap: 36px; list-style: none; }
   .nav-links a { font-family: "Share Tech Mono", monospace; font-size: 12px; letter-spacing: 2px; color: #888; text-decoration: none; transition: all 0.3s ease; text-transform: uppercase; }
   .nav-links a:hover { color: var(--accent); text-shadow: 0 0 12px var(--accent); }
+  /* DEVLOG nav link — highlighted */
+  .nav-links a.nav-devlog {
+    color: var(--accent2);
+    border: 1px solid rgba(255,107,0,0.3);
+    padding: 4px 12px;
+    transition: all 0.3s ease;
+  }
+  .nav-links a.nav-devlog:hover {
+    color: var(--accent2);
+    border-color: var(--accent2);
+    text-shadow: 0 0 12px var(--accent2);
+    box-shadow: 0 0 16px rgba(255,107,0,0.2);
+  }
   #grid-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; opacity: 0.4; }
   section { position: relative; z-index: 1; }
   #hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 60px 24px 80px; overflow: hidden; }
@@ -53,6 +66,60 @@
   .hero-sub { font-family: "Share Tech Mono", monospace; font-size: 14px; letter-spacing: 4px; color: #666; margin-top: 16px; animation: slide-up 1s 1.1s both; }
   .hero-sub span { color: var(--accent); }
   @keyframes slide-up { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ── HERO BUTTONS ROW ── */
+  .hero-btns {
+    margin-top: 48px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+    animation: slide-up 1s 1.4s both;
+  }
+
+  .cta-btn { display: inline-block; padding: 16px 48px; font-family: "Orbitron", monospace; font-size: 13px; letter-spacing: 3px; font-weight: 700; color: var(--bg); background: var(--accent); border: none; cursor: none; text-decoration: none; clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%); box-shadow: var(--glow); transition: transform 0.2s, box-shadow 0.2s; position: relative; overflow: hidden; }
+  .cta-btn::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); transform: translateX(-100%); transition: transform 0.4s; }
+  .cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 40px #00F0FFaa, 0 0 80px #00F0FF44; }
+  .cta-btn:hover::before { transform: translateX(100%); }
+
+  /* DEVLOG button — outlined variant */
+  .cta-btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 36px;
+    font-family: "Orbitron", monospace;
+    font-size: 12px;
+    letter-spacing: 3px;
+    font-weight: 700;
+    color: var(--accent2);
+    background: transparent;
+    border: 1px solid rgba(255,107,0,0.5);
+    cursor: none;
+    text-decoration: none;
+    clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-btn-outline::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,107,0,0.12), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.4s;
+  }
+  .cta-btn-outline:hover {
+    background: rgba(255,107,0,0.08);
+    border-color: var(--accent2);
+    box-shadow: 0 0 30px rgba(255,107,0,0.3), 0 0 60px rgba(255,107,0,0.12);
+    color: var(--accent2);
+  }
+  .cta-btn-outline:hover::before { transform: translateX(100%); }
+  .cta-btn-outline .btn-icon { font-size: 14px; transition: transform 0.2s; }
+  .cta-btn-outline:hover .btn-icon { transform: translateX(3px); }
+
   .member-photo { width: 80px; height: 80px; border-radius: 50%; background: #333; margin-bottom: 20px; border: 2px solid #444; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
   .member-photo img { width: 100%; height: 100%; object-fit: cover; }
    .mentor-name a {
@@ -61,7 +128,6 @@
   border-bottom: 1px solid rgba(0, 240, 255, 0.3);
   transition: border-color 0.2s, text-shadow 0.2s;
 }
-
 .mentor-name a:hover {
   border-bottom-color: var(--accent);
   text-shadow: 0 0 12px var(--accent);
@@ -72,42 +138,28 @@
   border-bottom: 1px solid rgba(0, 240, 255, 0.3);
   transition: border-color 0.2s, text-shadow 0.2s;
 }
-
 .member-name a:hover {
   border-bottom-color: var(--accent);
   text-shadow: 0 0 12px var(--accent);
 }
-
     .aitym-name a {
   color: inherit;
   text-decoration: none;
   border-bottom: 1px solid rgba(0, 240, 255, 0.3);
   transition: border-color 0.2s, text-shadow 0.2s;
 }
-
 .aitym-name a:hover {
   border-bottom-color: var(--accent);
   text-shadow: 0 0 12px var(--accent);
 }
-  .cta-btn { margin-top: 48px; display: inline-block; padding: 16px 48px; font-family: "Orbitron", monospace; font-size: 13px; letter-spacing: 3px; font-weight: 700; color: var(--bg); background: var(--accent); border: none; cursor: none; text-decoration: none; clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%); box-shadow: var(--glow); animation: slide-up 1s 1.4s both; transition: transform 0.2s, box-shadow 0.2s; position: relative; overflow: hidden; }
-  .cta-btn::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); transform: translateX(-100%); transition: transform 0.4s; }
-  .cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 40px #00F0FFaa, 0 0 80px #00F0FF44; }
-  .cta-btn:hover::before { transform: translateX(100%); }
   #machine { padding: 120px 48px; max-width: 1200px; margin: 0 auto; }
   .section-tag { font-family: "Share Tech Mono", monospace; font-size: 11px; letter-spacing: 5px; color: var(--accent); margin-bottom: 12px; }
   .section-title { font-family: "Orbitron", monospace; font-size: clamp(24px, 4vw, 52px); font-weight: 900; letter-spacing: 3px; margin-bottom: 60px; }
   .machine-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
   .robot-showcase { position: relative; aspect-ratio: 1; background: var(--bg2); border: 1px solid #333; display: flex; align-items: center; justify-content: center; overflow: hidden; }
   .robot-showcase::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 50% 50%, #00F0FF11 0%, transparent 70%); }
-  .robot-img-placeholder { width: 80%; height: 80%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; }
-  .robot-frame { width: 200px; height: 200px; border: 2px solid var(--accent); position: relative; animation: scan 3s linear infinite; }
-  @keyframes scan { 0%,100% { box-shadow: 0 0 20px #00F0FF33, inset 0 0 20px #00F0FF11; } 50% { box-shadow: 0 0 40px #00F0FF66, inset 0 0 40px #00F0FF22; } }
-  .robot-frame::before, .robot-frame::after { content: ""; position: absolute; width: 20px; height: 20px; border-color: var(--accent2); border-style: solid; }
-  .robot-frame::before { top: -2px; right: -2px; border-width: 2px 2px 0 0; }
-  .robot-frame::after { bottom: -2px; left: -2px; border-width: 0 0 2px 2px; }
   .scan-line { position: absolute; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--accent), transparent); box-shadow: 0 0 8px var(--accent); animation: scan-move 2s linear infinite; }
   @keyframes scan-move { 0% { top: 0; opacity: 1; } 100% { top: 100%; opacity: 0.3; } }
-  .robot-label { font-family: "Share Tech Mono", monospace; font-size: 12px; color: var(--accent); letter-spacing: 3px; text-align: center; }
   .hud-stats { display: flex; flex-direction: column; gap: 20px; }
   .hud-item { background: var(--bg2); border: 1px solid #333; border-left: 3px solid var(--accent); padding: 16px 20px; position: relative; overflow: hidden; transition: border-color 0.2s, box-shadow 0.2s; }
   .hud-item:hover { border-color: var(--accent); box-shadow: -4px 0 20px #00F0FF44; }
@@ -168,16 +220,6 @@
   .sponsor-name{font-family:"Share Tech Mono",monospace;font-size:11px;letter-spacing:3px;color:var(--text2);transition:color .3s;font-weight:600}
   .sponsor-logo-btn:hover .sponsor-name{color:#eee}
   .sponsors-row { display: flex; align-items: center; flex-wrap: wrap; gap: 15px; }
-  .sponsor-photo {
-  width: 66px;
-  height: 38px;
-  object-fit: cover;
-  border-radius: 4px;
-  vertical-align: middle;
-}
-.sponsor-logo-btn {
-  animation: none;
-}
 @keyframes logoGlow {
   0%,100% { filter: drop-shadow(0 0 4px rgba(245,135,18,.3)) drop-shadow(0 0 10px rgba(245,135,18,.1)); }
   50%     { filter: drop-shadow(0 0 8px rgba(245,135,18,.7)) drop-shadow(0 0 20px rgba(245,135,18,.3)); }
@@ -198,7 +240,36 @@
 .sponsor-person-role { font-family: "Share Tech Mono", monospace; font-size: 8px; letter-spacing: 2px; color: #555; }
 .sponsor-person:hover .sponsor-avatar { border-color: var(--accent); box-shadow: 0 0 10px #00F0FF44; }
 .sponsor-person:hover .sponsor-person-role { color: #888; }
-  
+
+/* STEM SHOP sponsor — cyan accent override */
+.sponsor-logo-btn.stem-shop-btn:hover {
+  border-color: rgba(0,240,255,.6);
+  box-shadow: 0 0 30px rgba(0,240,255,.18);
+  background: rgba(0,240,255,.04);
+}
+.sponsor-logo-btn.stem-shop-btn::before {
+  background: linear-gradient(135deg,rgba(0,240,255,.08),transparent 60%);
+}
+.stem-shop-icon {
+  width: 38px; height: 38px;
+  border: 1px solid rgba(0,240,255,.3);
+  background: rgba(0,240,255,.06);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-size: 18px;
+  transition: border-color .3s, box-shadow .3s;
+}
+.sponsor-logo-btn.stem-shop-btn:hover .stem-shop-icon {
+  border-color: var(--accent);
+  box-shadow: 0 0 10px #00F0FF44;
+  animation: none;
+  filter: none;
+}
+.stem-shop-info { display: flex; flex-direction: column; gap: 2px; }
+.stem-shop-role { font-family: "Share Tech Mono", monospace; font-size: 8px; letter-spacing: 2px; color: #3a6666; }
+.sponsor-logo-btn.stem-shop-btn:hover .stem-shop-role { color: var(--accent); }
+.sponsor-logo-btn.stem-shop-btn:hover .sponsor-name { color: var(--accent); }
+
   .footer-bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; }
   .footer-logo { font-family: "Orbitron", monospace; font-size: 12px; font-weight: 700; letter-spacing: 4px; color: var(--accent); }
   .social-row { display: flex; gap: 20px; }
@@ -217,29 +288,15 @@
   /* MENTOR STYLES */
   #mentor { padding: 120px 48px; background: linear-gradient(180deg, transparent, #0a0f0f 40%, transparent); position: relative; z-index: 1; }
   .mentor-inner { max-width: 1200px; margin: 0 auto; }
-
-  /* ── MENTOR GRID: two cards side by side ── */
-  .mentor-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 32px;
-    margin-top: 0;
-  }
-
+  .mentor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 0; }
   .mentor-card { display: grid; grid-template-columns: 1fr; gap: 0; border: 1px solid #2a2a2a; background: #111; position: relative; overflow: hidden; }
   .mentor-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent); box-shadow: 0 0 20px #00F0FF66; }
-
-  /* Olzhas card has green accent */
   .mentor-card.olzhas-card { border-color: #1e0d2a; }
   .mentor-card.olzhas-card::before { background: linear-gradient(90deg, transparent, var(--accent3), #e0b4ff, transparent); box-shadow: 0 0 20px #C084FC66; }
-
   .mentor-left { background: linear-gradient(160deg, #0d1f20 0%, #0a1515 60%, #0d0d0d 100%); border-right: none; border-bottom: 1px solid #2a2a2a; padding: 40px 32px 32px; display: flex; flex-direction: column; align-items: center; position: relative; overflow: hidden; text-align: center; }
   .mentor-left::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, #00F0FF10 0%, transparent 60%); pointer-events: none; }
-
-  /* Olzhas left panel green tint */
   .olzhas-card .mentor-left { background: linear-gradient(160deg, #140a20 0%, #0e0715 60%, #0d0d0d 100%); }
   .olzhas-card .mentor-left::before { background: radial-gradient(ellipse at 50% 0%, rgba(192,132,252,0.1) 0%, transparent 60%); }
-
   .mentor-avatar-wrap { position: relative; margin-bottom: 24px; }
   .mentor-avatar { width: 120px; height: 120px; border-radius: 50%; border: 1px solid #333; overflow: hidden; position: relative; z-index: 1; background: #1a1a1a; display: flex; align-items: center; justify-content: center; font-size: 48px; }
   .mentor-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -296,335 +353,86 @@
   .ws-sub { font-family: "Share Tech Mono", monospace; font-size: 10px; color: #666; letter-spacing: 1px; margin-top: 3px; }
   .ws-flag { font-size: 24px; flex-shrink: 0; }
 
-  @media (max-width: 1100px) {
-    .mentor-grid { grid-template-columns: 1fr; }
-  }
-  @media (max-width: 900px) {
-    .awards-grid { grid-template-columns: 1fr; }
-    #mentor { padding: 80px 24px; }
-    .mentor-right { padding: 32px 28px; }
-  }
+  @media (max-width: 1100px) { .mentor-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 900px) { .awards-grid { grid-template-columns: 1fr; } #mentor { padding: 80px 24px; } .mentor-right { padding: 32px 28px; } }
   @media (max-width: 768px) {
     nav { padding: 14px 24px; }
-    .nav-links { gap: 20px; }
+    .nav-links { gap: 16px; }
     .machine-grid, .outreach-grid { grid-template-columns: 1fr; }
     #machine, #outreach, #team, #portfolio { padding: 80px 24px; }
     footer { padding: 60px 24px 30px; }
+    .hero-btns { flex-direction: column; align-items: center; }
   }
 
   /* ── ROBOT GALLERY ── */
-.rg-slides { position: absolute; inset: 0; }
-.rg-slide {
-  position: absolute; inset: 0;
-  display: flex; align-items: center; justify-content: center;
-  opacity: 0; transition: opacity 0.5s ease;
-  background: #0a1515;
-}
-.rg-slide.active { opacity: 1; }
-.rg-slide img {
-  width: 100%; height: 100%;
-  object-fit: contain;
-  filter: brightness(0.95) contrast(1.05);
-  padding: 20px;
-}
-
-.rg-arrow {
-  position: absolute; top: 50%; transform: translateY(-50%);
-  background: rgba(0,0,0,0.5);
-  border: 1px solid rgba(0,240,255,0.25);
-  color: var(--accent);
-  font-size: 32px; line-height: 1;
-  width: 44px; height: 44px;
-  display: flex; align-items: center; justify-content: center;
-  cursor: none; z-index: 10;
-  transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
-  padding: 0; font-family: monospace;
-}
-.rg-arrow:hover {
-  background: rgba(0,240,255,0.12);
-  border-color: var(--accent);
-  box-shadow: 0 0 16px #00F0FF44;
-}
-.rg-prev { left: 12px; }
-.rg-next { right: 12px; }
-
-.rg-hud-top {
-  position: absolute; top: 14px; left: 16px; right: 16px;
-  display: flex; justify-content: space-between; align-items: center;
-  z-index: 10; pointer-events: none;
-}
-.rg-label {
-  font-family: "Share Tech Mono", monospace;
-  font-size: 10px; letter-spacing: 3px; color: var(--accent);
-  text-shadow: 0 0 8px var(--accent);
-}
-.rg-counter {
-  font-family: "Orbitron", monospace;
-  font-size: 11px; font-weight: 700;
-  color: #444; letter-spacing: 2px;
-}
-
-.rg-dots {
-  position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
-  display: flex; gap: 8px; z-index: 10;
-}
-.rg-dot {
-  width: 20px; height: 2px;
-  background: #333; transition: background 0.3s, box-shadow 0.3s;
-}
-.rg-dot.active {
-  background: var(--accent);
-  box-shadow: 0 0 6px var(--accent);
-}
-
+  .rg-slides { position: absolute; inset: 0; }
+  .rg-slide { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.5s ease; background: #0a1515; }
+  .rg-slide.active { opacity: 1; }
+  .rg-slide img { width: 100%; height: 100%; object-fit: contain; filter: brightness(0.95) contrast(1.05); padding: 20px; }
+  .rg-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); border: 1px solid rgba(0,240,255,0.25); color: var(--accent); font-size: 32px; line-height: 1; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; cursor: none; z-index: 10; transition: background 0.2s, border-color 0.2s, box-shadow 0.2s; padding: 0; font-family: monospace; }
+  .rg-arrow:hover { background: rgba(0,240,255,0.12); border-color: var(--accent); box-shadow: 0 0 16px #00F0FF44; }
+  .rg-prev { left: 12px; }
+  .rg-next { right: 12px; }
+  .rg-hud-top { position: absolute; top: 14px; left: 16px; right: 16px; display: flex; justify-content: space-between; align-items: center; z-index: 10; pointer-events: none; }
+  .rg-label { font-family: "Share Tech Mono", monospace; font-size: 10px; letter-spacing: 3px; color: var(--accent); text-shadow: 0 0 8px var(--accent); }
+  .rg-counter { font-family: "Orbitron", monospace; font-size: 11px; font-weight: 700; color: #444; letter-spacing: 2px; }
+  .rg-dots { position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 10; }
+  .rg-dot { width: 20px; height: 2px; background: #333; transition: background 0.3s, box-shadow 0.3s; }
+  .rg-dot.active { background: var(--accent); box-shadow: 0 0 6px var(--accent); }
 </style>
-  <style id="aitym-css-snippet">
-/* ═══════════════════════════════════
-   PARTNER AITYM SECTION
-═══════════════════════════════════ */
-#partner-aitym {
-  padding: 120px 48px;
-  background: linear-gradient(180deg, transparent, #100a05 40%, transparent);
-  position: relative; z-index: 1;
-}
+<style id="aitym-css-snippet">
+#partner-aitym { padding: 120px 48px; background: linear-gradient(180deg, transparent, #100a05 40%, transparent); position: relative; z-index: 1; }
 .aitym-inner { max-width: 1200px; margin: 0 auto; }
-
-.aitym-card {
-  display: grid;
-  grid-template-columns: 340px 1fr;
-  gap: 0;
-  border: 1px solid #2a2a2a;
-  background: #111;
-  position: relative; overflow: hidden;
-}
-.aitym-card::before {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0; height: 2px;
-  background: linear-gradient(90deg, transparent, var(--accent2), #ffaa00, transparent);
-  box-shadow: 0 0 20px #FF6B0066;
-}
-
-/* ── LEFT PANEL ── */
-.aitym-left {
-  background: linear-gradient(160deg, #1f0d00 0%, #150a00 60%, #0d0d0d 100%);
-  border-right: 1px solid #2a2a2a;
-  padding: 48px 36px;
-  display: flex; flex-direction: column; align-items: center;
-  position: relative; overflow: hidden; text-align: center;
-}
-.aitym-left::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: radial-gradient(ellipse at 50% 0%, rgba(255,107,0,.08) 0%, transparent 60%);
-  pointer-events: none;
-}
-
+.aitym-card { display: grid; grid-template-columns: 340px 1fr; gap: 0; border: 1px solid #2a2a2a; background: #111; position: relative; overflow: hidden; }
+.aitym-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--accent2), #ffaa00, transparent); box-shadow: 0 0 20px #FF6B0066; }
+.aitym-left { background: linear-gradient(160deg, #1f0d00 0%, #150a00 60%, #0d0d0d 100%); border-right: 1px solid #2a2a2a; padding: 48px 36px; display: flex; flex-direction: column; align-items: center; position: relative; overflow: hidden; text-align: center; }
+.aitym-left::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, rgba(255,107,0,.08) 0%, transparent 60%); pointer-events: none; }
 .aitym-avatar-wrap { position: relative; margin-bottom: 28px; }
-.aitym-avatar {
-  width: 130px; height: 130px;
-  border-radius: 50%;
-  border: 1px solid #3a2010;
-  overflow: hidden;
-  position: relative; z-index: 1;
-  background: #1a1a1a;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 52px;
-}
+.aitym-avatar { width: 130px; height: 130px; border-radius: 50%; border: 1px solid #3a2010; overflow: hidden; position: relative; z-index: 1; background: #1a1a1a; display: flex; align-items: center; justify-content: center; font-size: 52px; }
 .aitym-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
-
-.aitym-avatar-ring {
-  position: absolute; inset: -6px;
-  border-radius: 50%;
-  border: 1px solid transparent;
-  background: conic-gradient(
-    var(--accent2) 0deg, transparent 80deg,
-    #ffaa00 180deg, transparent 260deg,
-    var(--accent2) 360deg
-  ) border-box;
-  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-  mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor; mask-composite: exclude;
-  animation: ring-spin 6s linear infinite;
-  z-index: 0;
-}
-
-.aitym-badge {
-  position: absolute; bottom: -4px; left: 50%; transform: translateX(-50%);
-  background: var(--accent2); color: #0D0D0D;
-  font-family: "Share Tech Mono", monospace;
-  font-size: 9px; letter-spacing: 2px;
-  padding: 3px 12px; white-space: nowrap; z-index: 2;
-}
-
-.aitym-name {
-  font-family: "Orbitron", monospace;
-  font-size: 15px; font-weight: 900; letter-spacing: 2px;
-  color: #fff; margin-bottom: 4px; line-height: 1.3;
-}
-.aitym-title {
-  font-family: "Share Tech Mono", monospace;
-  font-size: 10px; letter-spacing: 3px; color: var(--accent2);
-  margin-bottom: 28px;
-}
-
-/* stat counters row */
-.aitym-counters {
-  display: grid; grid-template-columns: 1fr 1fr 1fr;
-  gap: 8px; width: 100%; margin-bottom: 24px;
-}
-.aitym-counter {
-  background: rgba(255,107,0,.05);
-  border: 1px solid rgba(255,107,0,.15);
-  padding: 12px 8px; text-align: center;
-}
-.aitym-counter-num {
-  font-family: "Orbitron", monospace;
-  font-size: 18px; font-weight: 900; color: var(--accent2);
-  line-height: 1; display: block;
-}
-.aitym-counter-label {
-  font-family: "Share Tech Mono", monospace;
-  font-size: 8px; letter-spacing: 1px; color: #555;
-  margin-top: 4px; display: block; line-height: 1.3;
-}
-
+.aitym-avatar-ring { position: absolute; inset: -6px; border-radius: 50%; border: 1px solid transparent; background: conic-gradient(var(--accent2) 0deg, transparent 80deg, #ffaa00 180deg, transparent 260deg, var(--accent2) 360deg) border-box; -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0); mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; animation: ring-spin 6s linear infinite; z-index: 0; }
+.aitym-badge { position: absolute; bottom: -4px; left: 50%; transform: translateX(-50%); background: var(--accent2); color: #0D0D0D; font-family: "Share Tech Mono", monospace; font-size: 9px; letter-spacing: 2px; padding: 3px 12px; white-space: nowrap; z-index: 2; }
+.aitym-name { font-family: "Orbitron", monospace; font-size: 15px; font-weight: 900; letter-spacing: 2px; color: #fff; margin-bottom: 4px; line-height: 1.3; }
+.aitym-title { font-family: "Share Tech Mono", monospace; font-size: 10px; letter-spacing: 3px; color: var(--accent2); margin-bottom: 28px; }
+.aitym-counters { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; width: 100%; margin-bottom: 24px; }
+.aitym-counter { background: rgba(255,107,0,.05); border: 1px solid rgba(255,107,0,.15); padding: 12px 8px; text-align: center; }
+.aitym-counter-num { font-family: "Orbitron", monospace; font-size: 18px; font-weight: 900; color: var(--accent2); line-height: 1; display: block; }
+.aitym-counter-label { font-family: "Share Tech Mono", monospace; font-size: 8px; letter-spacing: 1px; color: #555; margin-top: 4px; display: block; line-height: 1.3; }
 .aitym-meta { width: 100%; display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
-.aitym-meta-item {
-  display: flex; align-items: flex-start; gap: 10px;
-  background: rgba(255,107,0,.03);
-  border: 1px solid #221505; padding: 10px 14px; text-align: left;
-}
+.aitym-meta-item { display: flex; align-items: flex-start; gap: 10px; background: rgba(255,107,0,.03); border: 1px solid #221505; padding: 10px 14px; text-align: left; }
 .aitym-meta-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
-.aitym-meta-text {
-  font-family: "Share Tech Mono", monospace;
-  font-size: 10px; color: #888; letter-spacing: 1px; line-height: 1.5;
-}
+.aitym-meta-text { font-family: "Share Tech Mono", monospace; font-size: 10px; color: #888; letter-spacing: 1px; line-height: 1.5; }
 .aitym-meta-text strong { color: #ccc; display: block; letter-spacing: 2px; font-size: 9px; margin-bottom: 2px; }
-
-.aitym-tags-title {
-  font-family: "Share Tech Mono", monospace;
-  font-size: 9px; letter-spacing: 4px; color: #444;
-  margin-bottom: 10px; width: 100%; text-align: left;
-}
+.aitym-tags-title { font-family: "Share Tech Mono", monospace; font-size: 9px; letter-spacing: 4px; color: #444; margin-bottom: 10px; width: 100%; text-align: left; }
 .aitym-tags { display: flex; flex-wrap: wrap; gap: 7px; width: 100%; }
-.aitym-tag {
-  font-family: "Share Tech Mono", monospace;
-  font-size: 9px; letter-spacing: 1px;
-  padding: 5px 11px;
-  border: 1px solid rgba(255,107,0,.2); color: #775533;
-  transition: all .25s;
-}
+.aitym-tag { font-family: "Share Tech Mono", monospace; font-size: 9px; letter-spacing: 1px; padding: 5px 11px; border: 1px solid rgba(255,107,0,.2); color: #775533; transition: all .25s; }
 .aitym-tag:hover { border-color: var(--accent2); color: var(--accent2); }
 .aitym-tag.fire { border-color: rgba(255,107,0,.4); color: #cc6622; }
-
-.aitym-instagram {
-  margin-top: 20px; width: 100%;
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-  padding: 11px 16px;
-  border: 1px solid rgba(255,107,0,.25);
-  text-decoration: none;
-  font-family: "Share Tech Mono", monospace;
-  font-size: 10px; letter-spacing: 2px; color: #774422;
-  transition: all .25s; background: rgba(255,107,0,.03);
-}
-.aitym-instagram:hover {
-  border-color: var(--accent2); color: var(--accent2);
-  box-shadow: 0 0 16px rgba(255,107,0,.2);
-  background: rgba(255,107,0,.06);
-}
-
-/* ── RIGHT PANEL ── */
-.aitym-right {
-  padding: 48px 44px;
-  display: flex; flex-direction: column; gap: 32px;
-}
-
-.aitym-bio-label {
-  font-family: "Share Tech Mono", monospace;
-  font-size: 9px; letter-spacing: 4px; color: var(--accent2);
-  opacity: .8; margin-bottom: 12px;
-  display: flex; align-items: center; gap: 12px;
-}
+.aitym-instagram { margin-top: 20px; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 11px 16px; border: 1px solid rgba(255,107,0,.25); text-decoration: none; font-family: "Share Tech Mono", monospace; font-size: 10px; letter-spacing: 2px; color: #774422; transition: all .25s; background: rgba(255,107,0,.03); }
+.aitym-instagram:hover { border-color: var(--accent2); color: var(--accent2); box-shadow: 0 0 16px rgba(255,107,0,.2); background: rgba(255,107,0,.06); }
+.aitym-right { padding: 48px 44px; display: flex; flex-direction: column; gap: 32px; }
+.aitym-bio-label { font-family: "Share Tech Mono", monospace; font-size: 9px; letter-spacing: 4px; color: var(--accent2); opacity: .8; margin-bottom: 12px; display: flex; align-items: center; gap: 12px; }
 .aitym-bio-label::after { content: ""; flex: 1; height: 1px; background: #221505; }
-
-.aitym-bio-text {
-  font-family: "Rajdhani", sans-serif;
-  font-size: 16px; line-height: 1.8; color: #999;
-}
+.aitym-bio-text { font-family: "Rajdhani", sans-serif; font-size: 16px; line-height: 1.8; color: #999; }
 .aitym-bio-text strong { color: var(--text); }
 .aitym-bio-text em { color: var(--accent2); font-style: normal; }
-
-/* JANA MEN highlight strip */
-.janamen-strip {
-  display: flex; align-items: center; gap: 20px;
-  background: linear-gradient(90deg, rgba(255,107,0,.07), transparent);
-  border: 1px solid rgba(255,107,0,.2);
-  border-left: 3px solid var(--accent2);
-  padding: 18px 24px;
-}
+.janamen-strip { display: flex; align-items: center; gap: 20px; background: linear-gradient(90deg, rgba(255,107,0,.07), transparent); border: 1px solid rgba(255,107,0,.2); border-left: 3px solid var(--accent2); padding: 18px 24px; }
 .jm-icon { font-size: 28px; flex-shrink: 0; }
 .jm-text { flex: 1; }
-.jm-label {
-  font-family: "Share Tech Mono", monospace;
-  font-size: 9px; letter-spacing: 3px; color: var(--accent2); margin-bottom: 4px;
-}
-.jm-title {
-  font-family: "Orbitron", monospace;
-  font-size: 13px; font-weight: 700; letter-spacing: 1px; color: #fff;
-}
-.jm-sub {
-  font-family: "Share Tech Mono", monospace;
-  font-size: 10px; color: #666; letter-spacing: 1px; margin-top: 3px;
-}
-
-/* milestones timeline */
+.jm-label { font-family: "Share Tech Mono", monospace; font-size: 9px; letter-spacing: 3px; color: var(--accent2); margin-bottom: 4px; }
+.jm-title { font-family: "Orbitron", monospace; font-size: 13px; font-weight: 700; letter-spacing: 1px; color: #fff; }
+.jm-sub { font-family: "Share Tech Mono", monospace; font-size: 10px; color: #666; letter-spacing: 1px; margin-top: 3px; }
 .aitym-timeline { display: flex; flex-direction: column; gap: 0; }
-.aitym-milestone {
-  display: grid; grid-template-columns: 80px 1fr;
-  gap: 0; border-bottom: 1px solid #1a1a1a; padding: 12px 0;
-  transition: background .2s;
-}
+.aitym-milestone { display: grid; grid-template-columns: 80px 1fr; gap: 0; border-bottom: 1px solid #1a1a1a; padding: 12px 0; transition: background .2s; }
 .aitym-milestone:last-child { border-bottom: none; }
 .aitym-milestone:hover { background: rgba(255,107,0,.03); }
-.aitym-ms-year {
-  font-family: "Orbitron", monospace;
-  font-size: 11px; font-weight: 700; color: var(--accent2);
-  padding-top: 2px;
-}
-.aitym-ms-content {}
-.aitym-ms-title {
-  font-family: "Orbitron", monospace;
-  font-size: 11px; font-weight: 700; letter-spacing: 1px; color: #ccc;
-  margin-bottom: 2px;
-}
-.aitym-ms-desc {
-  font-family: "Share Tech Mono", monospace;
-  font-size: 9px; color: #555; letter-spacing: 1px; line-height: 1.5;
-}
-
-/* quote block */
-.aitym-quote {
-  border-left: 2px solid var(--accent2);
-  padding: 16px 20px;
-  background: rgba(255,107,0,.04);
-  font-family: "Rajdhani", sans-serif;
-  font-size: 15px; line-height: 1.7; color: #888; font-style: italic;
-}
-.aitym-quote cite {
-  display: block; margin-top: 8px;
-  font-family: "Share Tech Mono", monospace;
-  font-size: 9px; letter-spacing: 3px; color: var(--accent2); font-style: normal;
-}
-
-@media (max-width: 900px) {
-  .aitym-card { grid-template-columns: 1fr; }
-  .aitym-left { border-right: none; border-bottom: 1px solid #2a2a2a; }
-  #partner-aitym { padding: 80px 24px; }
-  .aitym-right { padding: 32px 28px; }
-}
+.aitym-ms-year { font-family: "Orbitron", monospace; font-size: 11px; font-weight: 700; color: var(--accent2); padding-top: 2px; }
+.aitym-ms-title { font-family: "Orbitron", monospace; font-size: 11px; font-weight: 700; letter-spacing: 1px; color: #ccc; margin-bottom: 2px; }
+.aitym-ms-desc { font-family: "Share Tech Mono", monospace; font-size: 9px; color: #555; letter-spacing: 1px; line-height: 1.5; }
+.aitym-quote { border-left: 2px solid var(--accent2); padding: 16px 20px; background: rgba(255,107,0,.04); font-family: "Rajdhani", sans-serif; font-size: 15px; line-height: 1.7; color: #888; font-style: italic; }
+.aitym-quote cite { display: block; margin-top: 8px; font-family: "Share Tech Mono", monospace; font-size: 9px; letter-spacing: 3px; color: var(--accent2); font-style: normal; }
+@media (max-width: 900px) { .aitym-card { grid-template-columns: 1fr; } .aitym-left { border-right: none; border-bottom: 1px solid #2a2a2a; } #partner-aitym { padding: 80px 24px; } .aitym-right { padding: 32px 28px; } }
 </style>
-
-
 </head>
 <body>
 
@@ -648,6 +456,7 @@
   <ul class="nav-links right">
     <li><a href="#mentor">МЕНТОР</a></li>
     <li><a href="#portfolio">ЖУРНАЛ</a></li>
+    <li><a href="blog.html" class="nav-devlog">DEVLOG</a></li>
     <li><a href="#footer">КОНТАКТЫ</a></li>
   </ul>
 </nav>
@@ -658,7 +467,14 @@
   </div>
   <h1 class="hero-h1">OZGE<br>OF THE ARENA.</h1>
   <p class="hero-sub">FTC TEAM <span>#34350</span> &nbsp;|&nbsp; ENGINEERING PRECISION.</p>
-  <a href="#machine" class="cta-btn">▶ УВИДЕТЬ ЗВЕРЯ</a>
+
+  <!-- HERO BUTTONS: primary CTA + DEVLOG link -->
+  <div class="hero-btns">
+    <a href="#machine" class="cta-btn">▶ УВИДЕТЬ ЗВЕРЯ</a>
+    <a href="blog.html" class="cta-btn-outline">
+      <span>📋</span> DEVLOG <span class="btn-icon">→</span>
+    </a>
+  </div>
 </section>
 
 <section id="machine">
@@ -666,28 +482,28 @@
   <div class="section-title reveal">THE MACHINE<span style="color:var(--accent)">.</span></div>
   <div class="machine-grid">
     <div class="robot-showcase reveal-left" id="robotGallery">
-  <div class="corner-tl"></div>
-  <div class="corner-br"></div>
-  <div class="rg-slides">
-    <div class="rg-slide active"><img src="media/robot/robot1.jpg" alt="Robot view 1"></div>
-    <div class="rg-slide"><img src="media/robot/robot2.jpg" alt="Robot view 2"></div>
-    <div class="rg-slide"><img src="media/robot/robot3.jpg" alt="Robot view 3"></div>
-    <div class="rg-slide"><img src="media/robot/robot4.jpg" alt="Robot view 4"></div>
-  </div>
-  <div class="scan-line"></div>
-  <button class="rg-arrow rg-prev" onclick="rgMove(-1)" aria-label="Prev">&#8249;</button>
-  <button class="rg-arrow rg-next" onclick="rgMove(+1)" aria-label="Next">&#8250;</button>
-  <div class="rg-hud-top">
-    <span class="rg-label">TIGRIS MK-IV</span>
-    <span class="rg-counter" id="rgCounter">01 / 04</span>
-  </div>
-  <div class="rg-dots" id="rgDots">
-    <span class="rg-dot active"></span>
-    <span class="rg-dot"></span>
-    <span class="rg-dot"></span>
-    <span class="rg-dot"></span>
-  </div>
-</div>
+      <div class="corner-tl"></div>
+      <div class="corner-br"></div>
+      <div class="rg-slides">
+        <div class="rg-slide active"><img src="media/robot/robot1.jpg" alt="Robot view 1"></div>
+        <div class="rg-slide"><img src="media/robot/robot2.jpg" alt="Robot view 2"></div>
+        <div class="rg-slide"><img src="media/robot/robot3.jpg" alt="Robot view 3"></div>
+        <div class="rg-slide"><img src="media/robot/robot4.jpg" alt="Robot view 4"></div>
+      </div>
+      <div class="scan-line"></div>
+      <button class="rg-arrow rg-prev" onclick="rgMove(-1)" aria-label="Prev">&#8249;</button>
+      <button class="rg-arrow rg-next" onclick="rgMove(+1)" aria-label="Next">&#8250;</button>
+      <div class="rg-hud-top">
+        <span class="rg-label">TIGRIS MK-IV</span>
+        <span class="rg-counter" id="rgCounter">01 / 04</span>
+      </div>
+      <div class="rg-dots" id="rgDots">
+        <span class="rg-dot active"></span>
+        <span class="rg-dot"></span>
+        <span class="rg-dot"></span>
+        <span class="rg-dot"></span>
+      </div>
+    </div>
     <div class="hud-stats reveal-right">
       <div style="font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:4px;color:#555;margin-bottom:24px;">■ ROBOT_SPECS / SEASON_2025</div>
       <div class="hud-item"><div class="hud-label">CHASSIS SYSTEM</div><div class="hud-value">MECANUM DRIVE</div><div class="hud-bar"><div class="hud-bar-fill" style="width:90%"></div></div></div>
@@ -700,159 +516,62 @@
   </div>
 </section>
 
- 
-<!-- ════════════════════════════════════
-     MENTOR SECTION
-════════════════════════════════════ -->
 <section id="mentor">
   <div class="mentor-inner">
     <div class="section-tag">// UNIT_01 · MENTOR</div>
     <div class="section-title reveal">THE MENTORS<span style="color:var(--accent)">.</span></div>
-
-    <!-- TWO MENTOR CARDS SIDE BY SIDE -->
     <div class="mentor-grid">
-
-      <!-- ══════════ CARD 1: ЕРАСЫЛ ══════════ -->
       <div class="mentor-card reveal">
         <div class="mentor-left">
           <div class="mentor-avatar-wrap">
             <div class="mentor-avatar-ring"></div>
-            <div class="mentor-avatar">  
+            <div class="mentor-avatar">
               <img src="media/mentor/erasyl.png" alt="Ерасыл Нурекенов">
             </div>
             <div class="mentor-badge">MENTOR</div>
           </div>
-          <div class="mentor-name">
-            <a href="ErasylNurеkenov.html" target="_blank">ЕРАСЫЛ<br>НУРЕКЕНОВ</a>
-          </div>
+          <div class="mentor-name"><a href="ErasylNurеkenov.html" target="_blank">ЕРАСЫЛ<br>НУРЕКЕНОВ</a></div>
           <div class="mentor-title">TEAM LEAD · ROBOTICS MENTOR</div>
-
           <div class="mentor-meta">
-            <div class="mentor-meta-item">
-              <div class="mentor-meta-icon">🌐</div>
-              <div class="mentor-meta-text">
-                <strong>МЕЖДУНАРОДНЫЙ УРОВЕНЬ</strong>
-                FIRST Global · France, Bordeaux 2023<br>Представлял Казахстан
-              </div>
-            </div>
-            <div class="mentor-meta-item">
-              <div class="mentor-meta-icon">🏆</div>
-              <div class="mentor-meta-text">
-                <strong>ОХВАТ</strong>
-                36 000 участников · 110 стран
-              </div>
-            </div>
+            <div class="mentor-meta-item"><div class="mentor-meta-icon">🌐</div><div class="mentor-meta-text"><strong>МЕЖДУНАРОДНЫЙ УРОВЕНЬ</strong>FIRST Global · France, Bordeaux 2023<br>Представлял Казахстан</div></div>
+            <div class="mentor-meta-item"><div class="mentor-meta-icon">🏆</div><div class="mentor-meta-text"><strong>ОХВАТ</strong>36 000 участников · 110 стран</div></div>
           </div>
-
           <div class="mentor-skills-title">// EXPERTISE</div>
           <div class="mentor-skills">
             <span class="mentor-skill hot">⚙️ CAD / Мехатроника</span>
             <span class="mentor-skill hot">🤖 Автономная навигация</span>
-            <span class="mentor-skill">💻 Java</span>
-            <span class="mentor-skill">💻 C++</span>
+            <span class="mentor-skill">💻 Java</span><span class="mentor-skill">💻 C++</span>
             <span class="mentor-skill">🐍 Python</span>
             <span class="mentor-skill">📡 Интеграция сенсоров</span>
             <span class="mentor-skill">🔧 Системная интеграция</span>
             <span class="mentor-skill hot">🎓 STEM-наставничество</span>
           </div>
         </div>
-
         <div class="mentor-right">
-          <div>
-            <div class="mentor-bio-label">// BIOGRAPHY</div>
-            <p class="mentor-bio-text">
-              <strong>Ерасыл Нурекенов</strong> — бывший участник <em>WorldSkills</em>, сегодня молодой
-              международно признанный наставник и руководитель собственной команды по робототехнике.
-              Активный участник экосистемы <em>FIRST Global</em>: в 2023 году представлял
-              <strong>Казахстан</strong> на мировых соревнованиях в Хьюстоне, США.
-              <br><br>
-              Команды под его руководством завоевали международные награды среди
-              <strong>36 000 участников из 110 стран</strong>. Развивает STEM-кадры, масштабирует
-              команды и выстраивает устойчивые связи между образованием и индустрией —
-              проекты с высоким <em>образовательным и имиджевым эффектом</em>
-              для страны и партнёров.
-            </p>
-          </div>
-
-          <div class="worldskills-strip">
-            <div class="ws-icon">🏅</div>
-            <div class="ws-text">
-              <div class="ws-label">// WORLDSKILLS ALUMNI</div>
-              <div class="ws-title">БЫВШИЙ УЧАСТНИК WORLDSKILLS</div>
-              <div class="ws-sub">Международный соревновательный опыт в профессиональных навыках</div>
-            </div>
-            <div class="ws-flag">🇰🇿</div>
-          </div>
-
-          <div>
-            <div class="mentor-bio-label">// ACHIEVEMENTS</div>
-            <div class="awards-grid">
-              <div class="award-item">
-                <div class="award-year">FIRST GLOBAL · 2023</div>
-                <div class="award-name">ROBOT DESIGN AWARD</div>
-                <div class="award-desc">Хьюстон, США · Международный финал</div>
-              </div>
-              <div class="award-item">
-                <div class="award-year">FIRST GLOBAL · 2023</div>
-                <div class="award-name">CORE VALUES AWARD</div>
-                <div class="award-desc">Среди 110 стран-участниц</div>
-              </div>
-              <div class="award-item">
-                <div class="award-year">FIRST GLOBAL</div>
-                <div class="award-name">MOTIVATE AWARD FINALIST</div>
-                <div class="award-desc">Топ команд из 36 000 участников</div>
-              </div>
-              <div class="award-item">
-                <div class="award-year">NATIONAL · KZ</div>
-                <div class="award-name">STEM MENTOR AWARD</div>
-                <div class="award-desc">Развитие робототехники Казахстана</div>
-              </div>
-            </div>
-          </div>
+          <div><div class="mentor-bio-label">// BIOGRAPHY</div><p class="mentor-bio-text"><strong>Ерасыл Нурекенов</strong> — бывший участник <em>WorldSkills</em>, сегодня молодой международно признанный наставник. В 2023 году представлял <strong>Казахстан</strong> на мировых соревнованиях в Хьюстоне, США.<br><br>Команды под его руководством завоевали международные награды среди <strong>36 000 участников из 110 стран</strong>.</p></div>
+          <div class="worldskills-strip"><div class="ws-icon">🏅</div><div class="ws-text"><div class="ws-label">// WORLDSKILLS ALUMNI</div><div class="ws-title">БЫВШИЙ УЧАСТНИК WORLDSKILLS</div><div class="ws-sub">Международный соревновательный опыт в профессиональных навыках</div></div><div class="ws-flag">🇰🇿</div></div>
+          <div><div class="mentor-bio-label">// ACHIEVEMENTS</div><div class="awards-grid">
+            <div class="award-item"><div class="award-year">FIRST GLOBAL · 2023</div><div class="award-name">ROBOT DESIGN AWARD</div><div class="award-desc">Хьюстон, США · Международный финал</div></div>
+            <div class="award-item"><div class="award-year">FIRST GLOBAL · 2023</div><div class="award-name">CORE VALUES AWARD</div><div class="award-desc">Среди 110 стран-участниц</div></div>
+            <div class="award-item"><div class="award-year">FIRST GLOBAL</div><div class="award-name">MOTIVATE AWARD FINALIST</div><div class="award-desc">Топ команд из 36 000 участников</div></div>
+            <div class="award-item"><div class="award-year">NATIONAL · KZ</div><div class="award-name">STEM MENTOR AWARD</div><div class="award-desc">Развитие робототехники Казахстана</div></div>
+          </div></div>
         </div>
       </div>
-      <!-- END CARD 1 -->
-
-
-      <!-- ══════════ CARD 2: ОЛЖАС ══════════ -->
       <div class="mentor-card olzhas-card reveal" style="transition-delay:0.15s">
         <div class="mentor-left">
           <div class="mentor-avatar-wrap">
             <div class="mentor-avatar-ring"></div>
-            <div class="mentor-avatar">
-              <img src="media/mentor/olzhasS.jpeg" alt="Олжас Самархан" onerror="this.style.display='none';this.parentElement.innerHTML='🎬'">
-            </div>
+            <div class="mentor-avatar"><img src="media/mentor/olzhasS.jpeg" alt="Олжас Самархан" onerror="this.style.display='none';this.parentElement.innerHTML='🎬'"></div>
             <div class="mentor-badge">MEDIA MENTOR</div>
           </div>
-           <div class="mentor-name">
-            <a href="olzhas.html" target="_blank">ОЛЖАС<br>САМАРХАН</a>
-          </div>
+          <div class="mentor-name"><a href="olzhas.html" target="_blank">ОЛЖАС<br>САМАРХАН</a></div>
           <div class="mentor-title">MEDIA MENTOR · CONTENT STRATEGY</div>
-
           <div class="mentor-meta">
-            <div class="mentor-meta-item">
-              <div class="mentor-meta-icon">📸</div>
-              <div class="mentor-meta-text">
-                <strong>ВИЗУАЛЬНЫЙ КОНТЕНТ</strong>
-                Фото · Видео · Reels<br>Брендинг команды OZGE
-              </div>
-            </div>
-            <div class="mentor-meta-item">
-              <div class="mentor-meta-icon">📱</div>
-              <div class="mentor-meta-text">
-                <strong>SMM / ПРОДВИЖЕНИЕ</strong>
-                Instagram · YouTube · TikTok<br>Рост аудитории и охватов
-              </div>
-            </div>
-            <div class="mentor-meta-item">
-              <div class="mentor-meta-icon">🎙️</div>
-              <div class="mentor-meta-text">
-                <strong>СТОРИТЕЛЛИНГ</strong>
-                Narrative design · PR<br>Позиционирование команды
-              </div>
-            </div>
+            <div class="mentor-meta-item"><div class="mentor-meta-icon">📸</div><div class="mentor-meta-text"><strong>ВИЗУАЛЬНЫЙ КОНТЕНТ</strong>Фото · Видео · Reels<br>Брендинг команды OZGE</div></div>
+            <div class="mentor-meta-item"><div class="mentor-meta-icon">📱</div><div class="mentor-meta-text"><strong>SMM / ПРОДВИЖЕНИЕ</strong>Instagram · YouTube · TikTok</div></div>
+            <div class="mentor-meta-item"><div class="mentor-meta-icon">🎙️</div><div class="mentor-meta-text"><strong>СТОРИТЕЛЛИНГ</strong>Narrative design · PR</div></div>
           </div>
-
           <div class="mentor-skills-title">// EXPERTISE</div>
           <div class="mentor-skills">
             <span class="mentor-skill hot">🎬 Видеопроизводство</span>
@@ -865,67 +584,21 @@
             <span class="mentor-skill">🖥️ Brand Identity</span>
           </div>
         </div>
-
         <div class="mentor-right">
-          <div>
-            <div class="mentor-bio-label">// BIOGRAPHY</div>
-            <p class="mentor-bio-text">
-              <strong>Олжас Самархан</strong> — медиа-ментор команды OZGE, отвечающий за
-              визуальный облик, контент-стратегию и публичное присутствие команды.
-              Специализируется на <em>сторителлинге</em> и создании медиа-контента,
-              который превращает технические достижения в яркие и понятные истории для аудитории.
-              <br><br>
-              Помогает команде выстраивать <strong>цифровое присутствие</strong> —
-              от съёмки и монтажа до публикаций в социальных сетях. Его работа делает
-              OZGE видимыми за пределами соревновательного зала и привлекает
-              <em>спонсоров, партнёров и новых участников</em> в экосистему команды.
-            </p>
-          </div>
-
-          <div class="media-strip">
-            <div class="ws-icon">🎥</div>
-            <div class="ws-text">
-              <div class="ws-label">// НАПРАВЛЕНИЕ</div>
-              <div class="ws-title">MEDIA & BRAND STRATEGY</div>
-              <div class="ws-sub">Контент · Визуал · Продвижение · Сторителлинг</div>
-            </div>
-            <div style="font-size:24px;flex-shrink:0;">🎬</div>
-          </div>
-
-          <div>
-            <div class="mentor-bio-label">// CONTRIBUTIONS</div>
-            <div class="awards-grid">
-              <div class="award-item">
-                <div class="award-year">OZGE · 2024–25</div>
-                <div class="award-name">BRAND IDENTITY</div>
-                <div class="award-desc">Визуальный стиль и медиа-образ команды</div>
-              </div>
-              <div class="award-item">
-                <div class="award-year">КОНТЕНТ</div>
-                <div class="award-name">PHOTO & VIDEO</div>
-                <div class="award-desc">Съёмка соревнований · Behind-the-scenes</div>
-              </div>
-              <div class="award-item">
-                <div class="award-year">DIGITAL</div>
-                <div class="award-name">SMM GROWTH</div>
-                <div class="award-desc">Рост аудитории · Охваты · Вовлечённость</div>
-              </div>
-              <div class="award-item">
-                <div class="award-year">PR</div>
-                <div class="award-name">OUTREACH MEDIA</div>
-                <div class="award-desc">Публикации · Партнёрства · Пресс-материалы</div>
-              </div>
-            </div>
-          </div>
-
+          <div><div class="mentor-bio-label">// BIOGRAPHY</div><p class="mentor-bio-text"><strong>Олжас Самархан</strong> — медиа-ментор команды OZGE, отвечающий за визуальный облик, контент-стратегию и публичное присутствие команды. Специализируется на <em>сторителлинге</em>.<br><br>Помогает команде выстраивать <strong>цифровое присутствие</strong> и привлекает <em>спонсоров, партнёров и новых участников</em>.</p></div>
+          <div class="media-strip"><div class="ws-icon">🎥</div><div class="ws-text"><div class="ws-label">// НАПРАВЛЕНИЕ</div><div class="ws-title">MEDIA & BRAND STRATEGY</div><div class="ws-sub">Контент · Визуал · Продвижение · Сторителлинг</div></div><div style="font-size:24px;flex-shrink:0;">🎬</div></div>
+          <div><div class="mentor-bio-label">// CONTRIBUTIONS</div><div class="awards-grid">
+            <div class="award-item"><div class="award-year">OZGE · 2024–25</div><div class="award-name">BRAND IDENTITY</div><div class="award-desc">Визуальный стиль и медиа-образ команды</div></div>
+            <div class="award-item"><div class="award-year">КОНТЕНТ</div><div class="award-name">PHOTO & VIDEO</div><div class="award-desc">Съёмка соревнований · Behind-the-scenes</div></div>
+            <div class="award-item"><div class="award-year">DIGITAL</div><div class="award-name">SMM GROWTH</div><div class="award-desc">Рост аудитории · Охваты · Вовлечённость</div></div>
+            <div class="award-item"><div class="award-year">PR</div><div class="award-name">OUTREACH MEDIA</div><div class="award-desc">Публикации · Партнёрства · Пресс-материалы</div></div>
+          </div></div>
         </div>
       </div>
-      <!-- END CARD 2 -->
-
-    </div><!-- end mentor-grid -->
+    </div>
   </div>
 </section>
-  
+
 <section id="team">
   <div class="team-inner">
     <div class="section-tag">// UNIT_02</div>
@@ -934,18 +607,14 @@
       <div class="member-card reveal">
         <div class="member-num">01</div>
         <div class="member-photo"><img src="media/WSK/nabi.jpg" alt="Nabi O."></div>
-       <div class="member-name">
-            <a href="NabiO.html" target="_blank">NABI O.</a>
-        </div>
+        <div class="member-name"><a href="NabiO.html" target="_blank">NABI O.</a></div>
         <div class="member-role">HEAD OF CAD</div>
         <div class="skills-row"><span class="skill-tag">🛠️ Fusion 360</span><span class="skill-tag">📐 3D Print</span><span class="skill-tag">⚙️ Mech Design</span></div>
       </div>
       <div class="member-card reveal" style="transition-delay:0.1s">
         <div class="member-num">02</div>
         <div class="member-photo"><img src="media/WSK/sultan.jpg" alt="Sultan S."></div>
-        <div class="member-name">
-            <a href="SultanS.html" target="_blank">SULTAN S.</a>
-        </div>
+        <div class="member-name"><a href="SultanS.html" target="_blank">SULTAN S.</a></div>
         <div class="member-role">MAIN WSK PROGRAMMER</div>
         <div class="skills-row"><span class="skill-tag">💻 Java</span><span class="skill-tag">🤖 Autonomous</span><span class="skill-tag">⚡ VMX</span></div>
       </div>
@@ -961,36 +630,28 @@
       <div class="member-card reveal">
         <div class="member-num">01</div>
         <div class="member-photo"><img src="media/FTC/ivan.jfif" alt="Ivan S."></div>
-        <div class="member-name">
-            <a href="IvanS.html" target="_blank">IVAN S.</a>
-        </div>
+        <div class="member-name"><a href="IvanS.html" target="_blank">IVAN S.</a></div>
         <div class="member-role">MAIN FTC PROGRAMMER</div>
         <div class="skills-row"><span class="skill-tag">💻 Java</span><span class="skill-tag">🤖 Autonomous</span><span class="skill-tag">⚡ Pedro Pathing</span></div>
       </div>
       <div class="member-card reveal" style="transition-delay:0.2s">
         <div class="member-num">02</div>
         <div class="member-photo"><img src="media/FTC/ALISHERJ.jpeg" alt="Alisher J."></div>
-         <div class="member-name">
-            <a href="ALISHERJ.html" target="_blank">ALISHER J.</a>
-        </div>
+        <div class="member-name"><a href="ALISHERJ.html" target="_blank">ALISHER J.</a></div>
         <div class="member-role">BUILD LEAD</div>
         <div class="skills-row"><span class="skill-tag">🔩 Assembly</span><span class="skill-tag">📏 Prototyping</span><span class="skill-tag">⚡ Wiring</span></div>
       </div>
       <div class="member-card reveal" style="transition-delay:0.3s">
         <div class="member-num">03</div>
         <div class="member-photo"><img src="media/FTC/timur.jpg" alt="Timur K."></div>
-        <div class="member-name">
-            <a href="timur.html" target="_blank">TIMUR K.</a>
-        </div>
+        <div class="member-name"><a href="timur.html" target="_blank">TIMUR K.</a></div>
         <div class="member-role">CAPTAIN / OUTREACH</div>
         <div class="skills-row"><span class="skill-tag">📢 Strategy</span><span class="skill-tag">🌍 Community</span><span class="skill-tag">🤝 Scouting</span></div>
       </div>
       <div class="member-card reveal" style="transition-delay:0.4s">
         <div class="member-num">04</div>
         <div class="member-photo"><img src="media/FTC/MALIKAS.jpeg" alt="Malika B."></div>
-        <div class="member-name">
-            <a href="MALIKAS.html" target="_blank">MALIKA S.</a>
-        </div>
+        <div class="member-name"><a href="MALIKAS.html" target="_blank">MALIKA S.</a></div>
         <div class="member-role">DOCUMENTATION</div>
         <div class="skills-row"><span class="skill-tag">📋 Engineering NB</span><span class="skill-tag">🎨 Design</span><span class="skill-tag">✍️ Writing</span></div>
       </div>
@@ -998,165 +659,54 @@
   </div>
 </section>
 
-  <section id="partner-aitym">
+<section id="partner-aitym">
   <div class="aitym-inner">
     <div class="section-tag">// PARTNER · AMBASSADOR</div>
     <div class="section-title reveal">THE IRON WILL<span style="color:var(--accent2)">.</span></div>
-
     <div class="aitym-card reveal">
-
-      <!-- LEFT PANEL -->
       <div class="aitym-left">
         <div class="aitym-avatar-wrap">
           <div class="aitym-avatar-ring"></div>
-          <div class="aitym-avatar">
-            <img src="media/partner/Aitym.png" alt="Айтым Жакупов">
-          </div>
+          <div class="aitym-avatar"><img src="media/partner/Aitym.png" alt="Айтым Жакупов"></div>
           <div class="aitym-badge">PARTNER</div>
         </div>
-        <div class="aitym-name">
-            <a href="AITYMZHAKUPOV.html" target="_blank"> АЙТЫМ<br>ЖАКУПОВ</a>
-        </div>
+        <div class="aitym-name"><a href="AITYMZHAKUPOV.html" target="_blank">АЙТЫМ<br>ЖАКУПОВ</a></div>
         <div class="aitym-title">FOUNDER · BAR BARS · JANA MEN</div>
-
-        <!-- stat counters -->
         <div class="aitym-counters">
-          <div class="aitym-counter">
-            <span class="aitym-counter-num">75+</span>
-            <span class="aitym-counter-label">СТРАН НА ЧМ</span>
-          </div>
-          <div class="aitym-counter">
-            <span class="aitym-counter-num">12+</span>
-            <span class="aitym-counter-label">ЛЕТ В ДВИЖЕНИИ</span>
-          </div>
-          <div class="aitym-counter">
-            <span class="aitym-counter-num">1</span>
-            <span class="aitym-counter-label">РЕКОРД ГИННЕССА</span>
-          </div>
+          <div class="aitym-counter"><span class="aitym-counter-num">75+</span><span class="aitym-counter-label">СТРАН НА ЧМ</span></div>
+          <div class="aitym-counter"><span class="aitym-counter-num">12+</span><span class="aitym-counter-label">ЛЕТ В ДВИЖЕНИИ</span></div>
+          <div class="aitym-counter"><span class="aitym-counter-num">1</span><span class="aitym-counter-label">РЕКОРД ГИННЕССА</span></div>
         </div>
-
         <div class="aitym-meta">
-          <div class="aitym-meta-item">
-            <div class="aitym-meta-icon">🏙️</div>
-            <div class="aitym-meta-text">
-              <strong>БАЗИРОВАНИЕ</strong>
-              Казахстан, г. Астана
-            </div>
-          </div>
-          <div class="aitym-meta-item">
-            <div class="aitym-meta-icon">🌍</div>
-            <div class="aitym-meta-text">
-              <strong>СТАТУС</strong>
-              Основатель Street Workout KZ<br>Амбассадор ЗОЖ
-            </div>
-          </div>
-          <div class="aitym-meta-item">
-            <div class="aitym-meta-icon">🏆</div>
-            <div class="aitym-meta-text">
-              <strong>ПРИЗНАНИЕ</strong>
-              «100 новых лиц Казахстана» 2017
-            </div>
-          </div>
+          <div class="aitym-meta-item"><div class="aitym-meta-icon">🏙️</div><div class="aitym-meta-text"><strong>БАЗИРОВАНИЕ</strong>Казахстан, г. Астана</div></div>
+          <div class="aitym-meta-item"><div class="aitym-meta-icon">🌍</div><div class="aitym-meta-text"><strong>СТАТУС</strong>Основатель Street Workout KZ<br>Амбассадор ЗОЖ</div></div>
+          <div class="aitym-meta-item"><div class="aitym-meta-icon">🏆</div><div class="aitym-meta-text"><strong>ПРИЗНАНИЕ</strong>«100 новых лиц Казахстана» 2017</div></div>
         </div>
-
         <div class="aitym-tags-title">// СФЕРЫ</div>
         <div class="aitym-tags">
-          <span class="aitym-tag fire">💪 Street Workout</span>
-          <span class="aitym-tag fire">🔥 Bar Bars</span>
-          <span class="aitym-tag">🧠 Менторство</span>
-          <span class="aitym-tag">🎖️ Спецподразделения</span>
-          <span class="aitym-tag">📺 Медиа</span>
-          <span class="aitym-tag fire">🇰🇿 JANA MEN</span>
+          <span class="aitym-tag fire">💪 Street Workout</span><span class="aitym-tag fire">🔥 Bar Bars</span>
+          <span class="aitym-tag">🧠 Менторство</span><span class="aitym-tag">🎖️ Спецподразделения</span>
+          <span class="aitym-tag">📺 Медиа</span><span class="aitym-tag fire">🇰🇿 JANA MEN</span>
           <span class="aitym-tag">🏗️ Инфраструктура</span>
         </div>
-
-        <a href="https://www.instagram.com/aitymzhakupov/" target="_blank" class="aitym-instagram">
-          ▶ @AITYMZHAKUPOV
-        </a>
+        <a href="https://www.instagram.com/aitymzhakupov/" target="_blank" class="aitym-instagram">▶ @AITYMZHAKUPOV</a>
       </div>
-
-      <!-- RIGHT PANEL -->
       <div class="aitym-right">
-
-        <!-- BIO -->
-        <div>
-          <div class="aitym-bio-label">// BIOGRAPHY</div>
-          <p class="aitym-bio-text">
-            <strong>Айтым Жакупов</strong> — основатель движения <em>Street Workout</em> в Казахстане
-            и создатель профессиональной команды <em>Bar Bars</em>. Человек, который превратил
-            дворовые турники в мощное социальное движение и вывел Казахстан на мировую арену воркаута.
-            <br><br>
-            В <strong>2014 году</strong> провёл в Астане Чемпионат мира по Street Workout,
-            собрав атлетов из <strong>75+ стран</strong> и официально закрепив за Казахстаном
-            статус <em>«столицы воркаута»</em>. В 2022 году организовал <strong>Tartyl Fest</strong> —
-            фестиваль, в рамках которого был установлен рекорд Книги Гиннесса по массовым подтягиваниям.
-          </p>
-        </div>
-
-        <!-- JANA MEN strip -->
-        <div class="janamen-strip">
-          <div class="jm-icon">🔥</div>
-          <div class="jm-text">
-            <div class="jm-label">// ПРОЕКТ</div>
-            <div class="jm-title">JANA MEN — «НОВЫЙ Я»</div>
-            <div class="jm-sub">Трансформационная мужская экосистема · Дисциплина · Братство · Результат</div>
-          </div>
-          <div style="font-size:24px;flex-shrink:0;">🇰🇿</div>
-        </div>
-
-        <!-- MILESTONES -->
-        <div>
-          <div class="aitym-bio-label">// KEY MILESTONES</div>
-          <div class="aitym-timeline">
-            <div class="aitym-milestone">
-              <div class="aitym-ms-year">2012</div>
-              <div class="aitym-ms-content">
-                <div class="aitym-ms-title">ОСНОВАНИЕ ДВИЖЕНИЯ</div>
-                <div class="aitym-ms-desc">Запуск Street Workout в Казахстане · Создание Bar Bars</div>
-              </div>
-            </div>
-            <div class="aitym-milestone">
-              <div class="aitym-ms-year">2014</div>
-              <div class="aitym-ms-content">
-                <div class="aitym-ms-title">ЧЕМПИОНАТ МИРА · АСТАНА</div>
-                <div class="aitym-ms-desc">75+ стран · Казахстан — мировая столица воркаута</div>
-              </div>
-            </div>
-            <div class="aitym-milestone">
-              <div class="aitym-ms-year">2017</div>
-              <div class="aitym-ms-content">
-                <div class="aitym-ms-title">100 НОВЫХ ЛИЦ КАЗАХСТАНА</div>
-                <div class="aitym-ms-desc">Государственное признание вклада в развитие спорта</div>
-              </div>
-            </div>
-            <div class="aitym-milestone">
-              <div class="aitym-ms-year">2022</div>
-              <div class="aitym-ms-content">
-                <div class="aitym-ms-title">TARTYL FEST · РЕКОРД ГИННЕССА</div>
-                <div class="aitym-ms-desc">Массовые подтягивания в разных городах КЗ · Мировой рекорд</div>
-              </div>
-            </div>
-            <div class="aitym-milestone">
-              <div class="aitym-ms-year">NOW</div>
-              <div class="aitym-ms-content">
-                <div class="aitym-ms-title">JANA MEN · ПАРТНЁР OZGE</div>
-                <div class="aitym-ms-desc">Платформа мужской трансформации · Поддержка STEM-молодёжи</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- QUOTE -->
-        <div class="aitym-quote">
-          «Моя задача — чтобы каждый ребёнок в Казахстане, выходя из подъезда,<br>видел не сигарету, а турник.»
-          <cite>— АЙТЫМ ЖАКУПОВ</cite>
-        </div>
-
+        <div><div class="aitym-bio-label">// BIOGRAPHY</div><p class="aitym-bio-text"><strong>Айтым Жакупов</strong> — основатель движения <em>Street Workout</em> в Казахстане и создатель команды <em>Bar Bars</em>. В <strong>2014 году</strong> провёл в Астане Чемпионат мира, собрав атлетов из <strong>75+ стран</strong>. В 2022 году установил рекорд Книги Гиннесса на <strong>Tartyl Fest</strong>.</p></div>
+        <div class="janamen-strip"><div class="jm-icon">🔥</div><div class="jm-text"><div class="jm-label">// ПРОЕКТ</div><div class="jm-title">JANA MEN — «НОВЫЙ Я»</div><div class="jm-sub">Трансформационная мужская экосистема · Дисциплина · Братство · Результат</div></div><div style="font-size:24px;flex-shrink:0;">🇰🇿</div></div>
+        <div><div class="aitym-bio-label">// KEY MILESTONES</div><div class="aitym-timeline">
+          <div class="aitym-milestone"><div class="aitym-ms-year">2012</div><div class="aitym-ms-content"><div class="aitym-ms-title">ОСНОВАНИЕ ДВИЖЕНИЯ</div><div class="aitym-ms-desc">Запуск Street Workout · Создание Bar Bars</div></div></div>
+          <div class="aitym-milestone"><div class="aitym-ms-year">2014</div><div class="aitym-ms-content"><div class="aitym-ms-title">ЧЕМПИОНАТ МИРА · АСТАНА</div><div class="aitym-ms-desc">75+ стран · Казахстан — мировая столица воркаута</div></div></div>
+          <div class="aitym-milestone"><div class="aitym-ms-year">2017</div><div class="aitym-ms-content"><div class="aitym-ms-title">100 НОВЫХ ЛИЦ КАЗАХСТАНА</div><div class="aitym-ms-desc">Государственное признание</div></div></div>
+          <div class="aitym-milestone"><div class="aitym-ms-year">2022</div><div class="aitym-ms-content"><div class="aitym-ms-title">TARTYL FEST · РЕКОРД ГИННЕССА</div><div class="aitym-ms-desc">Массовые подтягивания · Мировой рекорд</div></div></div>
+          <div class="aitym-milestone"><div class="aitym-ms-year">NOW</div><div class="aitym-ms-content"><div class="aitym-ms-title">JANA MEN · ПАРТНЁР OZGE</div><div class="aitym-ms-desc">Поддержка STEM-молодёжи</div></div></div>
+        </div></div>
+        <div class="aitym-quote">«Моя задача — чтобы каждый ребёнок в Казахстане, выходя из подъезда,<br>видел не сигарету, а турник.»<cite>— АЙТЫМ ЖАКУПОВ</cite></div>
       </div>
     </div>
   </div>
 </section>
-  
+
 <section id="portfolio">
   <div class="portfolio-inner">
     <div class="section-tag">// UNIT_04</div>
@@ -1164,8 +714,8 @@
     <div class="timeline">
       <div class="timeline-item reveal"><div class="timeline-date">SEPT 2024 — KICKOFF</div><div class="timeline-title">GAME ANALYSIS & STRATEGY</div><div class="timeline-desc">Разбор правил игры DECODE. Мозговой штурм стратегий, первые скетчи концепций робота.</div><a href="#" class="doc-link">→ Открыть документ</a></div>
       <div class="timeline-item reveal"><div class="timeline-date">OCT 2024 — DESIGN PHASE</div><div class="timeline-title">CAD & MECHANISM PROTOTYPING</div><div class="timeline-desc">Создание 3D-моделей в Fusion 360. Тестирование 3 версий башни, выбор Mecanum-шасси.</div><a href="#" class="doc-link">→ Открыть CAD-файлы</a></div>
-      <div class="timeline-item reveal"><div class="timeline-date">NOV 2024 — BUILD PHASE</div><div class="timeline-title">ROBOT ASSEMBLY V1 → V3</div><div class="timeline-desc">Сборка первого прототипа. Итерации дизайна по результатам тестов. Финальная сборка робота.</div><a href="#" class="doc-link">→ Инженерный журнал</a></div>
-      <div class="timeline-item reveal"><div class="timeline-date">DEC 2024 — CODE</div><div class="timeline-title">AUTONOMOUS & TELEOP PROGRAMS</div><div class="timeline-desc">Разработка автономной программы на Pedro Pathing. Оптимизация TeleOp-режима и систем управления.</div><a href="https://github.com" class="doc-link">→ GitHub Repository</a></div>
+      <div class="timeline-item reveal"><div class="timeline-date">NOV 2024 — BUILD PHASE</div><div class="timeline-title">ROBOT ASSEMBLY V1 → V3</div><div class="timeline-desc">Сборка первого прототипа. Итерации дизайна по результатам тестов. Финальная сборка.</div><a href="#" class="doc-link">→ Инженерный журнал</a></div>
+      <div class="timeline-item reveal"><div class="timeline-date">DEC 2024 — CODE</div><div class="timeline-title">AUTONOMOUS & TELEOP PROGRAMS</div><div class="timeline-desc">Разработка автономной программы на Pedro Pathing. Оптимизация TeleOp-режима.</div><a href="https://github.com" class="doc-link">→ GitHub Repository</a></div>
     </div>
   </div>
 </section>
@@ -1176,8 +726,8 @@
   <div class="outreach-grid">
     <div class="manifesto reveal-left">
       <p><strong>Мы не просто строим роботов.</strong></p><br>
-      <p>Мы строим <em>будущих инженеров.</em> Каждый мастер-класс, каждое демо в школе — это ещё одна искра, которая может превратиться в пожар любви к технологиям.</p><br>
-      <p>FTC научил нас, что <strong>командная работа, настойчивость и инновации</strong> побеждают любую техническую задачу. Мы хотим передать это следующему поколению.</p><br>
+      <p>Мы строим <em>будущих инженеров.</em> Каждый мастер-класс — это искра, которая может превратиться в пожар любви к технологиям.</p><br>
+      <p>FTC научил нас, что <strong>командная работа, настойчивость и инновации</strong> побеждают любую техническую задачу.</p><br>
       <p>Потому что <em>ozge</em> — это не те, кто охотится в одиночку. Это тот, кто доминирует в экосистеме.</p>
     </div>
     <div class="stats-grid reveal-right">
@@ -1194,6 +744,19 @@
     <div class="sponsors-row">
       <span class="sponsor-tag">PARTNER_//</span>
 
+        <!-- Aitym Zhakupov personal sponsor -->
+      <div class="sponsors-wrap">
+        <a href="https://www.instagram.com/aitymzhakupov/" class="sponsor-logo-btn sponsor-person" aria-label="Aitym Zhakupov" target="_blank">
+          <div class="sponsor-avatar">
+            <img src="media/partner/Aitym.png" alt="Aitym Zhakupov">
+          </div>
+          <div class="sponsor-person-info">
+            <span class="sponsor-name">AITYM Z.</span>
+            <span class="sponsor-person-role">PERSONAL SPONSOR</span>
+          </div>
+        </a>
+      </div>
+      
       <!-- Jana Men -->
       <div class="sponsors-wrap">
         <a href="https://www.instagram.com/janamen.health" class="sponsor-logo-btn" aria-label="Jana Men" target="_blank">
@@ -1220,19 +783,6 @@
         </a>
       </div>
 
-      <!-- Aitym Zhakupov personal sponsor -->
-      <div class="sponsors-wrap">
-        <a href="https://www.instagram.com/aitymzhakupov/" class="sponsor-logo-btn sponsor-person" aria-label="Aitym Zhakupov" target="_blank">
-          <div class="sponsor-avatar">
-            <img src="media/partner/Aitym.png" alt="Aitym Zhakupov">
-          </div>
-          <div class="sponsor-person-info">
-            <span class="sponsor-name">AITYM Z.</span>
-            <span class="sponsor-person-role">PERSONAL SPONSOR</span>
-          </div>
-        </a>
-      </div>
-
     </div>
   </div>
 </footer>
@@ -1240,83 +790,49 @@
 <script>
 const cursor = document.getElementById("cursor");
 const dot = document.getElementById("cursor-dot");
-let mx = 0, my = 0, cx = 0, cy = 0;
-document.addEventListener("mousemove", e => { mx = e.clientX; my = e.clientY; });
-function animCursor() { cx += (mx - cx) * 0.15; cy += (my - cy) * 0.15; cursor.style.left = cx + "px"; cursor.style.top = cy + "px"; dot.style.left = mx + "px"; dot.style.top = my + "px"; requestAnimationFrame(animCursor); }
+let mx=0,my=0,cx=0,cy=0;
+document.addEventListener("mousemove",e=>{mx=e.clientX;my=e.clientY;});
+function animCursor(){cx+=(mx-cx)*.15;cy+=(my-cy)*.15;cursor.style.left=cx+"px";cursor.style.top=cy+"px";dot.style.left=mx+"px";dot.style.top=my+"px";requestAnimationFrame(animCursor);}
 animCursor();
-document.querySelectorAll("a, button, .member-card, .hud-item, .stat-block, .award-item, .mentor-card").forEach(el => {
-  el.addEventListener("mouseenter", () => { cursor.style.transform = "translate(-50%,-50%) scale(2)"; cursor.style.borderColor = "var(--accent2)"; });
-  el.addEventListener("mouseleave", () => { cursor.style.transform = "translate(-50%,-50%) scale(1)"; cursor.style.borderColor = "var(--accent)"; });
+document.querySelectorAll("a,button,.member-card,.hud-item,.stat-block,.award-item,.mentor-card").forEach(el=>{
+  el.addEventListener("mouseenter",()=>{cursor.style.transform="translate(-50%,-50%) scale(2)";cursor.style.borderColor="var(--accent2)";});
+  el.addEventListener("mouseleave",()=>{cursor.style.transform="translate(-50%,-50%) scale(1)";cursor.style.borderColor="var(--accent)";});
 });
-window.addEventListener("scroll", () => { const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100; document.getElementById("scroll-progress").style.width = pct + "%"; });
-const canvas = document.getElementById("grid-canvas");
-const ctx = canvas.getContext("2d");
-function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+window.addEventListener("scroll",()=>{const pct=window.scrollY/(document.body.scrollHeight-window.innerHeight)*100;document.getElementById("scroll-progress").style.width=pct+"%";});
+const canvas=document.getElementById("grid-canvas");
+const ctx=canvas.getContext("2d");
+function resizeCanvas(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
 resizeCanvas();
-window.addEventListener("resize", resizeCanvas);
-let t = 0;
-function drawGrid() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  const step = 60; ctx.strokeStyle = "#00F0FF18"; ctx.lineWidth = 0.5;
-  for (let x = 0; x < canvas.width + step; x += step) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke(); }
-  for (let y = 0; y < canvas.height + step; y += step) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke(); }
-  ctx.fillStyle = "#00F0FF";
-  for (let i = 0; i < 20; i++) { const px = (Math.sin(t * 0.3 + i * 1.7) * 0.5 + 0.5) * canvas.width; const py = (Math.cos(t * 0.2 + i * 2.3) * 0.5 + 0.5) * canvas.height; ctx.globalAlpha = 0.3 + Math.sin(t + i) * 0.2; ctx.beginPath(); ctx.arc(px, py, 1.5, 0, Math.PI * 2); ctx.fill(); }
-  ctx.globalAlpha = 1; t += 0.01; requestAnimationFrame(drawGrid);
-}
+window.addEventListener("resize",resizeCanvas);
+let t=0;
+function drawGrid(){ctx.clearRect(0,0,canvas.width,canvas.height);const step=60;ctx.strokeStyle="#00F0FF18";ctx.lineWidth=0.5;for(let x=0;x<canvas.width+step;x+=step){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,canvas.height);ctx.stroke();}for(let y=0;y<canvas.height+step;y+=step){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(canvas.width,y);ctx.stroke();}ctx.fillStyle="#00F0FF";for(let i=0;i<20;i++){const px=(Math.sin(t*.3+i*1.7)*.5+.5)*canvas.width;const py=(Math.cos(t*.2+i*2.3)*.5+.5)*canvas.height;ctx.globalAlpha=.3+Math.sin(t+i)*.2;ctx.beginPath();ctx.arc(px,py,1.5,0,Math.PI*2);ctx.fill();}ctx.globalAlpha=1;t+=.01;requestAnimationFrame(drawGrid);}
 drawGrid();
-const reveals = document.querySelectorAll(".reveal, .reveal-left, .reveal-right");
-const observer = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("visible"); }); }, { threshold: 0.15 });
-reveals.forEach(el => observer.observe(el));
-const hudBars = document.querySelectorAll(".hud-bar-fill");
-const hudObs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) { e.target.style.width = e.target.style.width; } }); }, { threshold: 0.5 });
-hudBars.forEach(b => { const w = b.style.width; b.style.width = "0%"; setTimeout(() => { b.style.width = w; }, 300); hudObs.observe(b); });
-function animateCounter(el, target) { let current = 0; const step = target / 50; const timer = setInterval(() => { current += step; if (current >= target) { current = target; clearInterval(timer); } el.textContent = Math.floor(current) + (el.dataset.suffix || ""); }, 30); }
-const statObs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) { const txt = e.target.textContent; const num = parseInt(txt.replace(/\D/g, "")); const suffix = txt.replace(/[0-9]/g, "").trim(); e.target.dataset.suffix = suffix; animateCounter(e.target, num); statObs.unobserve(e.target); } }); }, { threshold: 0.5 });
-document.querySelectorAll(".stat-num").forEach(el => statObs.observe(el));
-
-  // Robot Gallery
-let rgIndex = 0;
-function rgMove(dir) {
-  const slides = document.querySelectorAll('.rg-slide');
-  const dots = document.querySelectorAll('.rg-dot');
-  if (!slides.length) return;
-  slides[rgIndex].classList.remove('active');
-  dots[rgIndex].classList.remove('active');
-  rgIndex = (rgIndex + dir + slides.length) % slides.length;
-  slides[rgIndex].classList.add('active');
-  dots[rgIndex].classList.add('active');
-  document.getElementById('rgCounter').textContent =
-    String(rgIndex + 1).padStart(2,'0') + ' / ' + String(slides.length).padStart(2,'0');
-}
-// Свайп на мобильном
-(function(){
-  const el = document.getElementById('robotGallery');
-  if (!el) return;
-  let sx = 0;
-  el.addEventListener('touchstart', e => { sx = e.touches[0].clientX; });
-  el.addEventListener('touchend', e => {
-    const dx = e.changedTouches[0].clientX - sx;
-    if (Math.abs(dx) > 40) rgMove(dx < 0 ? 1 : -1);
-  });
-})();
+const reveals=document.querySelectorAll(".reveal,.reveal-left,.reveal-right");
+const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add("visible");});},{threshold:0.15});
+reveals.forEach(el=>observer.observe(el));
+const hudBars=document.querySelectorAll(".hud-bar-fill");
+const hudObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.style.width=e.target.style.width;}});},{threshold:0.5});
+hudBars.forEach(b=>{const w=b.style.width;b.style.width="0%";setTimeout(()=>{b.style.width=w;},300);hudObs.observe(b);});
+function animateCounter(el,target){let current=0;const step=target/50;const timer=setInterval(()=>{current+=step;if(current>=target){current=target;clearInterval(timer);}el.textContent=Math.floor(current)+(el.dataset.suffix||"");},30);}
+const statObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){const txt=e.target.textContent;const num=parseInt(txt.replace(/\D/g,""));const suffix=txt.replace(/[0-9]/g,"").trim();e.target.dataset.suffix=suffix;animateCounter(e.target,num);statObs.unobserve(e.target);}});},{threshold:0.5});
+document.querySelectorAll(".stat-num").forEach(el=>statObs.observe(el));
+let rgIndex=0;
+function rgMove(dir){const slides=document.querySelectorAll('.rg-slide');const dots=document.querySelectorAll('.rg-dot');if(!slides.length)return;slides[rgIndex].classList.remove('active');dots[rgIndex].classList.remove('active');rgIndex=(rgIndex+dir+slides.length)%slides.length;slides[rgIndex].classList.add('active');dots[rgIndex].classList.add('active');document.getElementById('rgCounter').textContent=String(rgIndex+1).padStart(2,'0')+' / '+String(slides.length).padStart(2,'0');}
+(function(){const el=document.getElementById('robotGallery');if(!el)return;let sx=0;el.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;});el.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>40)rgMove(dx<0?1:-1);});})();
 </script>
-  <script>
-  let inputBuffer = "";
-  const secretCode = "bag";
-  const redirectUrl = "/ozge-site/eraMolodoy.html";
-
-  window.addEventListener('keydown', (e) => {
-    inputBuffer += e.key.toLowerCase();
-    inputBuffer = inputBuffer.slice(-secretCode.length);
-    if (inputBuffer === secretCode) {
-      document.body.style.transition = "opacity 0.5s";
-      document.body.style.opacity = "0";
-      setTimeout(() => {
-        window.location.href = redirectUrl;
-      }, 500);
-    }
-  });
+<script>
+let inputBuffer="";
+const secretCode="bag";
+const redirectUrl="/ozge-site/eraMolodoy.html";
+window.addEventListener('keydown',(e)=>{
+  inputBuffer+=e.key.toLowerCase();
+  inputBuffer=inputBuffer.slice(-secretCode.length);
+  if(inputBuffer===secretCode){
+    document.body.style.transition="opacity 0.5s";
+    document.body.style.opacity="0";
+    setTimeout(()=>{window.location.href=redirectUrl;},500);
+  }
+});
 </script>
 </body>
 </html>
