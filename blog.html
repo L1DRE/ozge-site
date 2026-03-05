@@ -753,10 +753,7 @@ function openModal(){
 }
 function closeModal(){ document.getElementById('write-modal').classList.remove('open'); }
 
-/* ══════ AUTH GATE ══════ */
-// Hash stored as SHA-256. Default password: ozge2025
-// To change: run sha256('newpassword') in console and update PASS_HASH
-const PASS_HASH = 'b3c8b1f02df6e2b40af2fca00e9d4fb06c8285c6cdb14bce13b3f41d5d5e3a7e'; // ozge2025
+const PASS_HASH = '9ed44518eb9aae57a52dd7a26a38a61cba4a74f814a9a91e3dc8650d8a2df220'; 
 
 async function sha256(str){
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
