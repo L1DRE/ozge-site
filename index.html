@@ -821,16 +821,34 @@ function rgMove(dir){const slides=document.querySelectorAll('.rg-slide');const d
 (function(){const el=document.getElementById('robotGallery');if(!el)return;let sx=0;el.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;});el.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>40)rgMove(dx<0?1:-1);});})();
 </script>
 <script>
-let inputBuffer="";
-const secretCode="bag";
-const redirectUrl="/ozge-site/eraMolodoy.html";
-window.addEventListener('keydown',(e)=>{
-  inputBuffer+=e.key.toLowerCase();
-  inputBuffer=inputBuffer.slice(-secretCode.length);
-  if(inputBuffer===secretCode){
-    document.body.style.transition="opacity 0.5s";
-    document.body.style.opacity="0";
-    setTimeout(()=>{window.location.href=redirectUrl;},500);
+let inputBuffer = "";
+const secrets = {
+  "bag": "/ozge-site/eraMolodoy.html",
+  "media": "/ozge-site/media.html"
+};
+
+const maxCodeLength = Math.max(...Object.keys(secrets).map(k => k.length));
+
+window.addEventListener('keydown', (e) => {
+
+  inputBuffer += e.key.toLowerCase();
+
+  inputBuffer = inputBuffer.slice(-maxCodeLength);
+
+  for (const code in secrets) {
+    if (inputBuffer.endsWith(code)) {
+      const redirectUrl = secrets[code];
+      
+      document.body.style.transition = "opacity 0.5s";
+      document.body.style.opacity = "0";
+      
+      setTimeout(() => {
+        window.location.href = redirectUrl;
+      }, 500);
+      
+      inputBuffer = ""; 
+      break;
+    }
   }
 });
 </script>
