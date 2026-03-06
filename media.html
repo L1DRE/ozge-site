@@ -14,6 +14,8 @@
     --orange: #e8650a;
     --white: #ffffff;
     --bg: #0a0f1e;
+    --panel-bg: rgba(255,255,255,.04);
+    --panel-border: rgba(201,162,39,.2);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -31,189 +33,255 @@
   /* ── HEADER ── */
   header {
     width: 100%;
-    padding: 24px 40px;
+    padding: 18px 40px;
     display: flex;
     align-items: center;
     gap: 16px;
     border-bottom: 1px solid rgba(201,162,39,.25);
-    background: rgba(10,15,30,.85);
-    backdrop-filter: blur(12px);
+    background: rgba(10,15,30,.92);
+    backdrop-filter: blur(16px);
     position: sticky; top: 0; z-index: 100;
+    justify-content: space-between;
   }
+  .header-left { display: flex; align-items: center; gap: 14px; }
   .logo-badge {
-    width: 44px; height: 44px;
+    width: 42px; height: 42px;
     border-radius: 50%;
     background: linear-gradient(135deg, var(--orange), var(--gold));
     display: flex; align-items: center; justify-content: center;
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 18px; color: #fff;
+    font-size: 17px; color: #fff;
     flex-shrink: 0;
+    box-shadow: 0 0 20px rgba(232,101,10,.4);
   }
   header h1 {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 26px;
+    font-size: 24px;
     letter-spacing: 2px;
     color: var(--gold-light);
   }
-  header p { font-size: 13px; color: rgba(255,255,255,.5); }
+  header p { font-size: 12px; color: rgba(255,255,255,.45); }
+  .header-badge {
+    background: rgba(201,162,39,.12);
+    border: 1px solid rgba(201,162,39,.3);
+    color: var(--gold-light);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 2px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    text-transform: uppercase;
+  }
 
   /* ── LAYOUT ── */
   .workspace {
     display: grid;
-    grid-template-columns: 380px 1fr;
-    gap: 40px;
-    padding: 40px;
+    grid-template-columns: 360px 1fr;
+    gap: 32px;
+    padding: 32px 40px;
     width: 100%;
-    max-width: 1300px;
+    max-width: 1280px;
     align-items: start;
   }
 
   /* ── PANEL ── */
   .panel {
-    background: rgba(255,255,255,.04);
-    border: 1px solid rgba(201,162,39,.2);
-    border-radius: 16px;
-    padding: 28px;
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 14px;
+    padding: 22px;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 18px;
   }
   .section-title {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 700;
     letter-spacing: 3px;
     text-transform: uppercase;
     color: var(--gold);
-    border-bottom: 1px solid rgba(201,162,39,.2);
+    border-bottom: 1px solid rgba(201,162,39,.18);
     padding-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
-  .field { display: flex; flex-direction: column; gap: 8px; }
+  .section-title::before {
+    content: '';
+    width: 3px; height: 12px;
+    background: var(--gold);
+    border-radius: 2px;
+    display: inline-block;
+  }
+  .field { display: flex; flex-direction: column; gap: 7px; }
   label {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
     letter-spacing: 1px;
     text-transform: uppercase;
-    color: rgba(255,255,255,.6);
+    color: rgba(255,255,255,.5);
   }
   input[type=text], textarea, select {
-    background: rgba(255,255,255,.06);
-    border: 1px solid rgba(255,255,255,.12);
-    border-radius: 10px;
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 9px;
     color: #fff;
     font-family: 'Barlow', sans-serif;
-    font-size: 14px;
-    padding: 12px 14px;
+    font-size: 13px;
+    padding: 10px 12px;
     outline: none;
     transition: border-color .2s, background .2s;
     width: 100%;
   }
   input[type=text]:focus, textarea:focus, select:focus {
     border-color: var(--gold);
-    background: rgba(201,162,39,.08);
+    background: rgba(201,162,39,.07);
   }
-  textarea { resize: vertical; min-height: 70px; }
+  textarea { resize: vertical; min-height: 60px; }
   select option { background: #1a2a4a; }
 
   input[type=color] {
-    width: 48px; height: 36px; border: 2px solid rgba(255,255,255,.2);
-    border-radius: 8px; cursor: pointer; padding: 2px; background: transparent;
+    width: 42px; height: 34px; border: 2px solid rgba(255,255,255,.15);
+    border-radius: 7px; cursor: pointer; padding: 2px; background: transparent;
+    flex-shrink: 0;
   }
-  .color-row { display: flex; align-items: center; gap: 12px; }
+  .color-row { display: flex; align-items: center; gap: 10px; }
   .color-row input[type=text] { flex: 1; }
 
   /* file upload */
   .upload-zone {
-    border: 2px dashed rgba(201,162,39,.35);
-    border-radius: 12px;
-    padding: 24px;
+    border: 2px dashed rgba(201,162,39,.3);
+    border-radius: 11px;
+    padding: 20px;
     text-align: center;
     cursor: pointer;
-    transition: all .2s;
+    transition: all .25s;
     position: relative;
     overflow: hidden;
+    background: rgba(255,255,255,.02);
   }
-  .upload-zone:hover { border-color: var(--gold); background: rgba(201,162,39,.06); }
+  .upload-zone:hover { border-color: var(--gold); background: rgba(201,162,39,.05); }
   .upload-zone input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
-  .upload-zone .upload-icon { font-size: 28px; margin-bottom: 8px; }
-  .upload-zone p { font-size: 13px; color: rgba(255,255,255,.5); }
-  .upload-zone.has-file { border-color: var(--gold); background: rgba(201,162,39,.1); }
-  .upload-zone.has-file p { color: var(--gold); }
+  .upload-zone .upload-icon { font-size: 26px; margin-bottom: 6px; }
+  .upload-zone p { font-size: 12px; color: rgba(255,255,255,.45); line-height: 1.5; }
+  .upload-zone.has-file { border-color: var(--gold); background: rgba(201,162,39,.08); }
+  .upload-zone.has-file p { color: var(--gold-light); }
+
+  /* remove logo btn */
+  .remove-btn {
+    background: rgba(255,60,60,.12);
+    border: 1px solid rgba(255,60,60,.3);
+    color: #ff6b6b;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 1px;
+    padding: 6px 14px;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: all .2s;
+    text-transform: uppercase;
+  }
+  .remove-btn:hover { background: rgba(255,60,60,.2); }
 
   /* template buttons */
   .templates {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 10px;
+    gap: 8px;
   }
   .tpl-btn {
     padding: 10px 8px;
     border-radius: 10px;
     border: 2px solid transparent;
-    background: rgba(255,255,255,.06);
+    background: rgba(255,255,255,.05);
     cursor: pointer;
     transition: all .2s;
     text-align: center;
   }
-  .tpl-btn:hover { border-color: var(--gold-light); }
+  .tpl-btn:hover { border-color: rgba(201,162,39,.5); background: rgba(201,162,39,.06); }
   .tpl-btn.active { border-color: var(--gold); background: rgba(201,162,39,.12); }
-  .tpl-btn .tpl-icon { font-size: 22px; }
-  .tpl-btn .tpl-name { font-size: 11px; font-weight: 600; letter-spacing: 1px; color: rgba(255,255,255,.7); margin-top: 4px; }
+  .tpl-btn .tpl-icon { font-size: 20px; }
+  .tpl-btn .tpl-name { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,.65); margin-top: 4px; }
 
   /* action buttons */
   .btn {
     display: inline-flex; align-items: center; gap: 8px;
-    padding: 14px 24px;
-    border-radius: 12px;
+    padding: 13px 20px;
+    border-radius: 11px;
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 15px; font-weight: 700;
+    font-size: 14px; font-weight: 700;
     letter-spacing: 2px; text-transform: uppercase;
     cursor: pointer; border: none; transition: all .2s;
-    width: 100%; justify-content: center;
+    justify-content: center;
   }
   .btn-primary {
     background: linear-gradient(135deg, var(--gold), var(--orange));
     color: #fff;
-    box-shadow: 0 4px 20px rgba(201,162,39,.35);
+    box-shadow: 0 4px 18px rgba(201,162,39,.3);
+    flex: 1;
   }
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 28px rgba(201,162,39,.5); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 26px rgba(201,162,39,.45); }
+  .btn-primary:active { transform: translateY(0); }
   .btn-secondary {
-    background: rgba(255,255,255,.07);
-    border: 1px solid rgba(255,255,255,.15);
-    color: rgba(255,255,255,.8);
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.12);
+    color: rgba(255,255,255,.75);
+    width: 100%;
   }
-  .btn-secondary:hover { background: rgba(255,255,255,.12); }
+  .btn-secondary:hover { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.2); }
+  .btn-video {
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: #fff;
+    box-shadow: 0 4px 18px rgba(106,17,203,.3);
+    flex: 1;
+  }
+  .btn-video:hover { transform: translateY(-2px); box-shadow: 0 6px 26px rgba(106,17,203,.45); }
+  .btn-video:active { transform: translateY(0); }
 
   /* ── PREVIEW AREA ── */
   .preview-area {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    gap: 16px;
     position: sticky;
-    top: 100px;
+    top: 88px;
   }
   .preview-label {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 11px; font-weight: 700;
+    font-size: 10px; font-weight: 700;
     letter-spacing: 3px; text-transform: uppercase;
-    color: rgba(255,255,255,.35);
+    color: rgba(255,255,255,.3);
   }
   .canvas-wrapper {
-    border-radius: 16px;
+    border-radius: 14px;
     overflow: hidden;
-    box-shadow: 0 20px 60px rgba(0,0,0,.6), 0 0 0 1px rgba(201,162,39,.2);
+    box-shadow: 0 24px 70px rgba(0,0,0,.65), 0 0 0 1px rgba(201,162,39,.2);
     position: relative;
   }
-  canvas {
-    display: block;
-    max-width: 100%;
-    height: auto;
-  }
+  canvas { display: block; max-width: 100%; height: auto; }
+
   .preview-actions {
-    display: flex; gap: 12px; width: 100%;
+    display: flex; gap: 10px; width: 100%;
     max-width: 360px;
   }
+
+  /* tabs */
+  .tabs { display: flex; gap: 4px; background: rgba(255,255,255,.04); border-radius: 10px; padding: 4px; }
+  .tab {
+    flex: 1; padding: 7px 10px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase;
+    cursor: pointer; border: none;
+    border-radius: 7px;
+    background: transparent; color: rgba(255,255,255,.4);
+    transition: all .2s;
+  }
+  .tab.active { background: rgba(201,162,39,.15); color: var(--gold-light); }
+  .tab-content { display: none; flex-direction: column; gap: 18px; }
+  .tab-content.visible { display: flex; }
 
   /* range slider */
   input[type=range] {
@@ -225,24 +293,19 @@
   }
   input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 18px; height: 18px;
+    width: 16px; height: 16px;
     border-radius: 50%;
     background: var(--gold);
     cursor: pointer;
     border: 3px solid #fff;
-    box-shadow: 0 2px 8px rgba(0,0,0,.4);
+    box-shadow: 0 2px 6px rgba(0,0,0,.4);
   }
-  .range-row { display: flex; align-items: center; gap: 12px; }
-  .range-val {
-    font-size: 13px; font-weight: 700;
-    color: var(--gold-light); min-width: 32px; text-align: right;
-  }
+  .range-row { display: flex; align-items: center; gap: 10px; }
+  .range-val { font-size: 12px; font-weight: 700; color: var(--gold-light); min-width: 34px; text-align: right; }
 
   /* toggle */
-  .toggle-row { display: flex; align-items: center; justify-content: space-between; }
-  .toggle {
-    position: relative; width: 46px; height: 24px;
-  }
+  .toggle-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .toggle { position: relative; width: 44px; height: 23px; flex-shrink: 0; }
   .toggle input { display: none; }
   .toggle-slider {
     position: absolute; inset: 0;
@@ -252,31 +315,64 @@
   }
   .toggle-slider::before {
     content: ''; position: absolute;
-    width: 18px; height: 18px;
+    width: 17px; height: 17px;
     left: 3px; top: 3px;
     background: #fff; border-radius: 50%;
     transition: .2s;
   }
   .toggle input:checked + .toggle-slider { background: var(--gold); }
-  .toggle input:checked + .toggle-slider::before { transform: translateX(22px); }
+  .toggle input:checked + .toggle-slider::before { transform: translateX(21px); }
 
-  /* notification */
+  /* font size controls */
+  .font-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  /* toast */
   .toast {
-    position: fixed; bottom: 30px; right: 30px;
+    position: fixed; bottom: 28px; right: 28px;
     background: var(--gold);
     color: #000;
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 700; letter-spacing: 1px;
-    padding: 12px 24px; border-radius: 12px;
-    font-size: 14px;
+    padding: 11px 22px; border-radius: 11px;
+    font-size: 13px;
     transform: translateY(80px); opacity: 0;
     transition: all .3s;
     z-index: 1000;
+    display: flex; align-items: center; gap: 8px;
   }
   .toast.show { transform: translateY(0); opacity: 1; }
+  .toast.error { background: #e84040; color: #fff; }
 
-  @media (max-width: 900px) {
-    .workspace { grid-template-columns: 1fr; padding: 20px; }
+  /* progress bar */
+  .progress-bar {
+    width: 100%; height: 3px;
+    background: rgba(255,255,255,.08);
+    border-radius: 3px;
+    overflow: hidden;
+    display: none;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--orange));
+    border-radius: 3px;
+    transition: width .1s;
+    width: 0%;
+  }
+
+  /* video settings */
+  .video-info {
+    background: rgba(106,17,203,.08);
+    border: 1px solid rgba(106,17,203,.25);
+    border-radius: 9px;
+    padding: 12px;
+    font-size: 12px;
+    color: rgba(255,255,255,.6);
+    line-height: 1.7;
+  }
+  .video-info strong { color: #9b7fff; }
+
+  @media (max-width: 960px) {
+    .workspace { grid-template-columns: 1fr; padding: 16px; }
     .preview-area { position: static; }
   }
 </style>
@@ -284,17 +380,20 @@
 <body>
 
 <header>
-  <div class="logo-badge">FTC</div>
-  <div>
-    <h1>Reels Cover Generator</h1>
-    <p>Team OZGE · FTC 34350</p>
+  <div class="header-left">
+    <div class="logo-badge">FTC</div>
+    <div>
+      <h1>Reels Cover Generator</h1>
+      <p>Team OZGE · FTC 34350</p>
+    </div>
   </div>
+  <div class="header-badge">v2.0</div>
 </header>
 
 <div class="workspace">
 
   <!-- ── LEFT PANEL ── -->
-  <div style="display:flex;flex-direction:column;gap:20px;">
+  <div style="display:flex;flex-direction:column;gap:16px;">
 
     <!-- Templates -->
     <div class="panel">
@@ -316,36 +415,168 @@
           <div class="tpl-icon">👥</div>
           <div class="tpl-name">Команда</div>
         </div>
+        <div class="tpl-btn" onclick="setTemplate('announce')" id="tpl-announce">
+          <div class="tpl-icon">📢</div>
+          <div class="tpl-name">Анонс</div>
+        </div>
+        <div class="tpl-btn" onclick="setTemplate('results')" id="tpl-results">
+          <div class="tpl-icon">🥇</div>
+          <div class="tpl-name">Результаты</div>
+        </div>
       </div>
     </div>
 
-    <!-- Content -->
+    <!-- Tabs for controls -->
     <div class="panel">
-      <div class="section-title">Контент</div>
+      <div class="tabs">
+        <button class="tab active" onclick="switchTab('content', this)">Текст</button>
+        <button class="tab" onclick="switchTab('style', this)">Стиль</button>
+        <button class="tab" onclick="switchTab('layout', this)">Макет</button>
+      </div>
 
-      <div class="field">
-        <label>Заголовок (белый)</label>
-        <input type="text" id="title1" value="MEET OUR" oninput="render()">
+      <!-- CONTENT TAB -->
+      <div class="tab-content visible" id="tab-content">
+        <div class="field">
+          <label>Заголовок 1</label>
+          <input type="text" id="title1" value="MEET OUR" oninput="render()">
+        </div>
+        <div class="field">
+          <label>Заголовок 2</label>
+          <input type="text" id="title2" value="PARTNER:" oninput="render()">
+        </div>
+        <div class="field">
+          <label>Акцент / имя (оранжевый)</label>
+          <input type="text" id="accent" value="[PARTNER NAME]" oninput="render()">
+        </div>
+        <div class="field">
+          <label>Имя команды</label>
+          <input type="text" id="teamName" value="TEAM: OZGE" oninput="render()">
+        </div>
+        <div class="field">
+          <label>Номер команды</label>
+          <input type="text" id="teamNum" value="FTC TEAM 34350" oninput="render()">
+        </div>
+        <div class="field">
+          <label>Нижний текст</label>
+          <input type="text" id="subtext" value="FIRST TECH APPRECIATION" oninput="render()">
+        </div>
+        <div class="field">
+          <label>Дата / место (опционально)</label>
+          <input type="text" id="datePlace" value="" placeholder="Напр: 12 апреля · Алматы" oninput="render()">
+        </div>
       </div>
-      <div class="field">
-        <label>Заголовок 2 (белый)</label>
-        <input type="text" id="title2" value="PARTNER:" oninput="render()">
+
+      <!-- STYLE TAB -->
+      <div class="tab-content" id="tab-style">
+        <div class="field">
+          <label>Цвет фона</label>
+          <div class="color-row">
+            <input type="color" id="bgColor" value="#1a3a6b" oninput="syncColor(this,'bgColorHex')">
+            <input type="text" id="bgColorHex" value="#1a3a6b" oninput="syncHex(this,'bgColor')">
+          </div>
+        </div>
+        <div class="field">
+          <label>Цвет фона 2 (градиент)</label>
+          <div class="color-row">
+            <input type="color" id="bgColor2" value="#0f2347" oninput="syncColor(this,'bgColor2Hex')">
+            <input type="text" id="bgColor2Hex" value="#0f2347" oninput="syncHex(this,'bgColor2')">
+          </div>
+        </div>
+        <div class="field">
+          <label>Акцентный цвет</label>
+          <div class="color-row">
+            <input type="color" id="accentColor" value="#e8650a" oninput="syncColor(this,'accentColorHex')">
+            <input type="text" id="accentColorHex" value="#e8650a" oninput="syncHex(this,'accentColor')">
+          </div>
+        </div>
+        <div class="field">
+          <label>Цвет рамки</label>
+          <div class="color-row">
+            <input type="color" id="frameColor" value="#c9a227" oninput="syncColor(this,'frameColorHex')">
+            <input type="text" id="frameColorHex" value="#c9a227" oninput="syncHex(this,'frameColor')">
+          </div>
+        </div>
+        <div class="field">
+          <label>Цвет текста заголовка</label>
+          <div class="color-row">
+            <input type="color" id="titleColor" value="#ffffff" oninput="syncColor(this,'titleColorHex')">
+            <input type="text" id="titleColorHex" value="#ffffff" oninput="syncHex(this,'titleColor')">
+          </div>
+        </div>
+        <div class="toggle-row">
+          <label style="text-transform:none;font-size:12px;letter-spacing:0;">Геометрические декоры</label>
+          <label class="toggle">
+            <input type="checkbox" id="showDecor" checked onchange="render()">
+            <div class="toggle-slider"></div>
+          </label>
+        </div>
+        <div class="toggle-row">
+          <label style="text-transform:none;font-size:12px;letter-spacing:0;">Текстура шума</label>
+          <label class="toggle">
+            <input type="checkbox" id="showNoise" checked onchange="render()">
+            <div class="toggle-slider"></div>
+          </label>
+        </div>
+        <div class="toggle-row">
+          <label style="text-transform:none;font-size:12px;letter-spacing:0;">Показать логотип FIRST</label>
+          <label class="toggle">
+            <input type="checkbox" id="showFirst" checked onchange="render()">
+            <div class="toggle-slider"></div>
+          </label>
+        </div>
       </div>
-      <div class="field">
-        <label>Акцент / имя партнёра (оранжевый)</label>
-        <input type="text" id="accent" value="[PARTNER NAME]" oninput="render()">
-      </div>
-      <div class="field">
-        <label>Имя команды</label>
-        <input type="text" id="teamName" value="TEAM: OZGE" oninput="render()">
-      </div>
-      <div class="field">
-        <label>Номер команды</label>
-        <input type="text" id="teamNum" value="FTC TEAM 34350" oninput="render()">
-      </div>
-      <div class="field">
-        <label>Нижний текст (опционально)</label>
-        <input type="text" id="subtext" value="FIRST TECH APPRECIATION" oninput="render()">
+
+      <!-- LAYOUT TAB -->
+      <div class="tab-content" id="tab-layout">
+        <div class="field">
+          <label>Размер заголовков</label>
+          <div class="range-row">
+            <input type="range" id="titleSize" min="60" max="160" value="130" oninput="render();updateVal(this,'titleSizeVal','px')">
+            <span class="range-val" id="titleSizeVal">130px</span>
+          </div>
+        </div>
+        <div class="field">
+          <label>Размер акцента</label>
+          <div class="range-row">
+            <input type="range" id="accentSize" min="50" max="150" value="110" oninput="render();updateVal(this,'accentSizeVal','px')">
+            <span class="range-val" id="accentSizeVal">110px</span>
+          </div>
+        </div>
+        <div class="field">
+          <label>Вертикальное смещение текста</label>
+          <div class="range-row">
+            <input type="range" id="textOffsetY" min="-200" max="200" value="0" oninput="render();updateVal(this,'textOffsetYVal','px')">
+            <span class="range-val" id="textOffsetYVal">0px</span>
+          </div>
+        </div>
+        <div class="field">
+          <label>Позиция логотипа (Y)</label>
+          <div class="range-row">
+            <input type="range" id="logoPosY" min="400" max="1200" value="680" oninput="render();updateVal(this,'logoPosYVal','px')">
+            <span class="range-val" id="logoPosYVal">680px</span>
+          </div>
+        </div>
+        <div class="field">
+          <label>Размер логотипа спонсора</label>
+          <div class="range-row">
+            <input type="range" id="logoSize" min="20" max="100" value="70" oninput="render();updateVal(this,'logoSizeVal','%')">
+            <span class="range-val" id="logoSizeVal">70%</span>
+          </div>
+        </div>
+        <div class="toggle-row">
+          <label style="text-transform:none;font-size:12px;letter-spacing:0;">Рамка логотипа (только превью)</label>
+          <label class="toggle">
+            <input type="checkbox" id="showLogoBox" checked onchange="render()">
+            <div class="toggle-slider"></div>
+          </label>
+        </div>
+        <div class="field">
+          <label>Прозрачность рамки</label>
+          <div class="range-row">
+            <input type="range" id="frameOpacity" min="10" max="100" value="50" oninput="render();updateVal(this,'frameOpacityVal','%')">
+            <span class="range-val" id="frameOpacityVal">50%</span>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -355,69 +586,56 @@
       <div class="upload-zone" id="logoZone">
         <input type="file" id="logoFile" accept="image/*" onchange="loadLogo(event)">
         <div class="upload-icon">📁</div>
-        <p id="logoLabel">Нажмите или перетащите логотип</p>
+        <p id="logoLabel">Нажмите или перетащите логотип<br><span style="font-size:10px;opacity:.6;">PNG, SVG, JPG · Рекомендуется PNG с прозрачностью</span></p>
       </div>
-      <div class="toggle-row">
-        <label style="text-transform:none;font-size:13px;letter-spacing:0;">Показать рамку логотипа</label>
-        <label class="toggle">
-          <input type="checkbox" id="showLogoBox" checked onchange="render()">
-          <div class="toggle-slider"></div>
-        </label>
-      </div>
-      <div class="field">
-        <label>Размер логотипа</label>
-        <div class="range-row">
-          <input type="range" id="logoSize" min="30" max="100" value="70" oninput="render();this.nextElementSibling.textContent=this.value+'%'">
-          <span class="range-val">70%</span>
+      <div id="logoControls" style="display:none; flex-direction:column; gap:10px;">
+        <div class="toggle-row">
+          <label style="text-transform:none;font-size:12px;letter-spacing:0;">Белая подложка под логотип</label>
+          <label class="toggle">
+            <input type="checkbox" id="logoBg" onchange="render()">
+            <div class="toggle-slider"></div>
+          </label>
         </div>
-      </div>
-    </div>
-
-    <!-- Style -->
-    <div class="panel">
-      <div class="section-title">Стиль</div>
-      <div class="field">
-        <label>Цвет фона</label>
-        <div class="color-row">
-          <input type="color" id="bgColor" value="#1a3a6b" oninput="syncColor(this,'bgColorHex')">
-          <input type="text" id="bgColorHex" value="#1a3a6b" oninput="syncHex(this,'bgColor')">
+        <div class="field">
+          <label>Скругление подложки</label>
+          <div class="range-row">
+            <input type="range" id="logoBgRadius" min="0" max="50" value="16" oninput="render();updateVal(this,'logoBgRadiusVal','px')">
+            <span class="range-val" id="logoBgRadiusVal">16px</span>
+          </div>
         </div>
-      </div>
-      <div class="field">
-        <label>Акцентный цвет</label>
-        <div class="color-row">
-          <input type="color" id="accentColor" value="#e8650a" oninput="syncColor(this,'accentColorHex')">
-          <input type="text" id="accentColorHex" value="#e8650a" oninput="syncHex(this,'accentColor')">
+        <div class="field">
+          <label>Отступ подложки</label>
+          <div class="range-row">
+            <input type="range" id="logoBgPad" min="0" max="80" value="30" oninput="render();updateVal(this,'logoBgPadVal','px')">
+            <span class="range-val" id="logoBgPadVal">30px</span>
+          </div>
         </div>
-      </div>
-      <div class="field">
-        <label>Цвет рамки</label>
-        <div class="color-row">
-          <input type="color" id="frameColor" value="#c9a227" oninput="syncColor(this,'frameColorHex')">
-          <input type="text" id="frameColorHex" value="#c9a227" oninput="syncHex(this,'frameColor')">
-        </div>
-      </div>
-      <div class="toggle-row">
-        <label style="text-transform:none;font-size:13px;letter-spacing:0;">Геометрические декоры</label>
-        <label class="toggle">
-          <input type="checkbox" id="showDecor" checked onchange="render()">
-          <div class="toggle-slider"></div>
-        </label>
+        <button class="remove-btn" onclick="removeLogo()">✕ Удалить логотип</button>
       </div>
     </div>
 
     <!-- Buttons -->
-    <button class="btn btn-secondary" onclick="resetForm()">↺ Сбросить</button>
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      <div class="progress-bar" id="progressBar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="preview-actions" style="max-width:none;">
+        <button class="btn btn-primary" onclick="downloadPNG()">⬇ PNG</button>
+        <button class="btn btn-video" onclick="downloadVideo()">▶ MP4</button>
+      </div>
+      <button class="btn btn-secondary" onclick="resetForm()" style="margin-top:2px;">↺ Сбросить</button>
+    </div>
+
   </div>
 
   <!-- ── RIGHT: PREVIEW ── -->
   <div class="preview-area">
     <div class="preview-label">Предпросмотр · 1080 × 1920</div>
     <div class="canvas-wrapper">
-      <canvas id="cvs" width="1080" height="1920" style="width:360px;height:640px;"></canvas>
+      <canvas id="cvs" width="1080" height="1920" style="width:340px;height:604px;"></canvas>
     </div>
-    <div class="preview-actions">
-      <button class="btn btn-primary" onclick="downloadPNG()" style="flex:1;">⬇ Скачать PNG</button>
+    <div style="font-size:11px;color:rgba(255,255,255,.25);text-align:center;font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;">
+      Пунктирная рамка — только в превью. В экспорте не отображается.
     </div>
   </div>
 
@@ -431,6 +649,22 @@ const ctx = cvs.getContext('2d');
 let logoImg = null;
 let firstLogoImg = null;
 let currentTemplate = 'partner';
+let noiseCanvas = null;
+
+// Pre-generate noise texture
+function generateNoiseTexture() {
+  noiseCanvas = document.createElement('canvas');
+  noiseCanvas.width = 1080; noiseCanvas.height = 1920;
+  const nc = noiseCanvas.getContext('2d');
+  const id = nc.createImageData(1080, 1920);
+  const d = id.data;
+  for(let i=0;i<d.length;i+=4){
+    const n = Math.random()*12;
+    d[i]=n; d[i+1]=n; d[i+2]=n; d[i+3]=n*1.5;
+  }
+  nc.putImageData(id,0,0);
+}
+generateNoiseTexture();
 
 // Load FIRST logo SVG
 (function loadFirstLogo(){
@@ -467,42 +701,57 @@ let currentTemplate = 'partner';
 function g(id){ return document.getElementById(id); }
 function val(id){ return g(id).value; }
 function checked(id){ return g(id).checked; }
+function updateVal(el, spanId, unit){ g(spanId).textContent = el.value + unit; }
 
-function syncColor(el, hexId){
-  g(hexId).value = el.value;
-  render();
-}
+function syncColor(el, hexId){ g(hexId).value = el.value; render(); }
 function syncHex(el, colorId){
   const v = el.value;
   if(/^#[0-9a-fA-F]{6}$/.test(v)){ g(colorId).value = v; render(); }
 }
-
 function hexToRgb(hex){
   const r = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   return r ? { r: parseInt(r[1],16), g: parseInt(r[2],16), b: parseInt(r[3],16) } : {r:26,g:58,b:107};
+}
+
+/* ── tabs ── */
+function switchTab(name, btn){
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('visible'));
+  btn.classList.add('active');
+  g('tab-' + name).classList.add('visible');
 }
 
 /* ── template presets ── */
 const templates = {
   partner: {
     title1:'MEET OUR', title2:'PARTNER:', accent:'[PARTNER NAME]',
-    teamName:'TEAM: OZGE', teamNum:'FTC TEAM 34350', subtext:'FIRST TECH APPRECIATION',
-    bg:'#1a3a6b', accentCol:'#e8650a', frame:'#c9a227'
+    teamName:'TEAM: OZGE', teamNum:'FTC TEAM 34350', subtext:'FIRST TECH APPRECIATION', datePlace:'',
+    bg:'#1a3a6b', bg2:'#0f2347', accentCol:'#e8650a', frame:'#c9a227', title:'#ffffff'
   },
   robot: {
     title1:'MEET OUR', title2:'ROBOT:', accent:'[ROBOT NAME]',
-    teamName:'TEAM: OZGE', teamNum:'FTC TEAM 34350', subtext:'FIRST TECH CHALLENGE',
-    bg:'#0f2347', accentCol:'#e8650a', frame:'#c9a227'
+    teamName:'TEAM: OZGE', teamNum:'FTC TEAM 34350', subtext:'FIRST TECH CHALLENGE', datePlace:'',
+    bg:'#0f2347', bg2:'#050d24', accentCol:'#00bfff', frame:'#c9a227', title:'#ffffff'
   },
   event: {
     title1:'JOIN US', title2:'AT THE:', accent:'[EVENT NAME]',
-    teamName:'TEAM: OZGE', teamNum:'FTC TEAM 34350', subtext:'SEE YOU THERE!',
-    bg:'#1a2e1a', accentCol:'#3dba5c', frame:'#ffd700'
+    teamName:'TEAM: OZGE', teamNum:'FTC TEAM 34350', subtext:'SEE YOU THERE!', datePlace:'Дата · Место',
+    bg:'#1a2e1a', bg2:'#0a1a0a', accentCol:'#3dba5c', frame:'#ffd700', title:'#ffffff'
   },
   team: {
     title1:'INTRODUCING', title2:'OUR TEAM:', accent:'OZGE',
-    teamName:'FTC TEAM 34350', teamNum:'FIRST TECH CHALLENGE', subtext:'INNOVATION · TEAMWORK · FUN',
-    bg:'#2a0f3a', accentCol:'#b44be8', frame:'#e0b0ff'
+    teamName:'FTC TEAM 34350', teamNum:'FIRST TECH CHALLENGE', subtext:'INNOVATION · TEAMWORK · FUN', datePlace:'',
+    bg:'#2a0f3a', bg2:'#150820', accentCol:'#b44be8', frame:'#e0b0ff', title:'#ffffff'
+  },
+  announce: {
+    title1:'IMPORTANT', title2:'ANNOUNCEMENT:', accent:'STAY TUNED',
+    teamName:'TEAM: OZGE', teamNum:'FTC TEAM 34350', subtext:'SOMETHING BIG IS COMING', datePlace:'',
+    bg:'#1a0a0a', bg2:'#300f0f', accentCol:'#ff4444', frame:'#ff8c00', title:'#ffffff'
+  },
+  results: {
+    title1:'WE DID IT!', title2:'RESULTS:', accent:'TOP PLACE 🏆',
+    teamName:'TEAM: OZGE', teamNum:'FTC TEAM 34350', subtext:'THANK YOU FOR YOUR SUPPORT', datePlace:'',
+    bg:'#1a1a0a', bg2:'#2a2000', accentCol:'#ffd700', frame:'#c9a227', title:'#ffffff'
   }
 };
 
@@ -517,13 +766,19 @@ function setTemplate(name){
   g('teamName').value = t.teamName;
   g('teamNum').value = t.teamNum;
   g('subtext').value = t.subtext;
+  g('datePlace').value = t.datePlace || '';
   g('bgColor').value = t.bg; g('bgColorHex').value = t.bg;
+  g('bgColor2').value = t.bg2; g('bgColor2Hex').value = t.bg2;
   g('accentColor').value = t.accentCol; g('accentColorHex').value = t.accentCol;
   g('frameColor').value = t.frame; g('frameColorHex').value = t.frame;
+  g('titleColor').value = t.title; g('titleColorHex').value = t.title;
   render();
 }
 
-function resetForm(){ setTemplate('partner'); logoImg = null; g('logoZone').classList.remove('has-file'); g('logoLabel').textContent='Нажмите или перетащите логотип'; }
+function resetForm(){
+  setTemplate('partner');
+  removeLogo();
+}
 
 /* ── logo load ── */
 function loadLogo(e){
@@ -537,104 +792,133 @@ function loadLogo(e){
   reader.readAsDataURL(f);
   g('logoZone').classList.add('has-file');
   g('logoLabel').textContent = '✓ ' + f.name;
+  g('logoControls').style.display = 'flex';
+}
+
+function removeLogo(){
+  logoImg = null;
+  g('logoZone').classList.remove('has-file');
+  g('logoLabel').innerHTML = 'Нажмите или перетащите логотип<br><span style="font-size:10px;opacity:.6;">PNG, SVG, JPG · Рекомендуется PNG с прозрачностью</span>';
+  g('logoFile').value = '';
+  g('logoControls').style.display = 'none';
+  render();
 }
 
 /* ── MAIN RENDER ── */
-function render(){
+function render(forExport = false){
   const W = 1080, H = 1920;
   const bg = val('bgColor');
+  const bg2 = val('bgColor2');
   const acc = val('accentColor');
   const frame = val('frameColor');
+  const titleCol = val('titleColor');
   const decor = checked('showDecor');
+  const noise = checked('showNoise');
+  const showFirstLogo = checked('showFirst');
 
   ctx.clearRect(0,0,W,H);
 
-  // Background gradient
-  const bgRgb = hexToRgb(bg);
-  const grd = ctx.createLinearGradient(0,0,W,H);
+  // Background gradient (diagonal)
+  const grd = ctx.createLinearGradient(0, 0, W*0.6, H);
   grd.addColorStop(0, bg);
-  grd.addColorStop(1, `rgb(${Math.max(0,bgRgb.r-30)},${Math.max(0,bgRgb.g-30)},${Math.max(0,bgRgb.b-20)})`);
+  grd.addColorStop(1, bg2);
   ctx.fillStyle = grd;
   ctx.fillRect(0,0,W,H);
 
-  // Subtle noise overlay
-  drawNoise();
+  // Radial highlight top
+  const radGrd = ctx.createRadialGradient(W*0.3, 0, 0, W*0.3, 0, W*0.9);
+  radGrd.addColorStop(0, 'rgba(255,255,255,0.06)');
+  radGrd.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.fillStyle = radGrd;
+  ctx.fillRect(0,0,W,H);
+
+  if(noise && noiseCanvas){
+    ctx.save();
+    ctx.globalAlpha = 0.035;
+    ctx.drawImage(noiseCanvas, 0, 0);
+    ctx.restore();
+  }
 
   if(decor) drawDecorations(W, H, acc, frame);
 
-  // Outer gold double frame
+  // Outer frames
   drawDoubleFrame(W, H, frame);
 
-  // Inner content frame
-  drawContentFrame(W, H, frame);
-
   // Text
-  drawTexts(W, H, acc);
+  drawTexts(W, H, acc, titleCol);
 
-  // Logo area
-  drawLogoArea(W, H, frame);
+  // Logo area (pass forExport to hide dashed box)
+  drawLogoArea(W, H, frame, forExport);
 
   // FIRST logo
-  drawFirstLogo(W, H);
-}
-
-function drawNoise(){
-  const id = ctx.getImageData(0,0,1080,1920);
-  const d = id.data;
-  for(let i=0;i<d.length;i+=4){
-    const n = (Math.random()-0.5)*12;
-    d[i]+=n; d[i+1]+=n; d[i+2]+=n;
-  }
-  ctx.putImageData(id,0,0);
+  if(showFirstLogo) drawFirstLogo(W, H);
 }
 
 function drawDecorations(W, H, acc, frame){
-  // Corner circles
-  const drawCircle = (x,y,r,col,lw,dash)=>{
+  const drawCircle = (x,y,r,col,lw,dash=[])=>{
     ctx.save();
     ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2);
     ctx.strokeStyle=col; ctx.lineWidth=lw;
-    if(dash) ctx.setLineDash(dash);
+    if(dash.length) ctx.setLineDash(dash);
     ctx.stroke(); ctx.restore();
   };
-  drawCircle(-30, 30, 120, acc, 14);
-  drawCircle(W+30, H-30, 130, acc, 14);
-  drawCircle(W+10, 80, 80, acc, 10);
-  drawCircle(-10, H-100, 90, acc, 10);
 
-  // Diagonal lines top-right
+  // Large accent circles
+  drawCircle(-40, 60, 130, acc, 16);
+  drawCircle(W+40, H-60, 140, acc, 16);
+  drawCircle(W+20, 100, 90, acc, 11);
+  drawCircle(-20, H-120, 100, acc, 11);
+
+  // Diagonal accent lines top-right
   ctx.save();
   ctx.strokeStyle = frame;
-  ctx.lineWidth = 4;
-  ctx.globalAlpha = 0.5;
-  for(let i=0;i<5;i++){
+  ctx.lineWidth = 3;
+  ctx.globalAlpha = 0.45;
+  for(let i=0;i<6;i++){
     ctx.beginPath();
-    ctx.moveTo(W-200+i*40, 0);
-    ctx.lineTo(W+100, 300-i*40);
+    ctx.moveTo(W-220+i*44, 40);
+    ctx.lineTo(W+60, 320-i*44);
     ctx.stroke();
   }
   ctx.restore();
 
-  // Dot matrix
-  drawDots(W-160, 160, acc);
-  drawDots(120, H-160, acc);
+  // Diagonal accent lines bottom-left
+  ctx.save();
+  ctx.strokeStyle = acc;
+  ctx.lineWidth = 2;
+  ctx.globalAlpha = 0.3;
+  for(let i=0;i<4;i++){
+    ctx.beginPath();
+    ctx.moveTo(40-i*30, H-60+i*20);
+    ctx.lineTo(260+i*30, H-350-i*20);
+    ctx.stroke();
+  }
+  ctx.restore();
 
-  // Diamond shapes corners
-  drawDiamond(ctx, 100, H-300, 90, frame, 0.15);
-  drawDiamond(ctx, W-100, 300, 90, frame, 0.15);
+  // Dot matrices
+  drawDots(W-180, 200, acc, 6, 24);
+  drawDots(110, H-200, frame, 5, 22);
 
-  // Geometric ring bottom-left
-  drawCircle(80, H-80, 60, frame, 3);
-  drawCircle(80, H-80, 40, frame, 2, [8,8]);
+  // Diamond shapes
+  drawDiamond(ctx, 110, H-340, 100, frame, 0.12);
+  drawDiamond(ctx, W-110, 340, 100, frame, 0.12);
+
+  // Concentric rings
+  [60, 42, 26].forEach((r,i)=>{
+    drawCircle(90, H-110, r, frame, i===1?2:1, i===1?[8,6]:[]);
+  });
+  [50, 35].forEach((r,i)=>{
+    drawCircle(W-90, 110, r, acc, i===1?2:1, i===1?[6,5]:[]);
+  });
 }
 
-function drawDots(cx,cy,col){
+function drawDots(cx,cy,col,rows,spacing){
   ctx.save();
   ctx.fillStyle = col;
-  ctx.globalAlpha = 0.5;
-  for(let r=0;r<5;r++) for(let c=0;c<5;c++){
+  ctx.globalAlpha = 0.45;
+  for(let r=0;r<rows;r++) for(let c=0;c<rows;c++){
     ctx.beginPath();
-    ctx.arc(cx+c*22, cy+r*22, 4, 0, Math.PI*2);
+    ctx.arc(cx+c*spacing, cy+r*spacing, 4, 0, Math.PI*2);
     ctx.fill();
   }
   ctx.restore();
@@ -651,111 +935,138 @@ function drawDiamond(ctx,x,y,s,col,a){
 }
 
 function drawDoubleFrame(W, H, col){
-  const pad=40, pad2=56;
-  // outer
-  roundRect(ctx, pad, pad, W-pad*2, H-pad*2, 12);
-  ctx.strokeStyle=col; ctx.lineWidth=5; ctx.stroke();
-  // inner thin
-  roundRect(ctx, pad2, pad2, W-pad2*2, H-pad2*2, 8);
-  ctx.strokeStyle=col; ctx.lineWidth=2; ctx.globalAlpha=0.5; ctx.stroke();
+  const pad=42, pad2=58;
+  roundRect(ctx, pad, pad, W-pad*2, H-pad*2, 14);
+  ctx.strokeStyle=col; ctx.lineWidth=5; ctx.setLineDash([]); ctx.globalAlpha=1; ctx.stroke();
+
+  roundRect(ctx, pad2, pad2, W-pad2*2, H-pad2*2, 10);
+  ctx.strokeStyle=col; ctx.lineWidth=1.5; ctx.globalAlpha=0.4; ctx.stroke();
   ctx.globalAlpha=1;
 
-  // corner accents
-  const corners=[[70,70],[W-70,70],[70,H-70],[W-70,H-70]];
-  const angles = [[0, Math.PI/2], [Math.PI/2, Math.PI], [Math.PI*1.5, Math.PI*2], [Math.PI, Math.PI*1.5]];
+  // Corner arcs with glow
+  ctx.save();
+  ctx.shadowColor = col;
+  ctx.shadowBlur = 18;
+  const corners=[[78,78],[W-78,78],[78,H-78],[W-78,H-78]];
+  const angles = [[Math.PI, Math.PI*1.5],[Math.PI*1.5, Math.PI*2],[Math.PI*0.5, Math.PI],[0, Math.PI*0.5]];
   corners.forEach(([cx,cy],i)=>{
     ctx.beginPath();
-    ctx.arc(cx,cy,28, angles[i][0], angles[i][1]);
-    ctx.strokeStyle=col; ctx.lineWidth=6; ctx.globalAlpha=1; ctx.stroke();
+    ctx.arc(cx,cy,32, angles[i][0], angles[i][1]);
+    ctx.strokeStyle=col; ctx.lineWidth=7; ctx.globalAlpha=1; ctx.stroke();
   });
-}
-
-function drawContentFrame(W, H, col){
-  // logo placeholder box
-  const bx = 120, by = 680, bw = W-240, bh = 500;
-  ctx.save();
-  ctx.strokeStyle = col;
-  ctx.lineWidth = 3;
-  ctx.setLineDash([16,10]);
-  ctx.globalAlpha = 0.5;
-  roundRect(ctx, bx, by, bw, bh, 12);
-  ctx.stroke();
   ctx.restore();
 }
 
-function drawTexts(W, H, acc){
+function drawTexts(W, H, acc, titleCol){
   const t1 = val('title1');
   const t2 = val('title2');
   const ac = val('accent');
   const tn = val('teamName');
   const num = val('teamNum');
   const sub = val('subtext');
+  const dp = val('datePlace');
+  const titleSize = parseInt(val('titleSize'));
+  const accentSize = parseInt(val('accentSize'));
+  const offsetY = parseInt(val('textOffsetY'));
 
   ctx.textAlign = 'center';
+  ctx.setLineDash([]);
 
   // Title 1
-  ctx.fillStyle = '#ffffff';
-  ctx.font = 'bold 130px "Barlow Condensed", sans-serif';
-  ctx.fillText(t1, W/2, 320);
+  ctx.fillStyle = titleCol;
+  ctx.font = `900 ${titleSize}px "Barlow Condensed", sans-serif`;
+  ctx.fillText(t1, W/2, 290 + offsetY);
 
   // Title 2
-  ctx.fillText(t2, W/2, 460);
+  ctx.fillText(t2, W/2, 290 + titleSize*1.05 + offsetY);
 
-  // Accent name
+  // Accent name with glow
+  ctx.save();
+  ctx.shadowColor = acc;
+  ctx.shadowBlur = 40;
   ctx.fillStyle = acc;
-  ctx.font = 'bold 110px "Barlow Condensed", sans-serif';
-  ctx.fillText(ac, W/2, 600);
+  ctx.font = `900 ${accentSize}px "Barlow Condensed", sans-serif`;
+  ctx.fillText(ac, W/2, 290 + titleSize*2.15 + offsetY);
+  ctx.restore();
 
-  // Logo placeholder text (only if no logo)
-  if(!logoImg && checked('showLogoBox')){
-    ctx.fillStyle = 'rgba(255,255,255,0.25)';
-    ctx.font = 'bold 80px "Barlow Condensed", sans-serif';
-    ctx.fillText('SPONSOR', W/2, 890);
-    ctx.font = 'bold 80px "Barlow Condensed", sans-serif';
-    ctx.fillText('LOGO', W/2, 980);
-    ctx.font = '40px "Barlow Condensed", sans-serif';
-    ctx.fillStyle = 'rgba(255,255,255,0.2)';
-    ctx.fillText('PLACE YOUR LOGO HERE', W/2, 1060);
+  // Date/place
+  if(dp){
+    ctx.fillStyle = 'rgba(255,255,255,0.5)';
+    ctx.font = `600 52px "Barlow Condensed", sans-serif`;
+    ctx.fillText(dp, W/2, 290 + titleSize*2.15 + accentSize*0.85 + offsetY);
   }
 
-  // Team name
+  // Decorative separator line with diamonds
+  const sepY = 1270;
+  ctx.save();
+  ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.moveTo(160, sepY); ctx.lineTo(W/2-50, sepY); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(W/2+50, sepY); ctx.lineTo(W-160, sepY); ctx.stroke();
+  // center diamond
+  ctx.fillStyle = val('frameColor');
+  ctx.globalAlpha = 0.6;
+  ctx.beginPath();
+  ctx.moveTo(W/2, sepY-12); ctx.lineTo(W/2+12, sepY);
+  ctx.lineTo(W/2, sepY+12); ctx.lineTo(W/2-12, sepY); ctx.closePath();
+  ctx.fill();
+  ctx.restore();
+
+  // Team name with letter spacing effect
   ctx.fillStyle = '#ffffff';
-  ctx.font = 'bold 100px "Barlow Condensed", sans-serif';
-  ctx.fillText(tn, W/2, 1330);
+  ctx.font = `900 96px "Barlow Condensed", sans-serif`;
+  ctx.fillText(tn, W/2, 1360);
 
   // Team number
-  ctx.font = '600 70px "Barlow Condensed", sans-serif';
-  ctx.fillStyle = 'rgba(255,255,255,0.75)';
-  ctx.fillText(num, W/2, 1420);
+  ctx.font = `700 62px "Barlow Condensed", sans-serif`;
+  ctx.fillStyle = 'rgba(255,255,255,0.6)';
+  ctx.fillText(num, W/2, 1440);
 
-  // Divider line
-  ctx.beginPath();
-  ctx.moveTo(W/2-200, 1480); ctx.lineTo(W/2+200, 1480);
-  ctx.strokeStyle = 'rgba(255,255,255,0.2)'; ctx.lineWidth = 2; ctx.setLineDash([]);
-  ctx.stroke();
-
-  // Sub text
+  // Bottom sub text
   if(sub){
-    ctx.fillStyle = 'rgba(255,255,255,0.55)';
-    ctx.font = '700 46px "Barlow Condensed", sans-serif';
-    ctx.letterSpacing = '4px';
+    ctx.fillStyle = 'rgba(255,255,255,0.4)';
+    ctx.font = `700 42px "Barlow Condensed", sans-serif`;
     ctx.fillText(sub, W/2, 1860);
   }
 }
 
-// Draw FIRST logo SVG onto canvas at bottom
 function drawFirstLogo(W, H) {
   if (!firstLogoImg) return;
-  const lw = 260, lh = 100;
+  const lw = 260, lh = Math.round(260 * 41/167);
   ctx.save();
-  ctx.globalAlpha = 0.95;
-  ctx.drawImage(firstLogoImg, W/2 - lw/2, H - 260, lw, lh);
+  ctx.globalAlpha = 0.9;
+  ctx.drawImage(firstLogoImg, W/2 - lw/2, H - 220, lw, lh);
   ctx.restore();
 }
 
-function drawLogoArea(W, H, col){
-  const bx = 120, by = 680, bw = W-240, bh = 500;
-  const showBox = checked('showLogoBox');
+function drawLogoArea(W, H, col, forExport = false){
+  const logoPosY = parseInt(val('logoPosY'));
+  const bx = 120, by = logoPosY, bw = W-240, bh = 460;
+  const frameOpacity = parseInt(val('frameOpacity')) / 100;
+
+  // Dashed placeholder box — ONLY in preview, NOT in export
+  if(!forExport && checked('showLogoBox')){
+    ctx.save();
+    ctx.strokeStyle = col;
+    ctx.lineWidth = 3;
+    ctx.setLineDash([16,10]);
+    ctx.globalAlpha = frameOpacity;
+    roundRect(ctx, bx, by, bw, bh, 14);
+    ctx.stroke();
+
+    // Placeholder text if no logo
+    if(!logoImg){
+      ctx.fillStyle = 'rgba(255,255,255,0.15)';
+      ctx.setLineDash([]);
+      ctx.textAlign = 'center';
+      ctx.font = 'bold 70px "Barlow Condensed", sans-serif';
+      ctx.fillText('SPONSOR LOGO', W/2, by + bh/2 - 20);
+      ctx.font = '36px "Barlow Condensed", sans-serif';
+      ctx.fillStyle = 'rgba(255,255,255,0.1)';
+      ctx.fillText('Загрузите логотип слева', W/2, by + bh/2 + 40);
+    }
+    ctx.restore();
+  }
 
   if(logoImg){
     const scale = parseInt(val('logoSize'))/100;
@@ -766,8 +1077,22 @@ function drawLogoArea(W, H, col){
     lw *= ratio; lh *= ratio;
     const lx = bx + (bw-lw)/2;
     const ly = by + (bh-lh)/2;
+
+    // White background behind logo
+    if(checked('logoBg')){
+      const pad = parseInt(val('logoBgPad'));
+      const rad = parseInt(val('logoBgRadius'));
+      ctx.save();
+      ctx.shadowColor = 'rgba(0,0,0,0.3)';
+      ctx.shadowBlur = 30;
+      ctx.fillStyle = '#ffffff';
+      roundRect(ctx, lx-pad, ly-pad, lw+pad*2, lh+pad*2, rad);
+      ctx.fill();
+      ctx.restore();
+    }
+
     ctx.save();
-    ctx.shadowColor = 'rgba(0,0,0,0.4)';
+    ctx.shadowColor = 'rgba(0,0,0,0.35)';
     ctx.shadowBlur = 30;
     ctx.drawImage(logoImg, lx, ly, lw, lh);
     ctx.restore();
@@ -788,14 +1113,97 @@ function roundRect(ctx, x, y, w, h, r){
   ctx.closePath();
 }
 
-/* ── DOWNLOAD ── */
+/* ── DOWNLOAD PNG ── */
 function downloadPNG(){
+  // Re-render without the dashed logo box
+  render(true);
   const link = document.createElement('a');
   link.download = `ftc34350_cover_${Date.now()}.png`;
   link.href = cvs.toDataURL('image/png');
   link.click();
-  const t = g('toast'); t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'), 2500);
+  // Restore preview
+  render(false);
+  showToast('✓ PNG сохранён!', false);
+}
+
+/* ── DOWNLOAD VIDEO (MP4 via MediaRecorder) ── */
+async function downloadVideo(){
+  const duration = 3; // seconds
+  const fps = 30;
+  const frames = duration * fps;
+
+  const progressBar = g('progressBar');
+  const progressFill = g('progressFill');
+  progressBar.style.display = 'block';
+  progressFill.style.width = '0%';
+
+  const stream = cvs.captureStream(fps);
+  const mime = MediaRecorder.isTypeSupported('video/mp4;codecs=avc1') ? 'video/mp4;codecs=avc1' :
+               MediaRecorder.isTypeSupported('video/webm;codecs=vp9') ? 'video/webm;codecs=vp9' : 'video/webm';
+  const ext = mime.startsWith('video/mp4') ? 'mp4' : 'webm';
+
+  const recorder = new MediaRecorder(stream, { mimeType: mime, videoBitsPerSecond: 8000000 });
+  const chunks = [];
+  recorder.ondataavailable = e => { if(e.data.size>0) chunks.push(e.data); };
+
+  recorder.start();
+
+  // Animate: gentle pulse/reveal effect
+  let frame = 0;
+  function animate(){
+    const progress = frame / frames;
+    const t = progress;
+
+    // Render with export=true (no dashed frame)
+    render(true);
+
+    // Overlay: fade-in effect first 0.5s, pulse glow on accent
+    if(t < 0.15){
+      const alpha = 1 - t/0.15;
+      ctx.fillStyle = `rgba(0,0,0,${alpha * 0.9})`;
+      ctx.fillRect(0,0,1080,1920);
+    }
+
+    // Subtle brightness pulse
+    if(t > 0.1 && t < 0.9){
+      const pulse = Math.sin((t - 0.1) / 0.8 * Math.PI) * 0.04;
+      ctx.fillStyle = `rgba(255,255,255,${pulse})`;
+      ctx.fillRect(0,0,1080,1920);
+    }
+
+    frame++;
+    progressFill.style.width = (progress * 100).toFixed(1) + '%';
+
+    if(frame < frames){
+      requestAnimationFrame(animate);
+    } else {
+      recorder.stop();
+    }
+  }
+  animate();
+
+  recorder.onstop = () => {
+    const blob = new Blob(chunks, { type: mime });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `ftc34350_reel_${Date.now()}.${ext}`;
+    a.click();
+    URL.revokeObjectURL(url);
+    progressBar.style.display = 'none';
+    progressFill.style.width = '0%';
+    render(false);
+    showToast(`✓ Видео сохранено! (.${ext})`, false);
+  };
+}
+
+/* ── TOAST ── */
+function showToast(msg, isError = false){
+  const t = g('toast');
+  t.textContent = msg;
+  t.className = 'toast' + (isError ? ' error' : '');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
 }
 
 // Initial render
