@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FTC Reels Cover Generator — Team OZGE 34350</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1a3a6b;
+    --navy-dark: #0f2347;
+    --gold: #c9a227;
+    --gold-light: #e8c44a;
+    --orange: #e8650a;
+    --white: #ffffff;
+    --bg: #0a0f1e;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* ── HEADER ── */
+  header {
+    width: 100%;
+    padding: 24px 40px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border-bottom: 1px solid rgba(201,162,39,.25);
+    background: rgba(10,15,30,.85);
+    backdrop-filter: blur(12px);
+    position: sticky; top: 0; z-index: 100;
+  }
+  .logo-badge {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--orange), var(--gold));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px; color: #fff;
+    flex-shrink: 0;
+  }
+  header h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    letter-spacing: 2px;
+    color: var(--gold-light);
+  }
+  header p { font-size: 13px; color: rgba(255,255,255,.5); }
+
+  /* ── LAYOUT ── */
+  .workspace {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 40px;
+    padding: 40px;
+    width: 100%;
+    max-width: 1300px;
+    align-items: start;
+  }
+
+  /* ── PANEL ── */
+  .panel {
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(201,162,39,.2);
+    border-radius: 16px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    border-bottom: 1px solid rgba(201,162,39,.2);
+    padding-bottom: 8px;
+  }
+  .field { display: flex; flex-direction: column; gap: 8px; }
+  label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.6);
+  }
+  input[type=text], textarea, select {
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 10px;
+    color: #fff;
+    font-family: 'Barlow', sans-serif;
+    font-size: 14px;
+    padding: 12px 14px;
+    outline: none;
+    transition: border-color .2s, background .2s;
+    width: 100%;
+  }
+  input[type=text]:focus, textarea:focus, select:focus {
+    border-color: var(--gold);
+    background: rgba(201,162,39,.08);
+  }
+  textarea { resize: vertical; min-height: 70px; }
+  select option { background: #1a2a4a; }
+
+  input[type=color] {
+    width: 48px; height: 36px; border: 2px solid rgba(255,255,255,.2);
+    border-radius: 8px; cursor: pointer; padding: 2px; background: transparent;
+  }
+  .color-row { display: flex; align-items: center; gap: 12px; }
+  .color-row input[type=text] { flex: 1; }
+
+  /* file upload */
+  .upload-zone {
+    border: 2px dashed rgba(201,162,39,.35);
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: all .2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .upload-zone:hover { border-color: var(--gold); background: rgba(201,162,39,.06); }
+  .upload-zone input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+  .upload-zone .upload-icon { font-size: 28px; margin-bottom: 8px; }
+  .upload-zone p { font-size: 13px; color: rgba(255,255,255,.5); }
+  .upload-zone.has-file { border-color: var(--gold); background: rgba(201,162,39,.1); }
+  .upload-zone.has-file p { color: var(--gold); }
+
+  /* template buttons */
+  .templates {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .tpl-btn {
+    padding: 10px 8px;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background: rgba(255,255,255,.06);
+    cursor: pointer;
+    transition: all .2s;
+    text-align: center;
+  }
+  .tpl-btn:hover { border-color: var(--gold-light); }
+  .tpl-btn.active { border-color: var(--gold); background: rgba(201,162,39,.12); }
+  .tpl-btn .tpl-icon { font-size: 22px; }
+  .tpl-btn .tpl-name { font-size: 11px; font-weight: 600; letter-spacing: 1px; color: rgba(255,255,255,.7); margin-top: 4px; }
+
+  /* action buttons */
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 24px;
+    border-radius: 12px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    cursor: pointer; border: none; transition: all .2s;
+    width: 100%; justify-content: center;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--gold), var(--orange));
+    color: #fff;
+    box-shadow: 0 4px 20px rgba(201,162,39,.35);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 28px rgba(201,162,39,.5); }
+  .btn-secondary {
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.15);
+    color: rgba(255,255,255,.8);
+  }
+  .btn-secondary:hover { background: rgba(255,255,255,.12); }
+
+  /* ── PREVIEW AREA ── */
+  .preview-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    position: sticky;
+    top: 100px;
+  }
+  .preview-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 3px; text-transform: uppercase;
+    color: rgba(255,255,255,.35);
+  }
+  .canvas-wrapper {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,.6), 0 0 0 1px rgba(201,162,39,.2);
+    position: relative;
+  }
+  canvas {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+  .preview-actions {
+    display: flex; gap: 12px; width: 100%;
+    max-width: 360px;
+  }
+
+  /* range slider */
+  input[type=range] {
+    -webkit-appearance: none;
+    width: 100%; height: 4px;
+    background: rgba(255,255,255,.1);
+    border-radius: 4px;
+    outline: none;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: var(--gold);
+    cursor: pointer;
+    border: 3px solid #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,.4);
+  }
+  .range-row { display: flex; align-items: center; gap: 12px; }
+  .range-val {
+    font-size: 13px; font-weight: 700;
+    color: var(--gold-light); min-width: 32px; text-align: right;
+  }
+
+  /* toggle */
+  .toggle-row { display: flex; align-items: center; justify-content: space-between; }
+  .toggle {
+    position: relative; width: 46px; height: 24px;
+  }
+  .toggle input { display: none; }
+  .toggle-slider {
+    position: absolute; inset: 0;
+    background: rgba(255,255,255,.1);
+    border-radius: 24px;
+    cursor: pointer; transition: .2s;
+  }
+  .toggle-slider::before {
+    content: ''; position: absolute;
+    width: 18px; height: 18px;
+    left: 3px; top: 3px;
+    background: #fff; border-radius: 50%;
+    transition: .2s;
+  }
+  .toggle input:checked + .toggle-slider { background: var(--gold); }
+  .toggle input:checked + .toggle-slider::before { transform: translateX(22px); }
+
+  /* notification */
+  .toast {
+    position: fixed; bottom: 30px; right: 30px;
+    background: var(--gold);
+    color: #000;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; letter-spacing: 1px;
+    padding: 12px 24px; border-radius: 12px;
+    font-size: 14px;
+    transform: translateY(80px); opacity: 0;
+    transition: all .3s;
+    z-index: 1000;
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+
+  @media (max-width: 900px) {
+    .workspace { grid-template-columns: 1fr; padding: 20px; }
+    .preview-area { position: static; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-badge">FTC</div>
+  <div>
+    <h1>Reels Cover Generator</h1>
+    <p>Team OZGE · FTC 34350</p>
+  </div>
+</header>
+
+<div class="workspace">
+
+  <!-- ── LEFT PANEL ── -->
+  <div style="display:flex;flex-direction:column;gap:20px;">
+
+    <!-- Templates -->
+    <div class="panel">
+      <div class="section-title">Шаблон</div>
+      <div class="templates">
+        <div class="tpl-btn active" onclick="setTemplate('partner')" id="tpl-partner">
+          <div class="tpl-icon">🤝</div>
+          <div class="tpl-name">Meet Partner</div>
+        </div>
+        <div class="tpl-btn" onclick="setTemplate('robot')" id="tpl-robot">
+          <div class="tpl-icon">🤖</div>
+          <div class="tpl-name">Робот</div>
+        </div>
+        <div class="tpl-btn" onclick="setTemplate('event')" id="tpl-event">
+          <div class="tpl-icon">🏆</div>
+          <div class="tpl-name">Событие</div>
+        </div>
+        <div class="tpl-btn" onclick="setTemplate('team')" id="tpl-team">
+          <div class="tpl-icon">👥</div>
+          <div class="tpl-name">Команда</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="panel">
+      <div class="section-title">Контент</div>
+
+      <div class="field">
+        <label>Заголовок (белый)</label>
+        <input type="text" id="title1" value="MEET OUR" oninput="render()">
+      </div>
+      <div class="field">
+        <label>Заголовок 2 (белый)</label>
+        <input type="text" id="title2" value="PARTNER:" oninput="render()">
+      </div>
+      <div class="field">
+        <label>Акцент / имя партнёра (оранжевый)</label>
+        <input type="text" id="accent" value="[PARTNER NAME]" oninput="render()">
+      </div>
+      <div class="field">
+        <label>Имя команды</label>
+        <input type="text" id="teamName" value="TEAM: OZGE" oninput="render()">
+      </div>
+      <div class="field">
+        <label>Номер команды</label>
+        <input type="text" id="teamNum" value="FTC TEAM 34350" oninput="render()">
+      </div>
+      <div class="field">
+        <label>Нижний текст (опционально)</label>
+        <input type="text" id="subtext" value="FIRST TECH APPRECIATION" oninput="render()">
+      </div>
+    </div>
+
+    <!-- Logo upload -->
+    <div class="panel">
+      <div class="section-title">Логотип спонсора</div>
+      <div class="upload-zone" id="logoZone">
+        <input type="file" id="logoFile" accept="image/*" onchange="loadLogo(event)">
+        <div class="upload-icon">📁</div>
+        <p id="logoLabel">Нажмите или перетащите логотип</p>
+      </div>
+      <div class="toggle-row">
+        <label style="text-transform:none;font-size:13px;letter-spacing:0;">Показать рамку логотипа</label>
+        <label class="toggle">
+          <input type="checkbox" id="showLogoBox" checked onchange="render()">
+          <div class="toggle-slider"></div>
+        </label>
+      </div>
+      <div class="field">
+        <label>Размер логотипа</label>
+        <div class="range-row">
+          <input type="range" id="logoSize" min="30" max="100" value="70" oninput="render();this.nextElementSibling.textContent=this.value+'%'">
+          <span class="range-val">70%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Style -->
+    <div class="panel">
+      <div class="section-title">Стиль</div>
+      <div class="field">
+        <label>Цвет фона</label>
+        <div class="color-row">
+          <input type="color" id="bgColor" value="#1a3a6b" oninput="syncColor(this,'bgColorHex')">
+          <input type="text" id="bgColorHex" value="#1a3a6b" oninput="syncHex(this,'bgColor')">
+        </div>
+      </div>
+      <div class="field">
+        <label>Акцентный цвет</label>
+        <div class="color-row">
+          <input type="color" id="accentColor" value="#e8650a" oninput="syncColor(this,'accentColorHex')">
+          <input type="text" id="accentColorHex" value="#e8650a" oninput="syncHex(this,'accentColor')">
+        </div>
+      </div>
+      <div class="field">
+        <label>Цвет рамки</label>
+        <div class="color-row">
+          <input type="color" id="frameColor" value="#c9a227" oninput="syncColor(this,'frameColorHex')">
+          <input type="text" id="frameColorHex" value="#c9a227" oninput="syncHex(this,'frameColor')">
+        </div>
+      </div>
+      <div class="toggle-row">
+        <label style="text-transform:none;font-size:13px;letter-spacing:0;">Геометрические декоры</label>
+        <label class="toggle">
+          <input type="checkbox" id="showDecor" checked onchange="render()">
+          <div class="toggle-slider"></div>
+        </label>
+      </div>
+    </div>
+
+    <!-- Buttons -->
+    <button class="btn btn-secondary" onclick="resetForm()">↺ Сбросить</button>
+  </div>
+
+  <!-- ── RIGHT: PREVIEW ── -->
+  <div class="preview-area">
+    <div class="preview-label">Предпросмотр · 1080 × 1920</div>
+    <div class="canvas-wrapper">
+      <canvas id="cvs" width="1080" height="1920" style="width:360px;height:640px;"></canvas>
+    </div>
+    <div class="preview-actions">
+      <button class="btn btn-primary" onclick="downloadPNG()" style="flex:1;">⬇ Скачать PNG</button>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast">✓ Файл сохранён!</div>
+
+<script>
+const cvs = document.getElementById('cvs');
+const ctx = cvs.getContext('2d');
+let logoImg = null;
+let firstLogoImg = null;
+let currentTemplate = 'partner';
+
+// Load FIRST logo SVG
+(function loadFirstLogo(){
+  const svgStr = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 167 41">
+<g clip-path="url(#clip0)">
+<path d="M32.15 12.7127C33.3259 12.7127 34.4679 12.822 35.5571 13.018L38.1502 10.3157C36.3373 9.68624 34.2983 9.33572 32.1462 9.33572C28.4865 9.33572 25.1623 10.3571 22.7012 12.0192L24.9626 14.16C27.0543 13.2441 29.5117 12.7127 32.15 12.7127Z" fill="#98989A"/>
+<path d="M32.1498 9.33572C34.3018 9.33572 36.3408 9.69 38.1537 10.3156L40.9729 7.37963C38.3422 6.34316 35.3383 5.75143 32.1498 5.75143C27.3933 5.75143 23.0552 7.05926 19.7461 9.21134L22.7047 12.0155C25.1696 10.3533 28.4901 9.33195 32.1498 9.33195Z" fill="white"/>
+<path d="M18.6078 20.8235C18.8453 19.8549 19.2825 18.9353 19.8893 18.0835L18.7548 16.934C18.5287 17.6425 18.4043 18.3775 18.4043 19.1313C18.4043 19.7079 18.4759 20.2695 18.6116 20.8198L18.6078 20.8235Z" fill="#98989A"/>
+<path d="M10.2111 27.178L9.73242 29.6504L14.4775 27.6077C14.1798 26.9782 14.1195 26.1566 13.9461 25.4895L10.2073 27.178Z" fill="#98989A"/>
+<path d="M6.87082 0.282672L0 37.9007L3.24885 38.1683L10.0518 0L6.87082 0.282672Z" fill="#98989A"/>
+<path d="M29.9714 21.9316V18.89L24.9813 14.16L22.7199 12.0192L19.7613 9.21511L10.0411 0L3.23438 38.1683L17.6318 31.8364C16.1996 30.5701 15.182 29.2208 14.4282 27.6303L9.7396 29.6391L10.2107 27.178L13.2485 11.3483L13.501 10.0179L16.0074 12.5431L19.2336 15.792L20.6206 17.1865L26.3155 22.0937L20.7864 24.6264C22.2224 26.0624 23.9222 27.325 26.2175 28.0373L33.1147 24.9392L29.9676 21.9241Z" fill="#ED1C24"/>
+<path d="M45.6912 20.8235C45.8268 20.2733 45.8984 19.7117 45.8984 19.135C45.8984 17.4352 45.2766 15.8334 44.2099 14.4389L42.5742 16.1349C44.1459 17.4428 45.2615 19.0559 45.6949 20.8235Z" fill="#98989A"/>
+<path d="M48.7709 36.9245L44.8889 33.1933C44.2708 33.6192 43.6036 34.0111 42.9102 34.3692L48.7709 39.9962L66.8393 21.1778L66.8205 18.1287Z" fill="#98989A"/>
+<path d="M35.6048 24.2834L32.4087 21.2155L29.9626 18.8787L29.9551 21.9278L33.3924 25.2294L36.6789 28.3878C37.5118 28.1805 38.3109 27.9167 39.0647 27.6039Z" fill="#98989A"/>
+<path d="M48.1673 7.26656L45.5969 9.94252L42.7589 12.9012L40.8254 14.9138L37.1582 18.7317L38.6959 20.2054L42.593 16.1425L44.225 14.4464L47.2138 11.3333L48.1673 10.3383L58.1061 19.8624L59.6438 18.2682Z" fill="#98989A"/>
+<path d="M47.2138 11.3333L44.2288 14.4427C45.2954 15.8372 45.9059 17.4352 45.9059 19.135C45.9059 19.7117 45.8306 20.2733 45.6986 20.8235C45.3481 22.252 44.568 23.5786 43.4486 24.7244C42.3028 25.8966 40.8103 26.884 39.069 27.6077C38.3152 27.9205 37.5162 28.1805 36.6833 28.3916C35.2662 28.7421 33.7397 28.9381 32.153 28.9381C30.1969 28.9381 28.3388 28.6479 26.6578 28.124C24.3663 27.4079 22.3989 26.2621 20.9629 24.8262C20.4391 24.3023 19.9868 23.7407 19.6137 23.149C19.1538 22.4178 18.8109 21.6414 18.6111 20.8273C18.4792 20.277 18.4038 19.7155 18.4038 19.1388C18.4038 18.3812 18.5282 17.6463 18.7543 16.9415L15.3208 13.4665C14.0657 15.3284 13.3572 17.4277 13.3572 19.6552C13.3572 20.228 13.4099 20.7896 13.5004 21.3436C13.719 22.6892 14.2014 23.9706 14.9025 25.1691C15.253 25.7722 15.6638 26.3488 16.1198 26.9029C17.3259 28.3577 18.8825 29.6354 20.7067 30.6756C23.8764 32.4772 27.8413 33.5513 32.1492 33.5513C35.1644 33.5513 38.01 33.0274 40.5352 32.0965C41.3003 31.8138 42.0352 31.4935 42.7362 31.1392C44.3644 30.3176 45.8079 29.3112 47.014 28.1579C49.0379 26.2282 50.3872 23.8915 50.8056 21.3436C50.896 20.7896 50.9488 20.228 50.9488 19.6552C50.9488 16.5382 49.5618 13.6587 47.2138 11.3408Z" fill="white"/>
+<path d="M35.5866 24.3098L39.0352 27.6227C40.7727 26.8991 42.2802 25.9229 43.426 24.7508L38.6997 20.2092L37.1658 18.7355L40.8103 14.9402L42.7438 12.9275L45.5819 9.96891L48.1561 7.28917L59.6024 18.2795L58.0647 19.8813L48.6875 29.6467C47.7 30.9997 46.4186 32.202 44.9034 33.2385L48.7553 36.9547L66.8275 18.1362L48.0053 0.0603027L40.9573 7.40224L38.1382 10.3383L35.5451 13.0406L29.967 18.8787L35.5941 24.306Z" fill="#0066B3"/>
+<path d="M71.3284 9.10583H86.2875L84.8779 14.8648H77.7093L77.0007 17.8913H84.4821L83.1781 23.2281H75.7947L74.0232 30.8113H66.2969Z" fill="white"/>
+<path d="M88.3185 9.10583H96.0449L91.0096 30.8113H83.2832Z" fill="white"/>
+<path d="M98.0702 9.23398L98.5677 9.16991C101.048 8.87593 104.134 8.68372 105.834 8.68372C108.668 8.68372 110.87 9.00785 112.535 9.6938C114.661 10.572 115.939 12.4941 115.939 14.8045C115.939 16.7908 115.264 18.679 113.99 20.1414C112.89 21.4115 111.899 22.0296 109.844 22.6477L109.347 22.8098C109.558 22.9719 109.63 23.0397 109.739 23.1339C110.342 23.8161 112.151 27.3325 113.674 30.8151H105.167C104.067 27.7245 103.75 26.9104 102.295 23.394L100.595 30.8151H93.0801L98.0777 9.23775ZM103.776 19.4516C106.256 19.4516 107.994 17.9855 107.994 15.905C107.994 14.797 107.18 14.2467 105.582 14.2467C105.122 14.2467 104.873 14.2806 104.376 14.3786L103.207 19.3913C103.456 19.4253 103.49 19.4554 103.773 19.4554Z" fill="white"/>
+<path d="M134.281 9.10583H153.032L151.72 15.3887H146.153L142.467 30.8113H134.741L138.427 15.3887H132.396Z" fill="white"/>
+<path d="M114.426 30.261C116.597 30.9055 118.975 31.2673 121.195 31.2673C124.21 31.2673 126.513 30.5851 128.495 29.1529C130.692 27.5888 132.11 25.1842 132.11 23.002C132.11 21.5359 131.473 20.2016 130.338 19.2594C129.453 18.5433 128.529 17.9893 126.652 17.1111L125.129 16.395C124.632 16.1349 124.383 15.8749 124.383 15.5809C124.383 14.8007 125.374 14.2128 126.724 14.2128C127.73 14.2128 128.932 14.5067 131.228 15.2568L132.811 9.38096C131.096 8.91361 129.422 8.67993 127.749 8.67993C121.44 8.67993 116.581 12.1285 116.581 16.5872C116.581 18.9315 118.142 20.5899 122.039 22.414C123.882 23.2583 124.202 23.4882 124.202 24.0724C124.202 24.9505 123.245 25.5046 121.685 25.5046C120.301 25.5046 118.53 25.0825 116.118 24.2043Z" fill="white"/>
+</g>
+<defs><clipPath id="clip0"><rect width="167" height="41" fill="white"/></clipPath></defs>
+</svg>`;
+  const blob = new Blob([svgStr], {type:'image/svg+xml'});
+  const url = URL.createObjectURL(blob);
+  const img = new Image();
+  img.onload = () => { firstLogoImg = img; render(); };
+  img.src = url;
+})();
+
+/* ── helpers ── */
+function g(id){ return document.getElementById(id); }
+function val(id){ return g(id).value; }
+function checked(id){ return g(id).checked; }
+
+function syncColor(el, hexId){
+  g(hexId).value = el.value;
+  render();
+}
+function syncHex(el, colorId){
+  const v = el.value;
+  if(/^#[0-9a-fA-F]{6}$/.test(v)){ g(colorId).value = v; render(); }
+}
+
+function hexToRgb(hex){
+  const r = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return r ? { r: parseInt(r[1],16), g: parseInt(r[2],16), b: parseInt(r[3],16) } : {r:26,g:58,b:107};
+}
+
+/* ── template presets ── */
+const templates = {
+  partner: {
+    title1:'MEET OUR', title2:'PARTNER:', accent:'[PARTNER NAME]',
+    teamName:'TEAM: OZGE', teamNum:'FTC TEAM 34350', subtext:'FIRST TECH APPRECIATION',
+    bg:'#1a3a6b', accentCol:'#e8650a', frame:'#c9a227'
+  },
+  robot: {
+    title1:'MEET OUR', title2:'ROBOT:', accent:'[ROBOT NAME]',
+    teamName:'TEAM: OZGE', teamNum:'FTC TEAM 34350', subtext:'FIRST TECH CHALLENGE',
+    bg:'#0f2347', accentCol:'#e8650a', frame:'#c9a227'
+  },
+  event: {
+    title1:'JOIN US', title2:'AT THE:', accent:'[EVENT NAME]',
+    teamName:'TEAM: OZGE', teamNum:'FTC TEAM 34350', subtext:'SEE YOU THERE!',
+    bg:'#1a2e1a', accentCol:'#3dba5c', frame:'#ffd700'
+  },
+  team: {
+    title1:'INTRODUCING', title2:'OUR TEAM:', accent:'OZGE',
+    teamName:'FTC TEAM 34350', teamNum:'FIRST TECH CHALLENGE', subtext:'INNOVATION · TEAMWORK · FUN',
+    bg:'#2a0f3a', accentCol:'#b44be8', frame:'#e0b0ff'
+  }
+};
+
+function setTemplate(name){
+  currentTemplate = name;
+  document.querySelectorAll('.tpl-btn').forEach(b => b.classList.remove('active'));
+  g('tpl-'+name).classList.add('active');
+  const t = templates[name];
+  g('title1').value = t.title1;
+  g('title2').value = t.title2;
+  g('accent').value = t.accent;
+  g('teamName').value = t.teamName;
+  g('teamNum').value = t.teamNum;
+  g('subtext').value = t.subtext;
+  g('bgColor').value = t.bg; g('bgColorHex').value = t.bg;
+  g('accentColor').value = t.accentCol; g('accentColorHex').value = t.accentCol;
+  g('frameColor').value = t.frame; g('frameColorHex').value = t.frame;
+  render();
+}
+
+function resetForm(){ setTemplate('partner'); logoImg = null; g('logoZone').classList.remove('has-file'); g('logoLabel').textContent='Нажмите или перетащите логотип'; }
+
+/* ── logo load ── */
+function loadLogo(e){
+  const f = e.target.files[0]; if(!f) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    const img = new Image();
+    img.onload = () => { logoImg = img; render(); };
+    img.src = ev.target.result;
+  };
+  reader.readAsDataURL(f);
+  g('logoZone').classList.add('has-file');
+  g('logoLabel').textContent = '✓ ' + f.name;
+}
+
+/* ── MAIN RENDER ── */
+function render(){
+  const W = 1080, H = 1920;
+  const bg = val('bgColor');
+  const acc = val('accentColor');
+  const frame = val('frameColor');
+  const decor = checked('showDecor');
+
+  ctx.clearRect(0,0,W,H);
+
+  // Background gradient
+  const bgRgb = hexToRgb(bg);
+  const grd = ctx.createLinearGradient(0,0,W,H);
+  grd.addColorStop(0, bg);
+  grd.addColorStop(1, `rgb(${Math.max(0,bgRgb.r-30)},${Math.max(0,bgRgb.g-30)},${Math.max(0,bgRgb.b-20)})`);
+  ctx.fillStyle = grd;
+  ctx.fillRect(0,0,W,H);
+
+  // Subtle noise overlay
+  drawNoise();
+
+  if(decor) drawDecorations(W, H, acc, frame);
+
+  // Outer gold double frame
+  drawDoubleFrame(W, H, frame);
+
+  // Inner content frame
+  drawContentFrame(W, H, frame);
+
+  // Text
+  drawTexts(W, H, acc);
+
+  // Logo area
+  drawLogoArea(W, H, frame);
+
+  // FIRST logo
+  drawFirstLogo(W, H);
+}
+
+function drawNoise(){
+  const id = ctx.getImageData(0,0,1080,1920);
+  const d = id.data;
+  for(let i=0;i<d.length;i+=4){
+    const n = (Math.random()-0.5)*12;
+    d[i]+=n; d[i+1]+=n; d[i+2]+=n;
+  }
+  ctx.putImageData(id,0,0);
+}
+
+function drawDecorations(W, H, acc, frame){
+  // Corner circles
+  const drawCircle = (x,y,r,col,lw,dash)=>{
+    ctx.save();
+    ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2);
+    ctx.strokeStyle=col; ctx.lineWidth=lw;
+    if(dash) ctx.setLineDash(dash);
+    ctx.stroke(); ctx.restore();
+  };
+  drawCircle(-30, 30, 120, acc, 14);
+  drawCircle(W+30, H-30, 130, acc, 14);
+  drawCircle(W+10, 80, 80, acc, 10);
+  drawCircle(-10, H-100, 90, acc, 10);
+
+  // Diagonal lines top-right
+  ctx.save();
+  ctx.strokeStyle = frame;
+  ctx.lineWidth = 4;
+  ctx.globalAlpha = 0.5;
+  for(let i=0;i<5;i++){
+    ctx.beginPath();
+    ctx.moveTo(W-200+i*40, 0);
+    ctx.lineTo(W+100, 300-i*40);
+    ctx.stroke();
+  }
+  ctx.restore();
+
+  // Dot matrix
+  drawDots(W-160, 160, acc);
+  drawDots(120, H-160, acc);
+
+  // Diamond shapes corners
+  drawDiamond(ctx, 100, H-300, 90, frame, 0.15);
+  drawDiamond(ctx, W-100, 300, 90, frame, 0.15);
+
+  // Geometric ring bottom-left
+  drawCircle(80, H-80, 60, frame, 3);
+  drawCircle(80, H-80, 40, frame, 2, [8,8]);
+}
+
+function drawDots(cx,cy,col){
+  ctx.save();
+  ctx.fillStyle = col;
+  ctx.globalAlpha = 0.5;
+  for(let r=0;r<5;r++) for(let c=0;c<5;c++){
+    ctx.beginPath();
+    ctx.arc(cx+c*22, cy+r*22, 4, 0, Math.PI*2);
+    ctx.fill();
+  }
+  ctx.restore();
+}
+
+function drawDiamond(ctx,x,y,s,col,a){
+  ctx.save();
+  ctx.strokeStyle=col; ctx.lineWidth=3; ctx.globalAlpha=a;
+  ctx.beginPath();
+  ctx.moveTo(x,y-s); ctx.lineTo(x+s,y);
+  ctx.lineTo(x,y+s); ctx.lineTo(x-s,y); ctx.closePath();
+  ctx.stroke();
+  ctx.restore();
+}
+
+function drawDoubleFrame(W, H, col){
+  const pad=40, pad2=56;
+  // outer
+  roundRect(ctx, pad, pad, W-pad*2, H-pad*2, 12);
+  ctx.strokeStyle=col; ctx.lineWidth=5; ctx.stroke();
+  // inner thin
+  roundRect(ctx, pad2, pad2, W-pad2*2, H-pad2*2, 8);
+  ctx.strokeStyle=col; ctx.lineWidth=2; ctx.globalAlpha=0.5; ctx.stroke();
+  ctx.globalAlpha=1;
+
+  // corner accents
+  const corners=[[70,70],[W-70,70],[70,H-70],[W-70,H-70]];
+  const angles = [[0, Math.PI/2], [Math.PI/2, Math.PI], [Math.PI*1.5, Math.PI*2], [Math.PI, Math.PI*1.5]];
+  corners.forEach(([cx,cy],i)=>{
+    ctx.beginPath();
+    ctx.arc(cx,cy,28, angles[i][0], angles[i][1]);
+    ctx.strokeStyle=col; ctx.lineWidth=6; ctx.globalAlpha=1; ctx.stroke();
+  });
+}
+
+function drawContentFrame(W, H, col){
+  // logo placeholder box
+  const bx = 120, by = 680, bw = W-240, bh = 500;
+  ctx.save();
+  ctx.strokeStyle = col;
+  ctx.lineWidth = 3;
+  ctx.setLineDash([16,10]);
+  ctx.globalAlpha = 0.5;
+  roundRect(ctx, bx, by, bw, bh, 12);
+  ctx.stroke();
+  ctx.restore();
+}
+
+function drawTexts(W, H, acc){
+  const t1 = val('title1');
+  const t2 = val('title2');
+  const ac = val('accent');
+  const tn = val('teamName');
+  const num = val('teamNum');
+  const sub = val('subtext');
+
+  ctx.textAlign = 'center';
+
+  // Title 1
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 130px "Barlow Condensed", sans-serif';
+  ctx.fillText(t1, W/2, 320);
+
+  // Title 2
+  ctx.fillText(t2, W/2, 460);
+
+  // Accent name
+  ctx.fillStyle = acc;
+  ctx.font = 'bold 110px "Barlow Condensed", sans-serif';
+  ctx.fillText(ac, W/2, 600);
+
+  // Logo placeholder text (only if no logo)
+  if(!logoImg && checked('showLogoBox')){
+    ctx.fillStyle = 'rgba(255,255,255,0.25)';
+    ctx.font = 'bold 80px "Barlow Condensed", sans-serif';
+    ctx.fillText('SPONSOR', W/2, 890);
+    ctx.font = 'bold 80px "Barlow Condensed", sans-serif';
+    ctx.fillText('LOGO', W/2, 980);
+    ctx.font = '40px "Barlow Condensed", sans-serif';
+    ctx.fillStyle = 'rgba(255,255,255,0.2)';
+    ctx.fillText('PLACE YOUR LOGO HERE', W/2, 1060);
+  }
+
+  // Team name
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 100px "Barlow Condensed", sans-serif';
+  ctx.fillText(tn, W/2, 1330);
+
+  // Team number
+  ctx.font = '600 70px "Barlow Condensed", sans-serif';
+  ctx.fillStyle = 'rgba(255,255,255,0.75)';
+  ctx.fillText(num, W/2, 1420);
+
+  // Divider line
+  ctx.beginPath();
+  ctx.moveTo(W/2-200, 1480); ctx.lineTo(W/2+200, 1480);
+  ctx.strokeStyle = 'rgba(255,255,255,0.2)'; ctx.lineWidth = 2; ctx.setLineDash([]);
+  ctx.stroke();
+
+  // Sub text
+  if(sub){
+    ctx.fillStyle = 'rgba(255,255,255,0.55)';
+    ctx.font = '700 46px "Barlow Condensed", sans-serif';
+    ctx.letterSpacing = '4px';
+    ctx.fillText(sub, W/2, 1860);
+  }
+}
+
+// Draw FIRST logo SVG onto canvas at bottom
+function drawFirstLogo(W, H) {
+  if (!firstLogoImg) return;
+  const lw = 260, lh = 100;
+  ctx.save();
+  ctx.globalAlpha = 0.95;
+  ctx.drawImage(firstLogoImg, W/2 - lw/2, H - 260, lw, lh);
+  ctx.restore();
+}
+
+function drawLogoArea(W, H, col){
+  const bx = 120, by = 680, bw = W-240, bh = 500;
+  const showBox = checked('showLogoBox');
+
+  if(logoImg){
+    const scale = parseInt(val('logoSize'))/100;
+    const maxW = bw * 0.85 * scale;
+    const maxH = bh * 0.8 * scale;
+    let lw = logoImg.width, lh = logoImg.height;
+    const ratio = Math.min(maxW/lw, maxH/lh);
+    lw *= ratio; lh *= ratio;
+    const lx = bx + (bw-lw)/2;
+    const ly = by + (bh-lh)/2;
+    ctx.save();
+    ctx.shadowColor = 'rgba(0,0,0,0.4)';
+    ctx.shadowBlur = 30;
+    ctx.drawImage(logoImg, lx, ly, lw, lh);
+    ctx.restore();
+  }
+}
+
+function roundRect(ctx, x, y, w, h, r){
+  ctx.beginPath();
+  ctx.moveTo(x+r, y);
+  ctx.lineTo(x+w-r, y);
+  ctx.arcTo(x+w, y, x+w, y+r, r);
+  ctx.lineTo(x+w, y+h-r);
+  ctx.arcTo(x+w, y+h, x+w-r, y+h, r);
+  ctx.lineTo(x+r, y+h);
+  ctx.arcTo(x, y+h, x, y+h-r, r);
+  ctx.lineTo(x, y+r);
+  ctx.arcTo(x, y, x+r, y, r);
+  ctx.closePath();
+}
+
+/* ── DOWNLOAD ── */
+function downloadPNG(){
+  const link = document.createElement('a');
+  link.download = `ftc34350_cover_${Date.now()}.png`;
+  link.href = cvs.toDataURL('image/png');
+  link.click();
+  const t = g('toast'); t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2500);
+}
+
+// Initial render
+render();
+</script>
+</body>
+</html>
