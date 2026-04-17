@@ -55,6 +55,21 @@
     text-shadow: 0 0 12px var(--accent2);
     box-shadow: 0 0 16px rgba(255,107,0,0.2);
   }
+
+  /* LEARNING nav link — highlighted */
+  .nav-links a.nav-learning {
+    color: var(--accent3);
+    border: 1px solid rgba(192,132,252,0.3);
+    padding: 4px 12px;
+    transition: all 0.3s ease;
+  }
+  .nav-links a.nav-learning:hover {
+    color: var(--accent3);
+    border-color: var(--accent3);
+    text-shadow: 0 0 12px var(--accent3);
+    box-shadow: 0 0 16px rgba(192,132,252,0.2);
+  }
+
   #grid-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; opacity: 0.4; }
   section { position: relative; z-index: 1; }
   #hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 60px 24px 80px; overflow: hidden; }
@@ -74,7 +89,7 @@
     align-items: center;
     gap: 16px;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-center: center;
     animation: slide-up 1s 1.4s both;
   }
 
@@ -379,59 +394,74 @@
   .rg-dots { position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 10; }
   .rg-dot { width: 20px; height: 2px; background: #333; transition: background 0.3s, box-shadow 0.3s; }
   .rg-dot.active { background: var(--accent); box-shadow: 0 0 6px var(--accent); }
-</style>
-<style id="aitym-css-snippet">
-#partner-aitym { padding: 120px 48px; background: linear-gradient(180deg, transparent, #100a05 40%, transparent); position: relative; z-index: 1; }
-.aitym-inner { max-width: 1200px; margin: 0 auto; }
-.aitym-card { display: grid; grid-template-columns: 340px 1fr; gap: 0; border: 1px solid #2a2a2a; background: #111; position: relative; overflow: hidden; }
-.aitym-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--accent2), #ffaa00, transparent); box-shadow: 0 0 20px #FF6B0066; }
-.aitym-left { background: linear-gradient(160deg, #1f0d00 0%, #150a00 60%, #0d0d0d 100%); border-right: 1px solid #2a2a2a; padding: 48px 36px; display: flex; flex-direction: column; align-items: center; position: relative; overflow: hidden; text-align: center; }
-.aitym-left::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, rgba(255,107,0,.08) 0%, transparent 60%); pointer-events: none; }
-.aitym-avatar-wrap { position: relative; margin-bottom: 28px; }
-.aitym-avatar { width: 130px; height: 130px; border-radius: 50%; border: 1px solid #3a2010; overflow: hidden; position: relative; z-index: 1; background: #1a1a1a; display: flex; align-items: center; justify-content: center; font-size: 52px; }
-.aitym-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
-.aitym-avatar-ring { position: absolute; inset: -6px; border-radius: 50%; border: 1px solid transparent; background: conic-gradient(var(--accent2) 0deg, transparent 80deg, #ffaa00 180deg, transparent 260deg, var(--accent2) 360deg) border-box; -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0); mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; animation: ring-spin 6s linear infinite; z-index: 0; }
-.aitym-badge { position: absolute; bottom: -4px; left: 50%; transform: translateX(-50%); background: var(--accent2); color: #0D0D0D; font-family: "Share Tech Mono", monospace; font-size: 9px; letter-spacing: 2px; padding: 3px 12px; white-space: nowrap; z-index: 2; }
-.aitym-name { font-family: "Orbitron", monospace; font-size: 15px; font-weight: 900; letter-spacing: 2px; color: #fff; margin-bottom: 4px; line-height: 1.3; }
-.aitym-title { font-family: "Share Tech Mono", monospace; font-size: 10px; letter-spacing: 3px; color: var(--accent2); margin-bottom: 28px; }
-.aitym-counters { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; width: 100%; margin-bottom: 24px; }
-.aitym-counter { background: rgba(255,107,0,.05); border: 1px solid rgba(255,107,0,.15); padding: 12px 8px; text-align: center; }
-.aitym-counter-num { font-family: "Orbitron", monospace; font-size: 18px; font-weight: 900; color: var(--accent2); line-height: 1; display: block; }
-.aitym-counter-label { font-family: "Share Tech Mono", monospace; font-size: 8px; letter-spacing: 1px; color: #555; margin-top: 4px; display: block; line-height: 1.3; }
-.aitym-meta { width: 100%; display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
-.aitym-meta-item { display: flex; align-items: flex-start; gap: 10px; background: rgba(255,107,0,.03); border: 1px solid #221505; padding: 10px 14px; text-align: left; }
-.aitym-meta-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
-.aitym-meta-text { font-family: "Share Tech Mono", monospace; font-size: 10px; color: #888; letter-spacing: 1px; line-height: 1.5; }
-.aitym-meta-text strong { color: #ccc; display: block; letter-spacing: 2px; font-size: 9px; margin-bottom: 2px; }
-.aitym-tags-title { font-family: "Share Tech Mono", monospace; font-size: 9px; letter-spacing: 4px; color: #444; margin-bottom: 10px; width: 100%; text-align: left; }
-.aitym-tags { display: flex; flex-wrap: wrap; gap: 7px; width: 100%; }
-.aitym-tag { font-family: "Share Tech Mono", monospace; font-size: 9px; letter-spacing: 1px; padding: 5px 11px; border: 1px solid rgba(255,107,0,.2); color: #775533; transition: all .25s; }
-.aitym-tag:hover { border-color: var(--accent2); color: var(--accent2); }
-.aitym-tag.fire { border-color: rgba(255,107,0,.4); color: #cc6622; }
-.aitym-instagram { margin-top: 20px; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 11px 16px; border: 1px solid rgba(255,107,0,.25); text-decoration: none; font-family: "Share Tech Mono", monospace; font-size: 10px; letter-spacing: 2px; color: #774422; transition: all .25s; background: rgba(255,107,0,.03); }
-.aitym-instagram:hover { border-color: var(--accent2); color: var(--accent2); box-shadow: 0 0 16px rgba(255,107,0,.2); background: rgba(255,107,0,.06); }
-.aitym-right { padding: 48px 44px; display: flex; flex-direction: column; gap: 32px; }
-.aitym-bio-label { font-family: "Share Tech Mono", monospace; font-size: 9px; letter-spacing: 4px; color: var(--accent2); opacity: .8; margin-bottom: 12px; display: flex; align-items: center; gap: 12px; }
-.aitym-bio-label::after { content: ""; flex: 1; height: 1px; background: #221505; }
-.aitym-bio-text { font-family: "Rajdhani", sans-serif; font-size: 16px; line-height: 1.8; color: #999; }
-.aitym-bio-text strong { color: var(--text); }
-.aitym-bio-text em { color: var(--accent2); font-style: normal; }
-.janamen-strip { display: flex; align-items: center; gap: 20px; background: linear-gradient(90deg, rgba(255,107,0,.07), transparent); border: 1px solid rgba(255,107,0,.2); border-left: 3px solid var(--accent2); padding: 18px 24px; }
-.jm-icon { font-size: 28px; flex-shrink: 0; }
-.jm-text { flex: 1; }
-.jm-label { font-family: "Share Tech Mono", monospace; font-size: 9px; letter-spacing: 3px; color: var(--accent2); margin-bottom: 4px; }
-.jm-title { font-family: "Orbitron", monospace; font-size: 13px; font-weight: 700; letter-spacing: 1px; color: #fff; }
-.jm-sub { font-family: "Share Tech Mono", monospace; font-size: 10px; color: #666; letter-spacing: 1px; margin-top: 3px; }
-.aitym-timeline { display: flex; flex-direction: column; gap: 0; }
-.aitym-milestone { display: grid; grid-template-columns: 80px 1fr; gap: 0; border-bottom: 1px solid #1a1a1a; padding: 12px 0; transition: background .2s; }
-.aitym-milestone:last-child { border-bottom: none; }
-.aitym-milestone:hover { background: rgba(255,107,0,.03); }
-.aitym-ms-year { font-family: "Orbitron", monospace; font-size: 11px; font-weight: 700; color: var(--accent2); padding-top: 2px; }
-.aitym-ms-title { font-family: "Orbitron", monospace; font-size: 11px; font-weight: 700; letter-spacing: 1px; color: #ccc; margin-bottom: 2px; }
-.aitym-ms-desc { font-family: "Share Tech Mono", monospace; font-size: 9px; color: #555; letter-spacing: 1px; line-height: 1.5; }
-.aitym-quote { border-left: 2px solid var(--accent2); padding: 16px 20px; background: rgba(255,107,0,.04); font-family: "Rajdhani", sans-serif; font-size: 15px; line-height: 1.7; color: #888; font-style: italic; }
-.aitym-quote cite { display: block; margin-top: 8px; font-family: "Share Tech Mono", monospace; font-size: 9px; letter-spacing: 3px; color: var(--accent2); font-style: normal; }
-@media (max-width: 900px) { .aitym-card { grid-template-columns: 1fr; } .aitym-left { border-right: none; border-bottom: 1px solid #2a2a2a; } #partner-aitym { padding: 80px 24px; } .aitym-right { padding: 32px 28px; } }
+
+  /* Aitym partner styles imported from snippet */
+  #partner-aitym { padding: 120px 48px; background: linear-gradient(180deg, transparent, #100a05 40%, transparent); position: relative; z-index: 1; }
+  .aitym-inner { max-width: 1200px; margin: 0 auto; }
+  .aitym-card { display: grid; grid-template-columns: 340px 1fr; gap: 0; border: 1px solid #2a2a2a; background: #111; position: relative; overflow: hidden; }
+  .aitym-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--accent2), #ffaa00, transparent); box-shadow: 0 0 20px #FF6B0066; }
+  .aitym-left { background: linear-gradient(160deg, #1f0d00 0%, #150a00 60%, #0d0d0d 100%); border-right: 1px solid #2a2a2a; padding: 48px 36px; display: flex; flex-direction: column; align-items: center; position: relative; overflow: hidden; text-align: center; }
+  .aitym-left::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, rgba(255,107,0,.08) 0%, transparent 60%); pointer-events: none; }
+  .aitym-avatar-wrap { position: relative; margin-bottom: 28px; }
+  .aitym-avatar { width: 130px; height: 130px; border-radius: 50%; border: 1px solid #3a2010; overflow: hidden; position: relative; z-index: 1; background: #1a1a1a; display: flex; align-items: center; justify-content: center; font-size: 52px; }
+  .aitym-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+  .aitym-avatar-ring { position: absolute; inset: -6px; border-radius: 50%; border: 1px solid transparent; background: conic-gradient(var(--accent2) 0deg, transparent 80deg, #ffaa00 180deg, transparent 260deg, var(--accent2) 360deg) border-box; -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0); mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; animation: ring-spin 6s linear infinite; z-index: 0; }
+  .aitym-badge { position: absolute; bottom: -4px; left: 50%; transform: translateX(-50%); background: var(--accent2); color: #0D0D0D; font-family: "Share Tech Mono", monospace; font-size: 9px; letter-spacing: 2px; padding: 3px 12px; white-space: nowrap; z-index: 2; }
+  .aitym-name { font-family: "Orbitron", monospace; font-size: 15px; font-weight: 900; letter-spacing: 2px; color: #fff; margin-bottom: 4px; line-height: 1.3; }
+  .aitym-title { font-family: "Share Tech Mono", monospace; font-size: 10px; letter-spacing: 3px; color: var(--accent2); margin-bottom: 28px; }
+  .aitym-counters { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; width: 100%; margin-bottom: 24px; }
+  .aitym-counter { background: rgba(255,107,0,.05); border: 1px solid rgba(255,107,0,.15); padding: 12px 8px; text-align: center; }
+  .aitym-counter-num { font-family: "Orbitron", monospace; font-size: 18px; font-weight: 900; color: var(--accent2); line-height: 1; display: block; }
+  .aitym-counter-label { font-family: "Share Tech Mono", monospace; font-size: 8px; letter-spacing: 1px; color: #555; margin-top: 4px; display: block; line-height: 1.3; }
+  .aitym-meta { width: 100%; display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+  .aitym-meta-item { display: flex; align-items: flex-start; gap: 10px; background: rgba(255,107,0,.03); border: 1px solid #221505; padding: 10px 14px; text-align: left; }
+  .aitym-meta-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+  .aitym-meta-text { font-family: "Share Tech Mono", monospace; font-size: 10px; color: #888; letter-spacing: 1px; line-height: 1.5; }
+  .aitym-meta-text strong { color: #ccc; display: block; letter-spacing: 2px; font-size: 9px; margin-bottom: 2px; }
+  .aitym-tags-title { font-family: "Share Tech Mono", monospace; font-size: 9px; letter-spacing: 4px; color: #444; margin-bottom: 10px; width: 100%; text-align: left; }
+  .aitym-tags { display: flex; flex-wrap: wrap; gap: 7px; width: 100%; }
+  .aitym-tag { font-family: "Share Tech Mono", monospace; font-size: 9px; letter-spacing: 1px; padding: 5px 11px; border: 1px solid rgba(255,107,0,.2); color: #775533; transition: all .25s; }
+  .aitym-tag:hover { border-color: var(--accent2); color: var(--accent2); }
+  .aitym-tag.fire { border-color: rgba(255,107,0,.4); color: #cc6622; }
+  .aitym-instagram { margin-top: 20px; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 11px 16px; border: 1px solid rgba(255,107,0,.25); text-decoration: none; font-family: "Share Tech Mono", monospace; font-size: 10px; letter-spacing: 2px; color: #774422; transition: all .25s; background: rgba(255,107,0,.03); }
+  .aitym-instagram:hover { border-color: var(--accent2); color: var(--accent2); box-shadow: 0 0 16px rgba(255,107,0,.2); background: rgba(255,107,0,.06); }
+  .aitym-right { padding: 48px 44px; display: flex; flex-direction: column; gap: 32px; }
+  .aitym-bio-label { font-family: "Share Tech Mono", monospace; font-size: 9px; letter-spacing: 4px; color: var(--accent2); opacity: .8; margin-bottom: 12px; display: flex; align-items: center; gap: 12px; }
+  .aitym-bio-label::after { content: ""; flex: 1; height: 1px; background: #221505; }
+  .aitym-bio-text { font-family: "Rajdhani", sans-serif; font-size: 16px; line-height: 1.8; color: #999; }
+  .aitym-bio-text strong { color: var(--text); }
+  .aitym-bio-text em { color: var(--accent2); font-style: normal; }
+  .janamen-strip { display: flex; align-items: center; gap: 20px; background: linear-gradient(90deg, rgba(255,107,0,.07), transparent); border: 1px solid rgba(255,107,0,.2); border-left: 3px solid var(--accent2); padding: 18px 24px; }
+  .jm-icon { font-size: 28px; flex-shrink: 0; }
+  .jm-text { flex: 1; }
+  .jm-label { font-family: "Share Tech Mono", monospace; font-size: 9px; letter-spacing: 3px; color: var(--accent2); margin-bottom: 4px; }
+  .jm-title { font-family: "Orbitron", monospace; font-size: 13px; font-weight: 700; letter-spacing: 1px; color: #fff; }
+  .jm-sub { font-family: "Share Tech Mono", monospace; font-size: 10px; color: #666; letter-spacing: 1px; margin-top: 3px; }
+  .aitym-timeline { display: flex; flex-direction: column; gap: 0; }
+  .aitym-milestone { display: grid; grid-template-columns: 80px 1fr; gap: 0; border-bottom: 1px solid #1a1a1a; padding: 12px 0; transition: background .2s; }
+  .aitym-milestone:last-child { border-bottom: none; }
+  .aitym-milestone:hover { background: rgba(255,107,0,.03); }
+  .aitym-ms-year { font-family: "Orbitron", monospace; font-size: 11px; font-weight: 700; color: var(--accent2); padding-top: 2px; }
+  .aitym-ms-title { font-family: "Orbitron", monospace; font-size: 11px; font-weight: 700; letter-spacing: 1px; color: #ccc; margin-bottom: 2px; }
+  .aitym-ms-desc { font-family: "Share Tech Mono", monospace; font-size: 9px; color: #555; letter-spacing: 1px; line-height: 1.5; }
+  .aitym-quote { border-left: 2px solid var(--accent2); padding: 16px 20px; background: rgba(255,107,0,.04); font-family: "Rajdhani", sans-serif; font-size: 15px; line-height: 1.7; color: #888; font-style: italic; }
+  .aitym-quote cite { display: block; margin-top: 8px; font-family: "Share Tech Mono", monospace; font-size: 9px; letter-spacing: 3px; color: var(--accent2); font-style: normal; }
+  @media (max-width: 900px) { .aitym-card { grid-template-columns: 1fr; } .aitym-left { border-right: none; border-bottom: 1px solid #2a2a2a; } #partner-aitym { padding: 80px 24px; } .aitym-right { padding: 32px 28px; } }
+
+  /* Responsive adjustments for mobile */
+  @media (hover:none) and (pointer:coarse) {
+    /* Hide custom cursor on touch devices */
+    .cursor, .cursor-dot { display: none; }
+    body { cursor: auto; }
+  }
+  @media (max-width: 600px) {
+    nav { flex-wrap: wrap; padding: 12px 16px; }
+    .nav-links { flex: 1 1 100%; justify-content: center; gap: 12px; margin-top: 8px; }
+    .nav-logo { order: 1; margin-top: 8px; }
+    .nav-title { font-size: 12px; }
+    .nav-links a { font-size: 10px; }
+    .hero-tiger { width: 80vw; height: 80vw; }
+  }
 </style>
 </head>
 <body>
@@ -457,6 +487,7 @@
     <li><a href="#mentor">МЕНТОР</a></li>
     <li><a href="#portfolio">ЖУРНАЛ</a></li>
     <li><a href="blog.html" class="nav-devlog">DEVLOG</a></li>
+    <li><a href="materials.html" class="nav-learning">Учебные материалы</a></li>
     <li><a href="#footer">КОНТАКТЫ</a></li>
   </ul>
 </nav>
@@ -813,7 +844,7 @@ reveals.forEach(el=>observer.observe(el));
 const hudBars=document.querySelectorAll(".hud-bar-fill");
 const hudObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.style.width=e.target.style.width;}});},{threshold:0.5});
 hudBars.forEach(b=>{const w=b.style.width;b.style.width="0%";setTimeout(()=>{b.style.width=w;},300);hudObs.observe(b);});
-function animateCounter(el,target){let current=0;const step=target/50;const timer=setInterval(()=>{current+=step;if(current>=target){current=target;clearInterval(timer);}el.textContent=Math.floor(current)+(el.dataset.suffix||"");},30);}
+function animateCounter(el,target){let current=0;const step=target/50;const timer=setInterval(()=>{current+=step;if(current>=target){current=target;clearInterval(timer);}el.textContent=Math.floor(current)+(el.dataset.suffix||"");},30);} 
 const statObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){const txt=e.target.textContent;const num=parseInt(txt.replace(/\D/g,""));const suffix=txt.replace(/[0-9]/g,"").trim();e.target.dataset.suffix=suffix;animateCounter(e.target,num);statObs.unobserve(e.target);}});},{threshold:0.5});
 document.querySelectorAll(".stat-num").forEach(el=>statObs.observe(el));
 let rgIndex=0;
