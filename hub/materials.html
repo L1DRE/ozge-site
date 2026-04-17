@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Учебные материалы – OZGE</title>
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* Color palette and global styles */
+    :root {
+      --bg: #0D0D0D;
+      --bg2: #1a1a1a;
+      --text: #E0E0E0;
+      --text2: #888;
+      --accent: #00F0FF;
+      --accent2: #FF6B00;
+      --accent3: #C084FC;
+      --border: rgba(255, 255, 255, 0.1);
+    }
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Rajdhani", sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    h1, h2, h3 {
+      font-family: "Orbitron", monospace;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+    }
+    p {
+      margin-bottom: 16px;
+      font-size: 16px;
+    }
+    code {
+      font-family: "Share Tech Mono", monospace;
+    }
+    /* Top navigation bar */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 32px;
+      background: rgba(13,13,13,0.75);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(0,240,255,0.15);
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .nav-logo img {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 6px var(--accent));
+    }
+    .nav-title {
+      font-family: "Orbitron", monospace;
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: 3px;
+      color: var(--accent);
+    }
+    .nav-num {
+      font-family: "Share Tech Mono", monospace;
+      font-size: 12px;
+      letter-spacing: 2px;
+      color: var(--text2);
+    }
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+    .nav-links a {
+      font-family: "Share Tech Mono", monospace;
+      font-size: 12px;
+      letter-spacing: 2px;
+      color: var(--text2);
+      text-transform: uppercase;
+      padding: 4px 8px;
+      transition: all 0.3s ease;
+    }
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+    /* Active nav link for learning page */
+    .nav-links a.nav-learning {
+      color: var(--accent2);
+      border: 1px solid rgba(255,107,0,0.3);
+      padding: 4px 10px;
+    }
+    .nav-links a.nav-learning:hover {
+      color: var(--accent2);
+      border-color: var(--accent2);
+      box-shadow: 0 0 8px rgba(255,107,0,0.3);
+    }
+    /* Responsive nav toggle */
+    #nav-toggle {
+      display: none;
+      font-size: 24px;
+      color: var(--accent);
+      cursor: pointer;
+    }
+    @media (max-width: 900px) {
+      nav {
+        padding: 10px 20px;
+      }
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: rgba(13,13,13,0.95);
+        flex-direction: column;
+        width: 200px;
+        padding: 10px 0;
+        border: 1px solid rgba(0,240,255,0.1);
+        display: none;
+      }
+      .nav-links.show {
+        display: flex;
+      }
+      .nav-links a {
+        padding: 10px 16px;
+      }
+      #nav-toggle {
+        display: block;
+      }
+    }
+    /* Docs layout */
+    .docs-container {
+      display: flex;
+      margin-top: 80px;
+      min-height: calc(100vh - 80px);
+    }
+    .sidebar {
+      width: 260px;
+      flex-shrink: 0;
+      background: var(--bg2);
+      border-right: 1px solid #222;
+      padding: 30px 20px;
+      position: sticky;
+      top: 80px;
+      height: calc(100vh - 80px);
+      overflow-y: auto;
+    }
+    .sidebar h3 {
+      font-family: "Share Tech Mono", monospace;
+      font-size: 12px;
+      letter-spacing: 2px;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .sidebar ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .sidebar a {
+      font-family: "Share Tech Mono", monospace;
+      font-size: 12px;
+      color: var(--text2);
+      transition: color 0.3s;
+    }
+    .sidebar a.active,
+    .sidebar a:hover {
+      color: var(--accent);
+    }
+    /* Main content area */
+    .content {
+      flex: 1;
+      padding: 40px 40px 60px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .content section {
+      margin-bottom: 60px;
+    }
+    .content h2 {
+      font-size: clamp(22px, 5vw, 36px);
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+    .content h3 {
+      font-size: clamp(18px, 4vw, 24px);
+      margin-top: 20px;
+    }
+    .content code {
+      background: rgba(255,255,255,0.05);
+      padding: 2px 4px;
+      border-radius: 4px;
+      color: var(--accent);
+    }
+    pre {
+      background: rgba(255,255,255,0.03);
+      padding: 20px;
+      border: 1px solid #222;
+      overflow-x: auto;
+      margin-top: 20px;
+      border-radius: 6px;
+    }
+    pre code {
+      color: #ccc;
+      font-size: 14px;
+      line-height: 1.5;
+      display: block;
+      white-space: pre;
+    }
+
+    /* Code line styling and tooltip */
+    .code-line {
+      display: block;
+      font-family: "Share Tech Mono", monospace;
+    }
+    .tooltip {
+      position: fixed;
+      background: rgba(0, 0, 0, 0.85);
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-family: "Share Tech Mono", monospace;
+      font-size: 12px;
+      line-height: 1.4;
+      max-width: 260px;
+      z-index: 2000;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .tooltip.show {
+      opacity: 1;
+    }
+    /* Search box */
+    .search-box {
+      margin-bottom: 20px;
+    }
+    .search-box input {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #444;
+      background: var(--bg2);
+      color: var(--text);
+      border-radius: 4px;
+    }
+    /* Difficulty badges */
+    .difficulty {
+      font-family: "Share Tech Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-left: 8px;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .difficulty.beginner {
+      color: var(--accent);
+      background: rgba(0, 240, 255, 0.15);
+      border: 1px solid var(--accent);
+    }
+    .difficulty.intermediate {
+      color: var(--accent2);
+      background: rgba(255, 107, 0, 0.15);
+      border: 1px solid var(--accent2);
+    }
+    .difficulty.advanced {
+      color: var(--accent3);
+      background: rgba(192, 132, 252, 0.15);
+      border: 1px solid var(--accent3);
+    }
+
+    /* Hide old sections (now replaced by modular lessons) */
+    .content > section#what-is-ftc,
+    .content > section#teleop,
+    .content > section#autonomous,
+    .content > section#pid,
+    .content > section#pedro,
+    .content > section#road,
+    .content > section#seasons {
+      display: none;
+    }
+    /* Responsive docs layout */
+    @media (max-width: 900px) {
+      .sidebar {
+        display: none;
+      }
+      .content {
+        padding: 20px 20px 40px;
+      }
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* Hub styles */
+    /* ------------------------------------------------------------------ */
+    .hub-container {
+      padding: 100px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .hub-intro {
+      margin-bottom: 40px;
+    }
+    .hub-intro h2 {
+      font-size: clamp(24px, 5vw, 42px);
+      font-family: "Orbitron", monospace;
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+    .hub-intro p {
+      font-size: 16px;
+      color: var(--text2);
+    }
+    .category-section {
+      margin-bottom: 60px;
+    }
+    .category-section h3 {
+      font-family: "Orbitron", monospace;
+      font-size: 20px;
+      margin-bottom: 12px;
+      color: var(--accent);
+    }
+    .lessons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+    }
+    .lesson-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: var(--bg2);
+      border: 1px solid #222;
+      padding: 20px;
+      border-radius: 6px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      color: var(--text);
+    }
+    .lesson-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0,240,255,0.1);
+    }
+    .lesson-card h4 {
+      font-family: "Orbitron", monospace;
+      font-size: 18px;
+      margin-bottom: 8px;
+      color: var(--accent);
+    }
+    .lesson-card p {
+      font-size: 14px;
+      line-height: 1.4;
+      color: var(--text2);
+      flex: 1;
+    }
+    /* Hide old docs container for hub mode */
+    .docs-container {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Top navigation bar -->
+  <nav>
+    <div class="nav-logo">
+      <img src="media/wwwc.png" alt="OZGE Logo">
+      <div class="nav-title">OZGE</div>
+      <div class="nav-num">#34350</div>
+    </div>
+    <span id="nav-toggle">☰</span>
+    <ul class="nav-links">
+      <!-- Minimal navigation: link back to main site and highlight learning section -->
+      <li><a href="index.html">На&nbsp;главную</a></li>
+      <li><a href="materials.html" class="nav-learning">Учебные&nbsp;материалы</a></li>
+    </ul>
+  </nav>
+  <div class="docs-container">
+    <aside class="sidebar">
+      <h3>Содержание</h3>
+      <!-- Search box for filtering lessons -->
+      <div class="search-box">
+        <!-- Sidebar search is hidden along with the docs container. Use a distinct ID to avoid conflicts with the hub search. -->
+        <input type="text" id="sidebar-search-input" placeholder="Поиск уроков...">
+      </div>
+      <ul>
+        <li><a href="#intro">Введение</a></li>
+        <li class="category">Основы&nbsp;FTC&nbsp;SDK
+          <ul>
+            <li><a href="lesson-ftc.html">Что&nbsp;такое&nbsp;FTC <span class="difficulty beginner">Для&nbsp;начинающих</span></a></li>
+            <li><a href="lesson-opmodes.html">OpModes <span class="difficulty beginner">Для&nbsp;начинающих</span></a></li>
+            <li><a href="lesson-teleop.html">TeleOp <span class="difficulty beginner">Для&nbsp;начинающих</span></a></li>
+            <li><a href="lesson-autonomous.html">Autonomous <span class="difficulty intermediate">Средний</span></a></li>
+            <li><a href="lesson-pid.html">PID&nbsp;контроллеры <span class="difficulty intermediate">Средний</span></a></li>
+          </ul>
+        </li>
+        <li class="category">Pedro&nbsp;Pathing
+          <ul>
+            <li><a href="lesson-pedro.html">Локализация&nbsp;Pinpoint <span class="difficulty intermediate">Средний</span></a></li>
+          </ul>
+        </li>
+        <li class="category">Road&nbsp;Runner
+          <ul>
+            <li><a href="lesson-road.html">Обновлённый&nbsp;интерфейс <span class="difficulty intermediate">Средний</span></a></li>
+          </ul>
+        </li>
+        <li class="category">Сезоны&nbsp;FTC
+          <ul>
+            <li><a href="lesson-seasons.html">Обзор&nbsp;сезона <span class="difficulty beginner">Для&nbsp;начинающих</span></a></li>
+          </ul>
+        </li>
+      </ul>
+    </aside>
+    <main class="content">
+      <section id="intro">
+        <h2>Введение</h2>
+        <p>На этой странице собраны ключевые материалы для изучения автономного движения и программирования в соревнованиях First Tech Challenge (FTC). Мы адаптировали стиль документации, аналогичный популярным библиотекам <em>Pedro&nbsp;Pathing</em> и <em>Road&nbsp;Runner</em>, чтобы вам было удобно ориентироваться и погружаться в тему.</p>
+        <p><strong>Pedro Pathing</strong> позиционирует себя как «самая популярная библиотека для автономного движения FTC»【874685033525736†L4-L7】. Она позволяет создавать траектории, управлять их выполнением и оптимизировать автономные программы.</p>
+        <p><strong>Road Runner</strong> — ещё одна мощная библиотека. Авторы отмечают, что в версии&nbsp;1.0.0 были внесены крупные изменения в процесс настройки и интерфейс【548242034180099†L138-L143】, поэтому важно опираться на актуальные материалы.</p>
+      </section>
+      <!-- Модули и блоки учебных материалов -->
+      <section id="what-is-ftc">
+        <h2>Что такое&nbsp;FTC?</h2>
+        <p><strong>FIRST Tech Challenge (FTC)</strong> — это робототехническая программа для учащихся 7–12&nbsp;классов, в рамках которой команды проектируют, собирают и программируют роботов для участия в матчах союзов【241877734153801†L186-L200】. Соревнования проходят в несколько этапов: от локальных отборочных турниров до региональных чемпионатов и мирового чемпионата. Роботами управляют с помощью Android‑совместимого контроллера, а код пишут на Java, Kotlin, языке блоков или других Android‑средах【241877734153801†L202-L205】.</p>
+        <p>Каждый год в сентябре проходит <em>Kickoff</em>, на котором раскрываются тема и правила нового сезона【241877734153801†L195-L200】. После этого команды начинают проектировать и программировать свои машины, проводят исследования и делятся знаниями со своим сообществом. Таким образом, FTC учит инженерным навыкам, командной работе и публичным выступлениям.</p>
+      </section>
+      <section id="teleop">
+        <h2>Программирование TeleOp</h2>
+        <p>После 30‑секундного автономного периода начинается двухминутный этап, в котором роботом управляют операторы с помощью геймпадов【241877734153801†L288-L295】. Этот режим называется <em>TeleOp</em>. В&nbsp;это время программа постоянно считывает значения стиков, триггеров и кнопок, преобразуя их в действия робота. Выбор правильного ввода для механизма важен: аналоговые элементы (джойстики и триггеры) возвращают <em>плавающие</em> значения, позволяя плавно регулировать скорость, а кнопки и «крестовина» предоставляют логические сигналы для выполнения дискретных операций【203463488283174†L68-L79】.</p>
+        <p>Ниже приведён простой пример TeleOp‑режима c пояснениями. Наведите курсор на строку кода, чтобы узнать её назначение.</p>
+        <pre><code>
+<span class="code-line" data-desc="Аннотация определяет программу TeleOp и имя, отображаемое на контроллере">@TeleOp(name="SimpleTeleOp", group="Примеры")</span>
+<span class="code-line" data-desc="Класс TeleOp наследуется от LinearOpMode">public class SimpleTeleOp extends LinearOpMode {</span>
+<span class="code-line" data-desc="Объявление моторов">  private DcMotor leftMotor;</span>
+<span class="code-line" data-desc="Объявление моторов">  private DcMotor rightMotor;</span>
+
+<span class="code-line" data-desc="Метод runOpMode содержит основной цикл TeleOp">  @Override
+  public void runOpMode() {</span>
+<span class="code-line" data-desc="Получаем моторы из конфигурации по их имени">    leftMotor  = hardwareMap.get(DcMotor.class, "left_drive");</span>
+<span class="code-line" data-desc="Получаем второй мотор">    rightMotor = hardwareMap.get(DcMotor.class, "right_drive");</span>
+<span class="code-line" data-desc="Ожидаем нажатия кнопки START на контроллере">    waitForStart();</span>
+
+<span class="code-line" data-desc="Главный цикл выполняется пока режим активен">    while (opModeIsActive()) {</span>
+<span class="code-line" data-desc="Считываем движение вперёд/назад из левого джойстика (отрицательное значение инвертирует ось)">      double forward = -gamepad1.left_stick_y;</span>
+<span class="code-line" data-desc="Считываем поворот из правого джойстика">      double turn    = gamepad1.right_stick_x;</span>
+<span class="code-line" data-desc="Суммируем движение и поворот для каждого мотора">      double leftPower  = forward + turn;</span>
+<span class="code-line" data-desc="Вычитаем поворот из скорости для правого мотора">      double rightPower = forward - turn;</span>
+<span class="code-line" data-desc="Устанавливаем мощность моторов">      leftMotor.setPower(leftPower);
+      rightMotor.setPower(rightPower);</span>
+<span class="code-line" data-desc="Закрываем цикл">    }</span>
+<span class="code-line" data-desc="Закрываем метод runOpMode">  }</span>
+<span class="code-line" data-desc="Закрываем класс">}</span>
+        </code></pre>
+        <p>В приведённом примере реализован «сплит‑аркадный» тип управления: левый джойстик отвечает за движение вперёд/назад, а правый — за вращение робота. Вы можете адаптировать формулы под свой привод, реализовать механум или танковое управление и добавить управление механизмами с помощью кнопок и триггеров.</p>
+      </section>
+      <section id="autonomous">
+        <h2>Программирование Autonomous</h2>
+        <p>В автономном режиме роботы выполняют заранее запрограммированные действия без вмешательства оператора в течение первых 30&nbsp;секунд матча【241877734153801†L288-L295】. Задача вашей программы — точно позиционировать робот и взаимодействовать с игровыми элементами. Для этого используются датчики, таймеры и алгоритмы планирования траекторий. После завершения автономии водительский режим может быть автоматически загружен при помощи параметра <code>preselectTeleOp</code> в аннотации <code>@Autonomous</code>【408459302428974†L2113-L2171】.</p>
+        <p>Ниже приведён простой пример автономной программы, которая включает моторы на заданное время. Наведите курсор на строки для подсказок.</p>
+        <pre><code>
+<span class="code-line" data-desc="Аннотация описывает автономный режим и даёт ему имя">@Autonomous(name="SimpleAuto", group="Примеры")</span>
+<span class="code-line" data-desc="Класс автономного режима наследуется от LinearOpMode">public class SimpleAuto extends LinearOpMode {</span>
+<span class="code-line" data-desc="Объявление моторов">  private DcMotor leftMotor;</span>
+<span class="code-line" data-desc="Объявление моторов">  private DcMotor rightMotor;</span>
+
+<span class="code-line" data-desc="Метод runOpMode содержит логику автономии">  @Override
+  public void runOpMode() {</span>
+<span class="code-line" data-desc="Получаем моторы из конфигурации">    leftMotor  = hardwareMap.get(DcMotor.class, "left_drive");</span>
+<span class="code-line" data-desc="Получаем второй мотор">    rightMotor = hardwareMap.get(DcMotor.class, "right_drive");</span>
+<span class="code-line" data-desc="Инвертируем направление одного мотора, если требуется">    leftMotor.setDirection(DcMotor.Direction.REVERSE);</span>
+<span class="code-line" data-desc="Ожидаем старт">    waitForStart();</span>
+
+<span class="code-line" data-desc="Включаем оба мотора на половину мощности">    leftMotor.setPower(0.5);
+    rightMotor.setPower(0.5);</span>
+<span class="code-line" data-desc="Ждём одну секунду, пока робот движется">    sleep(1000);</span>
+<span class="code-line" data-desc="Останавливаем моторы">    leftMotor.setPower(0);
+    rightMotor.setPower(0);</span>
+<span class="code-line" data-desc="Завершаем программу, удерживая поток">    while (opModeIsActive()) {
+      idle();
+    }</span>
+<span class="code-line" data-desc="Закрываем метод и класс">  }
+}</span>
+        </code></pre>
+        <p>Для более сложных автономных программ обратитесь к библиотекам Pedro&nbsp;Pathing и Road&nbsp;Runner, которые позволяют строить траектории и следовать им с высокой точностью.</p>
+      </section>
+      <section id="pid">
+        <h2>PID&nbsp;контроллеры</h2>
+        <p>PID‑контроллер — это распространённый алгоритм обратной связи, состоящий из пропорциональной, интегральной и дифференциальной составляющих【962263862007062†L511-L552】. Пропорциональный (P) член стремится снизить текущую ошибку положения, дифференциальный (D) — уменьшить скорость изменения ошибки, а интегральный (I) — компенсировать накопленную во времени ошибку【962263862007062†L549-L552】. Сумма этих компонентов формирует управляющий сигнал, который подаётся на мотор или другой исполнительный механизм.</p>
+        <p>В FTC для изменения PID‑коэффициентов используется расширенный интерфейс <code>DcMotorEx</code>. REV&nbsp;Robotics Control Hub позволяет задавать коэффициенты отдельно для каждого канала и режима работы двигателя【408459302428974†L1796-L1804】. Обратите внимание, что изменения не сохраняются при перезагрузке контроллера, поэтому значения необходимо переустанавливать при инициализации【408459302428974†L1806-L1810】.</p>
+        <p>Пример кода для настройки PID‑коэффициентов:</p>
+        <pre><code>
+<span class="code-line" data-desc="Импортируем необходимые классы">import com.qualcomm.robotcore.hardware.DcMotor;</span>
+<span class="code-line" data-desc="Расширенный моторный класс предоставляет методы для работы с PID">import com.qualcomm.robotcore.hardware.DcMotorEx;</span>
+<span class="code-line" data-desc="Класс для хранения коэффициентов PID">import com.qualcomm.robotcore.hardware.PIDCoefficients;</span>
+
+<span class="code-line" data-desc="Объявляем переменную для мотора">DcMotorEx motor;</span>
+<span class="code-line" data-desc="Получаем ссылку на мотор из hardwareMap и приводим к DcMotorEx">motor = (DcMotorEx) hardwareMap.get(DcMotor.class, "left_drive");</span>
+<span class="code-line" data-desc="Читаем исходные коэффициенты PID для режима RUN_USING_ENCODER">PIDCoefficients pidOrig = motor.getPIDCoefficients(DcMotor.RunMode.RUN_USING_ENCODER);</span>
+<span class="code-line" data-desc="Создаём новые коэффициенты P, I, D">PIDCoefficients pidNew = new PIDCoefficients(2.5, 0.1, 0.2);</span>
+<span class="code-line" data-desc="Устанавливаем новые коэффициенты для мотора">motor.setPIDCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, pidNew);</span>
+        </code></pre>
+        <p>Настройка PID требует экспериментирования: начните с небольших значений и постепенно увеличивайте коэффициенты, чтобы добиться плавного и точного движения без колебаний.</p>
+      </section>
+      <section id="pedro">
+        <h2>Pedro Pathing: локализация и Pinpoint</h2>
+        <p>Для высокоточной навигации Pedro&nbsp;Pathing поддерживает локализатор <code>Pinpoint</code>. Документация описывает предварительные требования: необходимо подключить два одометрических энкодера к модулю Pinpoint и соединить сам Pinpoint с&nbsp;REV&nbsp;Hub по&nbsp;I2C【710653403063226†L70-L74】.</p>
+        <p>Ниже приведён пример конфигурации Pinpoint с интерактивными подсказками:</p>
+        <pre><code>
+<span class="code-line" data-desc="Объявляем константу Pinpoint">public static final PinpointConstants PINPOINT =</span>
+<span class="code-line" data-desc="Начинаем построение PinpointConstants через Builder">    new PinpointConstants.Builder()</span>
+<span class="code-line" data-desc="Устанавливаем смещения центра робота относительно одометри">        .setOffsets(0.0, 0.0)</span>
+<span class="code-line" data-desc="Задаём направление вращения для каждого энкодера">        .setEncoderDirections(PinpointConstants.EncoderDirection.REVERSED, PinpointConstants.EncoderDirection.FORWARD)</span>
+<span class="code-line" data-desc="Задаём диаметр колеса, используемого в одометрии">        .setWheelDiameter(2.0)</span>
+<span class="code-line" data-desc="Задаём количество тиков энкодера за один оборот колеса">        .setTicksPerRev(8192)</span>
+<span class="code-line" data-desc="Завершаем построение и получаем объект PinpointConstants">        .build();</span>
+
+<span class="code-line" data-desc="Создаём последователя траекторий и передаём локализатор Pinpoint">follower = new FollowerBuilder(hardwareMap)</span>
+<span class="code-line" data-desc="Устанавливаем локализатор Pinpoint для последователя">    .pinpointLocalizer(PINPOINT)</span>
+<span class="code-line" data-desc="Собираем объект Follower">    .build();</span>
+        </code></pre>
+        <p>Данный код основан на примере из официальной документации Pedro&nbsp;Pathing【710653403063226†L75-L103】. Параметры (смещения, направление, диаметр, число&nbsp;тиков) необходимо подобрать в соответствии с конструкцией и сенсорами вашего робота. После настройки локализатора вы можете использовать <code>TrajectoryBuilder</code> для создания траекторий и выполнять их через созданный <code>Follower</code>.</p>
+      </section>
+      <section id="road">
+        <h2>Road&nbsp;Runner: обновлённый интерфейс</h2>
+        <p>Road&nbsp;Runner — ещё одна популярная библиотека для построения и следования траекториям. В версии&nbsp;1.0.0 разработчики полностью переработали процесс настройки и API, поэтому важно пользоваться актуальными руководствами【548242034180099†L138-L143】.</p>
+        <p>Основные шаги при настройке Road&nbsp;Runner:</p>
+        <ol>
+          <li>Создайте проект в Android&nbsp;Studio и подключите библиотеку.</li>
+          <li>Определите кинематические параметры робота и откалибруйте PID‑коэффициенты.</li>
+          <li>Используйте <code>TrajectoryBuilder</code> для создания желаемых траекторий.</li>
+          <li>Следуйте траекториям с помощью методов <code>drive.followTrajectory()</code> или <code>drive.followTrajectorySequence()</code>.</li>
+        </ol>
+        <p>Подробные инструкции, примеры и советы по оптимизации представлены на сайте <a href="https://learnroadrunner.com/" target="_blank">Learn&nbsp;Road&nbsp;Runner</a>.</p>
+      </section>
+      <section id="seasons">
+        <h2>Сезоны&nbsp;FTC</h2>
+        <p>Каждый сезон FTC посвящён новой тематике и игровому заданию. На ежегодном Kickoff в сентябре FIRST представляет тему и правила сезона; после этого команды проектируют и строят роботов, планируют стратегии и готовят презентации【241877734153801†L195-L200】. Отборочные турниры и региональные чемпионаты проходят с октября по март【241877734153801†L271-L274】, а затем лучшие команды отправляются на мировой чемпионат.</p>
+        <p>Текущий сезон 2025–2026 называется <strong>DECODE™ presented by RTX</strong>. Организаторы предлагают «исследовать силу артефактов мира и раскрывать тайны»; каждая находка рассказывает историю, а инновации связывают нас с прошлым【761115085449377†L194-L199】. Команды используют научные знания и командную работу, чтобы глубже разобраться в открытиях, что делает участие в сезоне по‑настоящему увлекательным.</p>
+      </section>
+
+      <!-- FTC SDK Basics Module -->
+      <section id="module-ftc-sdk">
+        <h2>Основы&nbsp;FTC&nbsp;SDK</h2>
+        <article class="lesson" id="lesson-what-is-ftc" data-title="Что такое FTC" data-level="beginner">
+          <h3>Что&nbsp;такое&nbsp;FTC?<span class="difficulty beginner">Для&nbsp;начинающих</span></h3>
+          <p><strong>FIRST Tech Challenge (FTC)</strong> — это робототехническая программа для учащихся 7–12&nbsp;классов, в рамках которой команды проектируют, собирают и программируют роботов для участия в матчах союзов【241877734153801†L186-L200】. Соревнования проходят в несколько этапов: от локальных отборочных турниров до региональных чемпионатов и мирового чемпионата. Роботами управляют с помощью Android‑совместимого контроллера, а код пишут на Java, Kotlin, языке блоков или других Android‑средах【241877734153801†L202-L205】.</p>
+          <p>Каждый год в сентябре проходит <em>Kickoff</em>, на котором раскрываются тема и правила нового сезона【241877734153801†L195-L200】. После этого команды начинают проектировать и программировать свои машины, проводят исследования и делятся знаниями со своим сообществом. Таким образом, FTC учит инженерным навыкам, командной работе и публичным выступлениям.</p>
+        </article>
+        <article class="lesson" id="lesson-opmodes" data-title="OpModes" data-level="beginner">
+          <h3>OpModes<span class="difficulty beginner">Для&nbsp;начинающих</span></h3>
+          <p>В FTC&nbsp;SDK существуют два типа операционных режимов: <code>OpMode</code> и <code>LinearOpMode</code>【490617985111319†L228-L240】. Выбор класса определяет структуру вашей программы: <code>LinearOpMode</code> имеет единственный метод <code>runOpMode()</code>, который выполняется последовательно после нажатия кнопки <em>INIT</em>, тогда как <code>OpMode</code> делит код на методы <code>init()</code>, <code>init_loop()</code>, <code>start()</code> и <code>loop()</code>【490617985111319†L256-L269】. Методы <code>waitForStart()</code> и <code>opModeIsActive()</code> помогают организовать цикл и ожидать запуска.</p>
+          <p><strong>LinearOpMode</strong> чаще используется новичками благодаря простоте: код после <code>waitForStart()</code> выполняется один раз и может содержать циклы. <strong>OpMode</strong> даёт больше контроля над фазами и позволяет разделять инициализацию, запуск и периодическую логику. Для обучения достаточно освоить <code>LinearOpMode</code>, а затем экспериментировать с <code>OpMode</code> для более сложных задач.</p>
+        </article>
+        <article class="lesson" id="lesson-teleop" data-title="TeleOp" data-level="beginner">
+          <h3>TeleOp<span class="difficulty beginner">Для&nbsp;начинающих</span></h3>
+          <p>После 30‑секундного автономного периода начинается двухминутный этап, в котором роботом управляют операторы с помощью геймпадов【241877734153801†L288-L295】. Этот режим называется <em>TeleOp</em>. В&nbsp;это время программа постоянно считывает значения стиков, триггеров и кнопок, преобразуя их в действия робота. Выбор правильного ввода для механизма важен: аналоговые элементы (джойстики и триггеры) возвращают <em>плавающие</em> значения, позволяя плавно регулировать скорость, а кнопки и «крестовина» предоставляют логические сигналы для выполнения дискретных операций【203463488283174†L68-L81】.</p>
+          <p>Ниже приведён простой пример TeleOp‑режима c пояснениями. Наведите курсор на строку кода, чтобы узнать её назначение.</p>
+          <pre><code>
+<span class="code-line" data-desc="Аннотация определяет программу TeleOp и имя, отображаемое на контроллере">@TeleOp(name="SimpleTeleOp", group="Примеры")</span>
+<span class="code-line" data-desc="Класс TeleOp наследуется от LinearOpMode">public class SimpleTeleOp extends LinearOpMode {</span>
+<span class="code-line" data-desc="Объявление моторов">  private DcMotor leftMotor;</span>
+<span class="code-line" data-desc="Объявление моторов">  private DcMotor rightMotor;</span>
+
+<span class="code-line" data-desc="Метод runOpMode содержит основной цикл TeleOp">  @Override
+  public void runOpMode() {</span>
+<span class="code-line" data-desc="Получаем моторы из конфигурации по их имени">    leftMotor  = hardwareMap.get(DcMotor.class, "left_drive");</span>
+<span class="code-line" data-desc="Получаем второй мотор">    rightMotor = hardwareMap.get(DcMotor.class, "right_drive");</span>
+<span class="code-line" data-desc="Ожидаем нажатия кнопки START на контроллере">    waitForStart();</span>
+
+<span class="code-line" data-desc="Главный цикл выполняется пока режим активен">    while (opModeIsActive()) {</span>
+<span class="code-line" data-desc="Считываем движение вперёд/назад из левого джойстика (отрицательное значение инвертирует ось)">      double forward = -gamepad1.left_stick_y;</span>
+<span class="code-line" data-desc="Считываем поворот из правого джойстика">      double turn    = gamepad1.right_stick_x;</span>
+<span class="code-line" data-desc="Суммируем движение и поворот для каждого мотора">      double leftPower  = forward + turn;</span>
+<span class="code-line" data-desc="Вычитаем поворот из скорости для правого мотора">      double rightPower = forward - turn;</span>
+<span class="code-line" data-desc="Устанавливаем мощность моторов">      leftMotor.setPower(leftPower);
+      rightMotor.setPower(rightPower);</span>
+<span class="code-line" data-desc="Закрываем цикл">    }</span>
+<span class="code-line" data-desc="Закрываем метод runOpMode">  }</span>
+<span class="code-line" data-desc="Закрываем класс">}</span>
+          </code></pre>
+          <p>В приведённом примере реализован «сплит‑аркадный» тип управления: левый джойстик отвечает за движение вперёд/назад, а правый — за вращение робота. Вы можете адаптировать формулы под свой привод, реализовать механум или танковое управление и добавить управление механизмами с помощью кнопок и триггеров.</p>
+        </article>
+        <article class="lesson" id="lesson-autonomous" data-title="Autonomous" data-level="intermediate">
+          <h3>Autonomous<span class="difficulty intermediate">Средний</span></h3>
+          <p>В автономном режиме роботы выполняют заранее запрограммированные действия без вмешательства оператора в течение первых 30&nbsp;секунд матча【241877734153801†L288-L295】. Задача вашей программы — точно позиционировать робот и взаимодействовать с игровыми элементами. Для этого используются датчики, таймеры и алгоритмы планирования траекторий. После завершения автономии водительский режим может быть автоматически загружен при помощи параметра <code>preselectTeleOp</code> в аннотации <code>@Autonomous</code>【408459302428974†L2113-L2171】.</p>
+          <p>Ниже приведён простой пример автономной программы, которая включает моторы на заданное время. Наведите курсор на строки для подсказок.</p>
+          <pre><code>
+<span class="code-line" data-desc="Аннотация описывает автономный режим и даёт ему имя">@Autonomous(name="SimpleAuto", group="Примеры")</span>
+<span class="code-line" data-desc="Класс автономного режима наследуется от LinearOpMode">public class SimpleAuto extends LinearOpMode {</span>
+<span class="code-line" data-desc="Объявление моторов">  private DcMotor leftMotor;</span>
+<span class="code-line" data-desc="Объявление моторов">  private DcMotor rightMotor;</span>
+
+<span class="code-line" data-desc="Метод runOpMode содержит логику автономии">  @Override
+  public void runOpMode() {</span>
+<span class="code-line" data-desc="Получаем моторы из конфигурации">    leftMotor  = hardwareMap.get(DcMotor.class, "left_drive");</span>
+<span class="code-line" data-desc="Получаем второй мотор">    rightMotor = hardwareMap.get(DcMotor.class, "right_drive");</span>
+<span class="code-line" data-desc="Инвертируем направление одного мотора, если требуется">    leftMotor.setDirection(DcMotor.Direction.REVERSE);</span>
+<span class="code-line" data-desc="Ожидаем старт">    waitForStart();</span>
+
+<span class="code-line" data-desc="Включаем оба мотора на половину мощности">    leftMotor.setPower(0.5);
+    rightMotor.setPower(0.5);</span>
+<span class="code-line" data-desc="Ждём одну секунду, пока робот движется">    sleep(1000);</span>
+<span class="code-line" data-desc="Останавливаем моторы">    leftMotor.setPower(0);
+    rightMotor.setPower(0);</span>
+<span class="code-line" data-desc="Завершаем программу, удерживая поток">    while (opModeIsActive()) {
+      idle();
+    }</span>
+<span class="code-line" data-desc="Закрываем метод и класс">  }
+}</span>
+          </code></pre>
+          <p>Для более сложных автономных программ обратитесь к библиотекам Pedro&nbsp;Pathing и Road&nbsp;Runner, которые позволяют строить траектории и следовать им с высокой точностью.</p>
+        </article>
+        <article class="lesson" id="lesson-pid" data-title="PID контроллеры" data-level="intermediate">
+          <h3>PID&nbsp;контроллеры<span class="difficulty intermediate">Средний</span></h3>
+          <p>PID‑контроллер — это распространённый алгоритм обратной связи, состоящий из пропорциональной, интегральной и дифференциальной составляющих【962263862007062†L511-L552】. Пропорциональный (P) член стремится снизить текущую ошибку положения, дифференциальный (D) — уменьшить скорость изменения ошибки, а интегральный (I) — компенсировать накопленную во времени ошибку【962263862007062†L549-L552】. Сумма этих компонентов формирует управляющий сигнал, который подаётся на мотор или другой исполнительный механизм.</p>
+          <p>В FTC для изменения PID‑коэффициентов используется расширенный интерфейс <code>DcMotorEx</code>. REV&nbsp;Robotics Control Hub позволяет задавать коэффициенты отдельно для каждого канала и режима работы двигателя【408459302428974†L1796-L1804】. Обратите внимание, что изменения не сохраняются при перезагрузке контроллера, поэтому значения необходимо переустанавливать при инициализации【408459302428974†L1806-L1810】.</p>
+          <p>Пример кода для настройки PID‑коэффициентов:</p>
+          <pre><code>
+<span class="code-line" data-desc="Импортируем необходимые классы">import com.qualcomm.robotcore.hardware.DcMotor;</span>
+<span class="code-line" data-desc="Расширенный моторный класс предоставляет методы для работы с PID">import com.qualcomm.robotcore.hardware.DcMotorEx;</span>
+<span class="code-line" data-desc="Класс для хранения коэффициентов PID">import com.qualcomm.robotcore.hardware.PIDCoefficients;</span>
+
+<span class="code-line" data-desc="Объявляем переменную для мотора">DcMotorEx motor;</span>
+<span class="code-line" data-desc="Получаем ссылку на мотор из hardwareMap и приводим к DcMotorEx">motor = (DcMotorEx) hardwareMap.get(DcMotor.class, "left_drive");</span>
+<span class="code-line" data-desc="Читаем исходные коэффициенты PID для режима RUN_USING_ENCODER">PIDCoefficients pidOrig = motor.getPIDCoefficients(DcMotor.RunMode.RUN_USING_ENCODER);</span>
+<span class="code-line" data-desc="Создаём новые коэффициенты P, I, D">PIDCoefficients pidNew = new PIDCoefficients(2.5, 0.1, 0.2);</span>
+<span class="code-line" data-desc="Устанавливаем новые коэффициенты для мотора">motor.setPIDCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, pidNew);</span>
+          </code></pre>
+          <p>Настройка PID требует экспериментирования: начните с небольших значений и постепенно увеличивайте коэффициенты, чтобы добиться плавного и точного движения без колебаний.</p>
+        </article>
+      </section>
+
+      <!-- Pedro Pathing Module -->
+      <section id="module-pedro">
+        <h2>Pedro&nbsp;Pathing</h2>
+        <article class="lesson" id="lesson-pedro" data-title="Локализация Pinpoint" data-level="intermediate">
+          <h3>Локализация&nbsp;Pinpoint<span class="difficulty intermediate">Средний</span></h3>
+          <p>Для высокоточной навигации Pedro&nbsp;Pathing поддерживает локализатор <code>Pinpoint</code>. Документация описывает предварительные требования: необходимо подключить два одометрических энкодера к модулю Pinpoint и соединить сам Pinpoint с&nbsp;REV&nbsp;Hub по&nbsp;I2C【710653403063226†L70-L74】.</p>
+          <p>Ниже приведён пример конфигурации Pinpoint с интерактивными подсказками:</p>
+          <pre><code>
+<span class="code-line" data-desc="Объявляем константу Pinpoint">public static final PinpointConstants PINPOINT =</span>
+<span class="code-line" data-desc="Начинаем построение PinpointConstants через Builder">    new PinpointConstants.Builder()</span>
+<span class="code-line" data-desc="Устанавливаем смещения центра робота относительно одометри">        .setOffsets(0.0, 0.0)</span>
+<span class="code-line" data-desc="Задаём направление вращения для каждого энкодера">        .setEncoderDirections(PinpointConstants.EncoderDirection.REVERSED, PinpointConstants.EncoderDirection.FORWARD)</span>
+<span class="code-line" data-desc="Задаём диаметр колеса, используемого в одометрии">        .setWheelDiameter(2.0)</span>
+<span class="code-line" data-desc="Задаём количество тиков энкодера за один оборот колеса">        .setTicksPerRev(8192)</span>
+<span class="code-line" data-desc="Завершаем построение и получаем объект PinpointConstants">        .build();</span>
+
+<span class="code-line" data-desc="Создаём последователя траекторий и передаём локализатор Pinpoint">follower = new FollowerBuilder(hardwareMap)</span>
+<span class="code-line" data-desc="Устанавливаем локализатор Pinpoint для последователя">    .pinpointLocalizer(PINPOINT)</span>
+<span class="code-line" data-desc="Собираем объект Follower">    .build();</span>
+          </code></pre>
+          <p>Данный код основан на примере из официальной документации Pedro&nbsp;Pathing【710653403063226†L75-L103】. Параметры (смещения, направление, диаметр, число&nbsp;тиков) необходимо подобрать в соответствии с конструкцией и сенсорами вашего робота. После настройки локализатора вы можете использовать <code>TrajectoryBuilder</code> для создания траекторий и выполнять их через созданный <code>Follower</code>.</p>
+        </article>
+      </section>
+
+      <!-- Road Runner Module -->
+      <section id="module-road">
+        <h2>Road&nbsp;Runner</h2>
+        <article class="lesson" id="lesson-road" data-title="Обновлённый интерфейс" data-level="intermediate">
+          <h3>Обновлённый&nbsp;интерфейс<span class="difficulty intermediate">Средний</span></h3>
+          <p>Road&nbsp;Runner — ещё одна популярная библиотека для построения и следования траекториям. В версии&nbsp;1.0.0 разработчики полностью переработали процесс настройки и API, поэтому важно пользоваться актуальными руководствами【548242034180099†L138-L143】.</p>
+          <p>Основные шаги при настройке Road&nbsp;Runner:</p>
+          <ol>
+            <li>Создайте проект в Android&nbsp;Studio и подключите библиотеку.</li>
+            <li>Определите кинематические параметры робота и откалибруйте PID‑коэффициенты.</li>
+            <li>Используйте <code>TrajectoryBuilder</code> для создания желаемых траекторий.</li>
+            <li>Следуйте траекториям с помощью методов <code>drive.followTrajectory()</code> или <code>drive.followTrajectorySequence()</code>.</li>
+          </ol>
+          <p>Подробные инструкции, примеры и советы по оптимизации представлены на сайте <a href="https://learnroadrunner.com/" target="_blank">Learn&nbsp;Road&nbsp;Runner</a>.</p>
+        </article>
+      </section>
+
+      <!-- Seasons Module -->
+      <section id="module-seasons">
+        <h2>Сезоны&nbsp;FTC</h2>
+        <article class="lesson" id="lesson-seasons" data-title="Обзор сезона" data-level="beginner">
+          <h3>Обзор&nbsp;сезона<span class="difficulty beginner">Для&nbsp;начинающих</span></h3>
+          <p>Каждый сезон FTC посвящён новой тематике и игровому заданию. На ежегодном Kickoff в сентябре FIRST представляет тему и правила сезона; после этого команды проектируют и строят роботов, планируют стратегии и готовят презентации【241877734153801†L195-L200】. Отборочные турниры и региональные чемпионаты проходят с октября по март【241877734153801†L271-L274】, а затем лучшие команды отправляются на мировой чемпионат.</p>
+          <p>Текущий сезон 2025–2026 называется <strong>DECODE™ presented by RTX</strong>. Организаторы предлагают «исследовать силу артефактов мира и раскрывать тайны»; каждая находка рассказывает историю, а инновации связывают нас с прошлым【761115085449377†L194-L199】. Команды используют научные знания и командную работу, чтобы глубже разобраться в открытиях, что делает участие в сезоне по‑настоящему увлекательным.</p>
+        </article>
+      </section>
+
+    </main>
+  </div>
+  <!-- Учебный хаб: карточки с уроками -->
+  <main class="hub-container">
+    <section class="hub-intro">
+      <h2>Добро пожаловать в учебный хаб OZGE</h2>
+      <p>Здесь вы найдёте структурированные уроки по программированию и автономному движению в FTC. Выберите интересующую вас категорию и начинайте обучение.</p>
+      <div class="search-box">
+        <input type="text" id="search-input" placeholder="Поиск уроков...">
+      </div>
+    </section>
+    <section class="category-section" data-category="Основы FTC SDK">
+      <h3>Основы FTC SDK</h3>
+      <div class="lessons-grid">
+        <a href="lesson-ftc.html" class="lesson-card" data-title="Что такое FTC?" data-level="beginner">
+          <h4>Что такое FTC?</h4>
+          <p>Познакомьтесь с основами соревнований First&nbsp;Tech&nbsp;Challenge, их структурой и языками программирования.</p>
+          <span class="difficulty beginner">Для&nbsp;начинающих</span>
+        </a>
+        <a href="lesson-opmodes.html" class="lesson-card" data-title="OpModes" data-level="beginner">
+          <h4>OpModes</h4>
+          <p>Изучите различия между OpMode и LinearOpMode, методы <code>runOpMode()</code> и <code>loop()</code>, и научитесь их применять.</p>
+          <span class="difficulty beginner">Для&nbsp;начинающих</span>
+        </a>
+        <a href="lesson-teleop.html" class="lesson-card" data-title="TeleOp" data-level="beginner">
+          <h4>TeleOp</h4>
+          <p>Научитесь обрабатывать ввод геймпада, реализовывать управление роботом и создавать интуитивно понятные телепрограммы.</p>
+          <span class="difficulty beginner">Для&nbsp;начинающих</span>
+        </a>
+        <a href="lesson-autonomous.html" class="lesson-card" data-title="Autonomous" data-level="intermediate">
+          <h4>Autonomous</h4>
+          <p>Узнайте, как писать автономные программы, использовать таймеры, датчики и переключение на TeleOp.</p>
+          <span class="difficulty intermediate">Средний</span>
+        </a>
+        <a href="lesson-pid.html" class="lesson-card" data-title="PID контроллеры" data-level="intermediate">
+          <h4>PID контроллеры</h4>
+          <p>Освойте основы PID‑управления и настройте коэффициенты для точного движения робота.</p>
+          <span class="difficulty intermediate">Средний</span>
+        </a>
+      </div>
+    </section>
+    <section class="category-section" data-category="Pedro Pathing">
+      <h3>Pedro Pathing</h3>
+      <div class="lessons-grid">
+        <a href="lesson-pedro.html" class="lesson-card" data-title="Локализация Pinpoint" data-level="intermediate">
+          <h4>Локализация Pinpoint</h4>
+          <p>Познакомьтесь с конфигурацией локализатора Pinpoint, настройкой энкодеров и построением траекторий.</p>
+          <span class="difficulty intermediate">Средний</span>
+        </a>
+      </div>
+    </section>
+    <section class="category-section" data-category="Road Runner">
+      <h3>Road Runner</h3>
+      <div class="lessons-grid">
+        <a href="lesson-road.html" class="lesson-card" data-title="Обновлённый интерфейс" data-level="intermediate">
+          <h4>Обновлённый интерфейс</h4>
+          <p>Узнайте об изменениях в версии&nbsp;1.0, настройте кинематические параметры и создавайте траектории.</p>
+          <span class="difficulty intermediate">Средний</span>
+        </a>
+      </div>
+    </section>
+    <section class="category-section" data-category="Сезоны FTC">
+      <h3>Сезоны FTC</h3>
+      <div class="lessons-grid">
+        <a href="lesson-seasons.html" class="lesson-card" data-title="Обзор сезона" data-level="beginner">
+          <h4>Обзор сезона</h4>
+          <p>Познакомьтесь с текущим сезоном FTC, его темой, хронологией и ключевыми событиями.</p>
+          <span class="difficulty beginner">Для&nbsp;начинающих</span>
+        </a>
+      </div>
+    </section>
+  </main>
+  <script>
+    // Toggle mobile nav menu
+    const navToggle = document.getElementById('nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    navToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+    });
+    // Search filtering for lesson cards in the hub
+    const searchField = document.getElementById('search-input');
+    if (searchField) {
+      searchField.addEventListener('input', () => {
+        const query = searchField.value.toLowerCase();
+        // Show or hide individual lesson cards based on title or level
+        document.querySelectorAll('.lesson-card').forEach(card => {
+          const title = (card.getAttribute('data-title') || '').toLowerCase();
+          const level = (card.getAttribute('data-level') || '').toLowerCase();
+          const show = title.includes(query) || level.includes(query);
+          card.style.display = show ? '' : 'none';
+        });
+        // Hide categories if all contained cards are hidden
+        document.querySelectorAll('.category-section').forEach(section => {
+          let anyVisible = false;
+          section.querySelectorAll('.lesson-card').forEach(c => {
+            if (c.style.display !== 'none') anyVisible = true;
+          });
+          section.style.display = anyVisible ? '' : 'none';
+        });
+      });
+    }
+  </script>
+
+  <!-- Поиск и фильтрация карточек в хабе -->
+  <!-- Search functionality is now handled in the primary script above -->
+</body>
+</html>
